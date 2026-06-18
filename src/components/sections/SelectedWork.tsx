@@ -112,7 +112,7 @@ function ProjectCard({ index, title, verbo, impact, stack, image, url }: Project
       className="group relative block bg-[#0A0A0A] border border-[#222222] overflow-hidden no-underline hover:border-[#CCFF00] transition-colors duration-300 h-full flex flex-col"
     >
       {/* Image zone — fixed height, no crop, letterboxed */}
-      <div className="relative h-[200px] overflow-hidden bg-[#000000] shrink-0">
+      <div className="relative h-[220px] overflow-hidden bg-[#000000] shrink-0">
         <img
           src={image}
           alt={title}
@@ -149,11 +149,11 @@ function ProjectCard({ index, title, verbo, impact, stack, image, url }: Project
 
         {/* Stack + Impact row — always at bottom */}
         <div className="flex items-end justify-between gap-3 mt-auto">
-          <div className="flex flex-nowrap gap-1 flex-1 min-w-0 overflow-x-auto">
+          <div className="flex flex-wrap gap-1 flex-1">
             {sortStack(stack).map((tech) => (
               <span
                 key={tech}
-                className="inline-block font-mono text-[10px] uppercase tracking-[0.06em] text-[#888888] px-2 py-0.5 border border-[#2A2A2A] bg-[#0F0F0F] rounded-none whitespace-nowrap shrink-0"
+                className="inline-block font-mono text-[10px] uppercase tracking-[0.06em] text-[#888888] px-2 py-0.5 border border-[#2A2A2A] bg-[#0F0F0F] rounded-none whitespace-nowrap"
               >
                 {tech}
               </span>
