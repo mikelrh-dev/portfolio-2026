@@ -67,6 +67,6 @@ Chain strategy: **stacked-to-main**
 
 ## Phase 7: Verify
 
-- [ ] 7.1 `npx tsc --noEmit` — 0 errors
-- [ ] 7.2 `npm run build` — success, no dangling imports
+- [x] 7.1 `npx tsc --noEmit` — 0 errors
+- [x] 7.2 `npm run build` — success, no dangling imports
 - [ ] 7.3 Manual smoke: native cursor, no boot sequence, asymmetric hero, #CCFF00 only in allowed spots, photo grayscale static, body text 14–16px
