@@ -45,53 +45,47 @@ export default function SelectedWork() {
           className="font-mono font-bold text-[clamp(2rem,5vw,4rem)] leading-[1.0] text-[#FFFFFF] mb-12 uppercase"
         />
 
-        {/* Bento grid — 3 columns, asymmetric row/col spans */}
+        {/* Grid — uniforme: 3 columnas, 5 cards, todas 1x1 */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 auto-rows-[280px]">
-          {/* P.01 — Featured: col-span-2, row-span-2 */}
+          {/* P.01 — Featured (mismo tamaño que el resto) */}
           <Card
             index="01"
             hoverAccent
             as="a"
             href={featured.url}
-            className="col-span-1 lg:col-span-2 lg:row-span-2 flex flex-col"
+            className="col-span-1 flex flex-col"
           >
             <ProjectImage src={featured.image} />
-            <ProjectTitle size="lg">{featured.title}</ProjectTitle>
+            <ProjectTitle>{featured.title}</ProjectTitle>
             <ProjectBody>{featured.verbo}</ProjectBody>
             <ProjectStack tags={featuredStack} />
             <ProjectImpact>{featured.impact}</ProjectImpact>
           </Card>
 
-          {/* P.02–P.05: medium (row-span-2) or compact (row-span-1) */}
-          {projects.map((project, idx) => {
-            const isMedium = idx === 0 || idx === 2;
-            const rowSpan = isMedium ? 'lg:row-span-2' : '';
-            const titleSize = isMedium ? 'md' : 'sm';
-
-            return (
-              <Card
-                key={project.id}
-                index={String(idx + 2).padStart(2, '0')}
-                hoverAccent
-                as="a"
-                href={project.url}
-                className={`col-span-1 ${rowSpan} flex flex-col`}
-              >
-                <ProjectImage src={project.image} />
-                <ProjectTitle size={titleSize}>{project.title}</ProjectTitle>
-                <ProjectBody compact={!isMedium}>{project.verbo}</ProjectBody>
-                <ProjectStack tags={project.stack.slice(0, 4)} />
-                <ProjectImpact size={isMedium ? 'md' : 'sm'}>{project.impact}</ProjectImpact>
-              </Card>
-            );
-          })}
+          {/* P.02–P.05: mismo tratamiento que P.01 */}
+          {projects.map((project, idx) => (
+            <Card
+              key={project.id}
+              index={String(idx + 2).padStart(2, '0')}
+              hoverAccent
+              as="a"
+              href={project.url}
+              className="col-span-1 flex flex-col"
+            >
+              <ProjectImage src={project.image} />
+              <ProjectTitle>{project.title}</ProjectTitle>
+              <ProjectBody>{project.verbo}</ProjectBody>
+              <ProjectStack tags={project.stack.slice(0, 4)} />
+              <ProjectImpact>{project.impact}</ProjectImpact>
+            </Card>
+          ))}
         </div>
       </div>
     </section>
   );
 }
 
-/* --- Card sub-components — shared visual language across all 5 cards --- */
+/* --- Card sub-components — visual language compartido por las 5 cards --- */
 
 function ProjectImage({ src }: { src: string }) {
   return (
@@ -106,41 +100,17 @@ function ProjectImage({ src }: { src: string }) {
   );
 }
 
-function ProjectTitle({
-  children,
-  size = 'md',
-}: {
-  children: React.ReactNode;
-  size?: 'lg' | 'md' | 'sm';
-}) {
-  const sizeClass =
-    size === 'lg'
-      ? 'text-[clamp(1.1rem,1.8vw,1.5rem)]'
-      : size === 'md'
-        ? 'text-[clamp(0.95rem,1.3vw,1.1rem)]'
-        : 'text-[12px] md:text-[13px]';
+function ProjectTitle({ children }: { children: React.ReactNode }) {
   return (
-    <p
-      className={`font-mono font-bold text-[#FFFFFF] mb-2 uppercase tracking-tight ${sizeClass}`}
-    >
+    <p className="font-mono font-bold text-[13px] md:text-[14px] text-[#FFFFFF] mb-2 uppercase tracking-tight">
       [{children}]
     </p>
   );
 }
 
-function ProjectBody({
-  children,
-  compact = false,
-}: {
-  children: React.ReactNode;
-  compact?: boolean;
-}) {
+function ProjectBody({ children }: { children: React.ReactNode }) {
   return (
-    <p
-      className={`font-sans text-sm text-[#888888] leading-relaxed flex-1 ${
-        compact ? 'line-clamp-2' : 'mb-4'
-      }`}
-    >
+    <p className="font-sans text-sm text-[#888888] leading-relaxed line-clamp-2 flex-1 mb-3">
       {children}
     </p>
   );
@@ -157,23 +127,11 @@ function ProjectStack({ tags }: { tags: string[] }) {
   );
 }
 
-function ProjectImpact({
-  children,
-  size = 'md',
-}: {
-  children: React.ReactNode;
-  size?: 'md' | 'sm';
-}) {
-  const sizeClass =
-    size === 'md'
-      ? 'text-[12px] md:text-[13px]'
-      : 'text-[10px] md:text-[11px]';
+function ProjectImpact({ children }: { children: React.ReactNode }) {
   return (
     <div className="mt-auto">
       <div className="h-px bg-[#222222] mb-3" />
-      <p
-        className={`font-mono text-[#CCFF00] uppercase tracking-wider ${sizeClass}`}
-      >
+      <p className="font-mono text-[#CCFF00] text-[10px] md:text-[11px] uppercase tracking-wider">
         [{children}]
       </p>
     </div>
