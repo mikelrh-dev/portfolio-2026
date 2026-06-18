@@ -1,6 +1,9 @@
+import { lazy, Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
 import KineticHeadline from '../effects/KineticHeadline';
 import TypeWriter from '../effects/TypeWriter';
+
+const WireframeCentroide = lazy(() => import('../three/WireframeCentroide'));
 
 export default function Hero() {
   const { t } = useTranslation();
@@ -8,13 +11,13 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen overflow-hidden px-4 py-[clamp(4rem,8vw,8rem)]"
+      className="relative overflow-hidden px-4 py-[clamp(4rem,8vw,8rem)]"
     >
-      <div className="max-w-6xl mx-auto grid lg:grid-cols-[3fr_2fr] gap-12 items-center min-h-[calc(100vh-8rem)]">
-        {/* Left column — text content */}
-        <div className="flex flex-col justify-center">
+      <div className="max-w-6xl mx-auto grid grid-cols-12 gap-4 items-center min-h-[calc(100vh-8rem)]">
+        {/* Left column — 60% width, text content */}
+        <div className="col-span-12 lg:col-span-7 flex flex-col justify-center items-start text-left">
           {/* Section indicator */}
-          <div className="section-indicator">
+          <div className="section-indicator self-start w-full mb-8">
             01/04 — {t('indicators.hero')}
           </div>
 
@@ -62,8 +65,12 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Right column — accent slot (3D slot, empty after removal) */}
-        <div className="hidden lg:block h-full min-h-[400px]" />
+        {/* Right column — 40% width, 3D canvas with bloom */}
+        <div className="col-span-12 lg:col-span-5 h-full min-h-[400px] relative overflow-visible">
+          <Suspense fallback={null}>
+            <WireframeCentroide />
+          </Suspense>
+        </div>
       </div>
     </section>
   );

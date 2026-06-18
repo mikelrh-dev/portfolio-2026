@@ -45,25 +45,37 @@ export default function SelectedWork() {
           className="font-mono font-bold text-[clamp(2rem,5vw,4rem)] leading-[1.0] text-[#FFFFFF] mb-12 uppercase"
         />
 
-        {/* Bento grid — asymmetric layout */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-[220px]">
-          {/* Featured project — spans 2 cols, 2 rows */}
+        {/* Bento grid — 3 columns, asymmetric row/col spans */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 auto-rows-[280px]">
+          {/* Featured project — P.01: col-span-2, row-span-2 */}
           <Card
             index="01"
             hoverAccent
-            image={featured.image}
             as="a"
             href={featured.url}
-            className="col-span-1 md:col-span-2 md:row-span-2 flex flex-col justify-between"
+            className="col-span-1 lg:col-span-2 lg:row-span-2 flex flex-col justify-between"
           >
-            <div>
-              <p className="font-mono font-bold text-[clamp(1.1rem,1.8vw,1.5rem)] text-[#FFFFFF] mb-3 uppercase tracking-tight">
-                {featured.title}
-              </p>
-              <p className="text-[14px] text-[#CCCCCC] leading-relaxed">
-                {featured.verbo}
-              </p>
+            {/* Image — 50% of card height, bleeds to edges */}
+            <div className="relative -m-6 mb-4 h-[280px] overflow-hidden border-b border-[#222222] bg-[#000000]">
+              <img
+                src={featured.image}
+                alt=""
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
             </div>
+
+            {/* Title — mono */}
+            <p className="font-mono font-bold text-[clamp(1.1rem,1.8vw,1.5rem)] text-[#FFFFFF] mb-3 uppercase tracking-tight">
+              {featured.title}
+            </p>
+
+            {/* Body — sans, editorial */}
+            <p className="font-sans text-sm text-[#888888] leading-relaxed mb-4">
+              {featured.verbo}
+            </p>
+
+            {/* Bottom: tags + impact */}
             <div className="mt-auto">
               <div className="flex flex-wrap gap-1.5 mb-3">
                 {featuredStack.map((tech: string) => (
@@ -76,42 +88,64 @@ export default function SelectedWork() {
             </div>
           </Card>
 
-          {/* Project cards — 2 cols, 1 row each */}
-          {projects.map((project, idx) => (
-            <Card
-              key={project.id}
-              index={String(idx + 2).padStart(2, '0')}
-              hoverAccent
-              image={project.image}
-              as="a"
-              href={project.url}
-              className="col-span-1 row-span-1 flex flex-col justify-between"
-            >
-              <div>
+          {/* Project cards — P.02 to P.05 */}
+          {projects.map((project, idx) => {
+            // P.02 (idx 0) and P.04 (idx 2): medium, row-span-2
+            // P.03 (idx 1) and P.05 (idx 3): compact, row-span-1
+            const isMedium = idx === 0 || idx === 2;
+            const rowSpan = isMedium ? 'lg:row-span-2' : '';
+            const imageHeight = isMedium ? 'h-[280px]' : 'h-[140px]';
+
+            return (
+              <Card
+                key={project.id}
+                index={String(idx + 2).padStart(2, '0')}
+                hoverAccent
+                as="a"
+                href={project.url}
+                className={`col-span-1 ${rowSpan} flex flex-col justify-between`}
+              >
+                {/* Image — vertical/square for medium, compact for others */}
+                <div
+                  className={`relative -m-6 mb-4 ${imageHeight} overflow-hidden border-b border-[#222222] bg-[#000000]`}
+                >
+                  <img
+                    src={project.image}
+                    alt=""
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+
+                {/* Title — mono */}
                 <p className="font-mono font-bold text-[12px] md:text-[13px] text-[#FFFFFF] mb-1 uppercase tracking-wider">
                   [{project.title}]
                 </p>
-                <p className="text-[14px] text-[#CCCCCC] leading-snug line-clamp-3">
+
+                {/* Body — sans, editorial */}
+                <p className="font-sans text-sm text-[#888888] leading-snug mb-2">
                   {project.verbo}
                 </p>
-              </div>
-              <div className="mt-auto">
-                <div className="flex flex-wrap gap-1 mb-2">
-                  {project.stack.slice(0, 4).map((tech: string) => (
-                    <span
-                      key={tech}
-                      className="font-mono text-[9px] uppercase tracking-[0.06em] text-[#666666]"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+
+                {/* Bottom: stack tags + impact */}
+                <div className="mt-auto">
+                  <div className="flex flex-wrap gap-1 mb-2">
+                    {project.stack.slice(0, 4).map((tech: string) => (
+                      <span
+                        key={tech}
+                        className="font-mono text-[9px] uppercase tracking-[0.06em] text-[#666666]"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                  <p className="font-mono text-[#CCFF00] text-[10px] md:text-[11px] uppercase tracking-wider">
+                    [{project.impact}]
+                  </p>
                 </div>
-                <p className="font-mono text-[#CCFF00] text-[10px] md:text-[11px] uppercase tracking-wider">
-                  [{project.impact}]
-                </p>
-              </div>
-            </Card>
-          ))}
+              </Card>
+            );
+          })}
         </div>
       </div>
     </section>
