@@ -2,6 +2,28 @@ import { useTranslation } from 'react-i18next';
 import Tag from '../ui/Tag';
 import TextScramble from '../effects/TextScramble';
 
+/* --- Stack category priority: lower number renders first --- */
+const STACK_CATEGORY: Record<string, number> = {
+  // 1: Languages
+  typescript: 1, javascript: 1, java: 1, kotlin: 1, python: 1, sql: 1, php: 1, 'html5': 1, 'css3': 1,
+  // 2: Frameworks / Runtimes
+  react: 2, 'tailwind css': 2, 'three.js': 2, r3f: 2, 'spring boot': 2, 'node.js': 2, javafx: 2,
+  // 3: Databases / Data
+  postgresql: 3, mysql: 3, hibernate: 3, mcp: 3, 'rest api': 3, 'rest apis': 3,
+  // 4: Libraries / Tools
+  'git/github': 4, 'claude code': 4, opencode: 4, 'android studio': 4, docker: 4, n8n: 4, dbcp2: 4, retrofit: 4,
+  // 5: Platforms / Services
+  android: 5, 'velneo v37': 5, 'gemini ai': 5, 'telegram bot': 5,
+};
+
+function sortStack(stack: string[]): string[] {
+  return [...stack].sort((a, b) => {
+    const catA = STACK_CATEGORY[a.toLowerCase()] ?? 99;
+    const catB = STACK_CATEGORY[b.toLowerCase()] ?? 99;
+    return catA - catB;
+  });
+}
+
 export default function SelectedWork() {
   const { t } = useTranslation();
 
@@ -129,7 +151,7 @@ function ProjectCard({ index, title, verbo, impact, stack, image, url }: Project
         {/* Stack + Impact row — always at bottom */}
         <div className="flex items-end justify-between gap-3 mt-auto">
           <div className="flex flex-wrap gap-1.5 flex-1">
-            {stack.map((tech) => (
+            {sortStack(stack).map((tech) => (
               <Tag key={tech}>{tech}</Tag>
             ))}
           </div>
