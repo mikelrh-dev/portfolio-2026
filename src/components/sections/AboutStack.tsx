@@ -36,7 +36,7 @@ export default function AboutStack() {
             {/* Visual divider — editorial rhythm */}
             <div className="pt-4 mt-4 border-t border-[#222222]">
               <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#666666]">
-                <span className="text-[#CCFF00]">●</span> STATUS: AVAILABLE_FOR_HIRE
+                <span className="text-[#CCFF00]">●</span> {t('about.status')}
               </p>
             </div>
           </Card>

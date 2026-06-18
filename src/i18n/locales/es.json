@@ -11,7 +11,9 @@
     "headline_2": "PARA_EQUIPOS_QUE_ENTREGAN",
     "highlight": "DESARROLLADOR_MULTIPLATAFORMA / ORQUESTADOR_IA",
     "cta_work": "VER_TRABAJO",
-    "cta_contact": "CONTACTAR"
+    "cta_contact": "CONTACTAR",
+    "cta_cv": "DESCARGAR_CV",
+    "available": "DISPONIBLE_PARA_CONTRATAR"
   },
   "indicators": {
     "hero": "HEROE",
@@ -81,6 +83,7 @@
     "photo_filename": "profile.jpg",
     "photo_meta": "JPG",
     "photo_caption": "[ OPERATOR_ID: MIKEL_ROMERO ]",
+    "status": "ESTADO: DISPONIBLE_PARA_CONTRATAR",
     "categories": {
       "languages": "LENGUAJES",
       "frontend": "FRONTEND",

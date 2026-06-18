@@ -25,7 +25,10 @@ export default function Contact() {
         />
 
         {/* Divider — editorial weight */}
-        <div className="h-px bg-gradient-to-r from-[#CCFF00] via-[#CCFF00] to-transparent w-32 mb-12" />
+        <div className="flex items-center gap-4 mb-12">
+          <div className="h-px bg-gradient-to-r from-[#CCFF00] to-transparent w-32" />
+          <div className="h-px bg-[#222222] flex-1" />
+        </div>
 
         {/* Email — large mono with animated underline */}
         <a

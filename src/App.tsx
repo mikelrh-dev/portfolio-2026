@@ -28,8 +28,8 @@ export default function App() {
       <Nav />
       <main>
         <Hero />
-        <AboutStack />
         <SelectedWork />
+        <AboutStack />
         <Contact />
       </main>
     </div>

@@ -11,7 +11,9 @@
     "headline_2": "FOR_TEAMS_THAT_SHIP",
     "highlight": "MULTIPLATFORM_DEVELOPER / AI_ORCHESTRATOR",
     "cta_work": "SEE_MY_WORK",
-    "cta_contact": "CONTACT_ME"
+    "cta_contact": "CONTACT_ME",
+    "cta_cv": "DOWNLOAD_CV",
+    "available": "AVAILABLE_FOR_HIRE"
   },
   "indicators": {
     "hero": "HERO",
@@ -81,6 +83,7 @@
     "photo_filename": "profile.jpg",
     "photo_meta": "JPG",
     "photo_caption": "[ OPERATOR_ID: MIKEL_ROMERO ]",
+    "status": "STATUS: AVAILABLE_FOR_HIRE",
     "categories": {
       "languages": "LANGUAGES",
       "frontend": "FRONTEND",
@@ -95,7 +98,7 @@
     }
   },
   "contact": {
-    "headline": "LET_S_BUILD",
+    "headline": "LETS_BUILD",
     "headline_2": "SOMETHING_THAT_LASTS.",
     "email": "mikelromerohomobono@gmail.com",
     "socials": [
