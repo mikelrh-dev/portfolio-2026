@@ -71,7 +71,7 @@ export default function SelectedWork() {
           className="font-mono font-bold text-[clamp(2rem,5vw,4rem)] leading-[1.0] text-[#FFFFFF] mb-12 uppercase"
         />
 
-        {/* Uniform grid — 3 columns, all cards equal height */}
+        {/* Uniform grid — 3 columns, all cards equal height, min-h-[450px] safety net */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
           {allItems.map((item) => (
             <ProjectCard
@@ -85,13 +85,20 @@ export default function SelectedWork() {
               url={item.url}
             />
           ))}
+
+          {/* Filler card — fills the 6th cell, links to GitHub */}
+          <FillerCard
+            title={t('work.filler.title')}
+            subtitle={t('work.filler.subtitle')}
+            cta={t('work.filler.cta')}
+          />
         </div>
       </div>
     </section>
   );
 }
 
-/* --- ProjectCard — uniform design for all 5 cards --- */
+/* --- ProjectCard — uniform design for all 5 project cards --- */
 
 interface ProjectCardProps {
   index: string;
@@ -109,15 +116,15 @@ function ProjectCard({ index, title, verbo, impact, stack, image, url }: Project
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative block bg-[#0A0A0A] border border-[#222222] overflow-hidden no-underline hover:border-[#CCFF00] transition-colors duration-300 h-full flex flex-col"
+      className="group relative block bg-[#0A0A0A] border border-[#222222] overflow-hidden no-underline hover:border-[#CCFF00] transition-colors duration-300 h-full flex flex-col min-h-[450px]"
     >
-      {/* Image zone — fixed height, no crop, letterboxed */}
+      {/* Image zone — fixed height, object-cover with object-top for consistent crop */}
       <div className="relative h-[220px] overflow-hidden bg-[#000000] shrink-0">
         <img
           src={image}
           alt={title}
           loading="lazy"
-          className="w-full h-full object-contain transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+          className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.02]"
         />
         {/* Gradient overlay — always visible, darker on base */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-[#000000]/40 to-transparent pointer-events-none" />
@@ -166,6 +173,53 @@ function ProjectCard({ index, title, verbo, impact, stack, image, url }: Project
       </div>
 
       {/* Left accent line */}
+      <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-[#CCFF00] scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-300" />
+    </a>
+  );
+}
+
+/* --- FillerCard — fills the 6th cell, links to GitHub --- */
+
+function FillerCard({
+  title,
+  subtitle,
+  cta,
+}: {
+  title: string;
+  subtitle: string;
+  cta: string;
+}) {
+  return (
+    <a
+      href="https://github.com/mikelrh-dev"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group relative block bg-[#0A0A0A] border border-[#222222] overflow-hidden no-underline hover:border-[#CCFF00] transition-colors duration-300 h-full flex flex-col min-h-[450px]"
+    >
+      {/* Visual zone — large arrow + URL */}
+      <div className="relative h-[220px] overflow-hidden bg-[#000000] shrink-0 flex flex-col items-center justify-center">
+        <span className="font-mono text-[clamp(4rem,10vw,6rem)] text-[#CCFF00] opacity-30 group-hover:opacity-100 transition-opacity duration-500 leading-none">
+          ↗
+        </span>
+        <p className="font-mono text-[10px] tracking-[0.12em] text-[#666666] mt-4 uppercase group-hover:text-[#888888] transition-colors duration-300">
+          github.com/mikelrh-dev
+        </p>
+      </div>
+
+      {/* Content zone — same structure as ProjectCard */}
+      <div className="p-5 flex flex-col flex-1">
+        <p className="font-mono font-bold text-[13px] text-[#FFFFFF] uppercase tracking-[0.05em] mb-2">
+          {title}
+        </p>
+        <p className="font-sans text-[13px] text-[#666666] leading-relaxed line-clamp-2 mb-4 flex-1">
+          {subtitle}
+        </p>
+        <p className="font-mono text-[#CCFF00] text-[10px] uppercase tracking-wider mt-auto">
+          {cta}
+        </p>
+      </div>
+
+      {/* Left accent line — same as ProjectCard */}
       <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-[#CCFF00] scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-300" />
     </a>
   );
