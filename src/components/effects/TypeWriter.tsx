@@ -46,7 +46,7 @@ export default function TypeWriter({
     <Tag className={className}>
       {displayed}
       {showCursor && (
-        <span className="inline-block w-[2px] h-[1em] bg-[#CCFF00] ml-0.5 align-middle animate-pulse" />
+        <span className="inline-block w-[2px] h-[1em] bg-[#FFFFFF] ml-0.5 align-middle animate-pulse" />
       )}
     </Tag>
   );

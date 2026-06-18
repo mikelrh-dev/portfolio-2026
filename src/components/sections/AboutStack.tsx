@@ -2,11 +2,9 @@ import { useTranslation } from 'react-i18next';
 import Card from '../ui/Card';
 import Tag from '../ui/Tag';
 import TextScramble from '../effects/TextScramble';
-import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 export default function AboutStack() {
   const { t } = useTranslation();
-  const reducedMotion = useReducedMotion();
 
   const categories = ['languages', 'frontend', 'backend', 'tools'] as const;
 
@@ -29,10 +27,10 @@ export default function AboutStack() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Bio paragraphs */}
           <Card className="space-y-4">
-            <p className="text-[13px] leading-relaxed text-[#CCCCCC]">
+            <p className="text-[15px] leading-relaxed text-[#CCCCCC]">
               {t('about.bio_1')}
             </p>
-            <p className="text-[13px] leading-relaxed text-[#CCCCCC]">
+            <p className="text-[15px] leading-relaxed text-[#CCCCCC]">
               {t('about.bio_2')}
             </p>
           </Card>
@@ -64,9 +62,9 @@ export default function AboutStack() {
           <Card className="flex flex-col">
             {/* Window chrome */}
             <div className="flex items-center gap-2 mb-4 font-mono text-[10px] tracking-[0.08em] text-[#666666] uppercase">
-              <span className="inline-block w-[6px] h-[6px] rounded-full bg-[#333333]" />
-              <span className="inline-block w-[6px] h-[6px] rounded-full bg-[#333333]" />
-              <span className="inline-block w-[6px] h-[6px] rounded-full bg-[#333333]" />
+              <span className="inline-block w-[6px] h-[6px] rounded-full bg-[#FF5F57]" />
+              <span className="inline-block w-[6px] h-[6px] rounded-full bg-[#FFBD2E]" />
+              <span className="inline-block w-[6px] h-[6px] rounded-full bg-[#28C840]" />
               <span className="ml-1 text-[#FFFFFF]">{t('about.photo_filename')}</span>
               <span className="ml-auto text-[#CCFF00]">{t('about.photo_meta')}</span>
             </div>
@@ -77,16 +75,12 @@ export default function AboutStack() {
                 src="/images/profile.jpg"
                 alt="Mikel Romero"
                 loading="lazy"
-                className={`w-full h-full object-cover ${
-                  reducedMotion
-                    ? 'grayscale sepia-[60%] hue-rotate-[40deg] saturate-[3]'
-                    : 'grayscale transition-all duration-500 hover:grayscale-[60%] hover:sepia-[60%] hover:hue-rotate-[40deg] hover:saturate-[3]'
-                }`}
+                className="w-full h-full object-cover grayscale"
               />
             </div>
 
             {/* Caption */}
-            <p className="font-mono text-[11px] text-[#CCFF00] tracking-[0.12em] uppercase">
+            <p className="font-mono text-[11px] text-[#FFFFFF] tracking-[0.12em] uppercase">
               {t('about.photo_caption')}
             </p>
           </Card>

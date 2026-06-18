@@ -60,7 +60,7 @@ export default function SelectedWork() {
               <p className="font-mono font-bold text-[clamp(1.1rem,1.8vw,1.5rem)] text-[#FFFFFF] mb-3 uppercase tracking-tight">
                 {featured.title}
               </p>
-              <p className="text-[12px] md:text-[13px] text-[#CCCCCC] leading-relaxed">
+              <p className="text-[14px] text-[#CCCCCC] leading-relaxed">
                 {featured.verbo}
               </p>
             </div>
@@ -91,7 +91,7 @@ export default function SelectedWork() {
                 <p className="font-mono font-bold text-[12px] md:text-[13px] text-[#FFFFFF] mb-1 uppercase tracking-wider">
                   [{project.title}]
                 </p>
-                <p className="text-[11px] text-[#CCCCCC] leading-snug line-clamp-3">
+                <p className="text-[14px] text-[#CCCCCC] leading-snug line-clamp-3">
                   {project.verbo}
                 </p>
               </div>

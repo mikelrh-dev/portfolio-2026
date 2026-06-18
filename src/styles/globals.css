@@ -15,6 +15,10 @@
 
   --radius-sm: 0px;
   --radius-md: 4px;
+
+  --font-size-body-sm: 14px;
+  --font-size-body-md: 15px;
+  --font-size-body-lg: 16px;
 }
 
 @layer base {
@@ -56,11 +60,6 @@
   }
   ::-webkit-scrollbar-thumb:hover {
     background: #444444;
-  }
-
-  /* Custom cursor active — hide native cursor */
-  .custom-cursor-active * {
-    cursor: none !important;
   }
 
   /* Background grid overlay */

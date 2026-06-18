@@ -2,7 +2,6 @@ import { lazy, Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
 import KineticHeadline from '../effects/KineticHeadline';
 import TypeWriter from '../effects/TypeWriter';
-import MagneticButton from '../effects/MagneticButton';
 
 const WireframeCentroide = lazy(() => import('../three/WireframeCentroide'));
 
@@ -51,21 +50,22 @@ export default function Hero() {
 
         {/* Bracket CTAs */}
         <div className="flex gap-4 flex-wrap justify-center">
-          <MagneticButton
+          <button
+            className="font-mono text-[13px] uppercase tracking-[0.12em] px-6 py-3 border border-[#222222] bg-transparent text-[#FAFAFA] hover:border-[#CCFF00] hover:text-[#CCFF00] transition-colors duration-200 cursor-pointer"
             onClick={() => {
               document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
             }}
           >
             {t('hero.cta_work')}
-          </MagneticButton>
-          <MagneticButton
-            variant="secondary"
+          </button>
+          <button
+            className="font-mono text-[13px] uppercase tracking-[0.12em] px-6 py-3 border border-[#222222] bg-transparent text-[#FAFAFA] hover:border-[#CCFF00] hover:text-[#CCFF00] transition-colors duration-200 cursor-pointer"
             onClick={() => {
               document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
             }}
           >
             {t('hero.cta_contact')}
-          </MagneticButton>
+          </button>
         </div>
       </div>
     </section>

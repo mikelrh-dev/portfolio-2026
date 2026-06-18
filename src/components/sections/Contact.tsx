@@ -1,12 +1,8 @@
 import { useTranslation } from 'react-i18next';
-import { useMagneticCursor } from '../../hooks/useMagneticCursor';
-import { playClick } from '../../lib/audio/click';
 import TextScramble from '../effects/TextScramble';
 
 export default function Contact() {
   const { t } = useTranslation();
-  const { ref: emailRef, style: emailStyle, onPointerMove: emailMove, onPointerLeave: emailLeave } =
-    useMagneticCursor<HTMLAnchorElement>(0.3);
 
   const socials = t('contact.socials', { returnObjects: true }) as Array<{
     label: string;
@@ -30,13 +26,8 @@ export default function Contact() {
 
         {/* Email — 56px mono with green underline */}
         <a
-          ref={emailRef as React.Ref<HTMLAnchorElement>}
           href={`mailto:${t('contact.email')}`}
-          className="magnetic inline-block font-mono text-[clamp(1.5rem,3.5vw,3.5rem)] font-normal text-[#FFFFFF] no-underline underline decoration-[#CCFF00] decoration-2 underline-offset-8 hover:decoration-[#FFFFFF] transition-colors duration-200 mb-16"
-          style={emailStyle}
-          onPointerMove={emailMove}
-          onPointerLeave={emailLeave}
-          onPointerEnter={() => playClick()}
+          className="inline-block font-mono text-[clamp(1.5rem,3.5vw,3.5rem)] font-normal text-[#FFFFFF] no-underline underline decoration-[#CCFF00] decoration-2 underline-offset-8 hover:decoration-[#FFFFFF] transition-colors duration-200 mb-16"
         >
           {t('contact.email')}
         </a>
@@ -49,7 +40,7 @@ export default function Contact() {
               href={social.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="magnetic font-mono text-[13px] uppercase tracking-[0.12em] text-[#666666] hover:text-[#FFFFFF] no-underline transition-colors duration-150"
+              className="font-mono text-[13px] uppercase tracking-[0.12em] text-[#666666] hover:text-[#FFFFFF] no-underline transition-colors duration-150"
             >
               [{social.label}]
             </a>
