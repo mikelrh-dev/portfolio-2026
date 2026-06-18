@@ -154,7 +154,7 @@ export function WireframeCentroide() {
     >
       <Scene />
       <EffectComposer enableNormalPass={false} multisampling={0}>
-        <Bloom luminanceThreshold={0.75} luminanceSmoothing={0.4} mipmapBlur intensity={2.2} />
+        <Bloom luminanceThreshold={0.75} luminanceSmoothing={[0, 0.4]} mipmapBlur intensity={2.2} />
       </EffectComposer>
     </Canvas>
   );
