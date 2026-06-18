@@ -24,6 +24,31 @@ function sortStack(stack: string[]): string[] {
   });
 }
 
+function getStackTier(tech: string): number {
+  return STACK_CATEGORY[tech.toLowerCase()] ?? 99;
+}
+
+/* --- StackTag — visual hierarchy by category --- */
+const TIER_STYLES: Record<number, string> = {
+  1: 'text-[#FFFFFF] border-[#555555] font-bold bg-[#161616]',  // Language — brightest
+  2: 'text-[#AAAAAA] border-[#3A3A3A] bg-[#121212]',            // Framework
+  3: 'text-[#888888] border-[#2E2E2E] bg-[#0F0F0F]',            // Database
+  4: 'text-[#666666] border-[#252525] bg-[#0C0C0C]',            // Library / Tool
+  5: 'text-[#CCFF00] border-[#CCFF00]/40 bg-[#0F0F0F]',         // Platform — accent
+  99: 'text-[#666666] border-[#222222] bg-[#0A0A0A]',           // Unknown
+};
+
+function StackTag({ tech }: { tech: string }) {
+  const tier = getStackTier(tech);
+  return (
+    <span
+      className={`inline-block font-mono text-[11px] uppercase tracking-[0.08em] px-2.5 py-0.5 border rounded-none ${TIER_STYLES[tier]}`}
+    >
+      {tech}
+    </span>
+  );
+}
+
 export default function SelectedWork() {
   const { t } = useTranslation();
 
@@ -152,7 +177,7 @@ function ProjectCard({ index, title, verbo, impact, stack, image, url }: Project
         <div className="flex items-end justify-between gap-3 mt-auto">
           <div className="flex flex-wrap gap-1.5 flex-1">
             {sortStack(stack).map((tech) => (
-              <Tag key={tech}>{tech}</Tag>
+              <StackTag key={tech} tech={tech} />
             ))}
           </div>
           <p className="font-mono text-[#CCFF00] text-[10px] uppercase tracking-wider shrink-0 text-right">
