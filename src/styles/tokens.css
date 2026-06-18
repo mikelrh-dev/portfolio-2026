@@ -1,0 +1,42 @@
+:root {
+  /* Cyber-Tech Hacker Color Palette */
+  --color-bg: #000000;
+  --color-container: #0A0A0A;
+  --color-border: #222222;
+  --color-accent: #CCFF00;
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #CCCCCC;
+  --color-text-muted: #666666;
+
+  /* Typography — JetBrains Mono only */
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
+  --font-weight-display: 700;
+  --font-weight-body: 400;
+
+  /* Type scale */
+  --font-size-display: 128px;
+  --font-size-section: 80px;
+  --font-size-email: 56px;
+  --font-size-headline: 40px;
+  --font-size-card-title: 24px;
+  --font-size-body: 14px;
+  --font-size-small: 12px;
+  --font-size-label: 11px;
+
+  /* Responsive type (mobile) */
+  --font-size-display-mobile: clamp(2.5rem, 10vw, 8rem);
+  --font-size-email-mobile: clamp(1.5rem, 7vw, 3.5rem);
+
+  /* Layout */
+  --line-height-display: 1.0;
+  --line-height-body: 1.6;
+  --border-width: 1px;
+  --border-color: var(--color-border);
+  --border-style: solid;
+  --radius-sm: 0px;
+  --radius-md: 4px;
+
+  /* Spacing */
+  --space-section: clamp(4rem, 8vw, 8rem);
+  --space-container: clamp(1rem, 4vw, 4rem);
+}

@@ -1,0 +1,106 @@
+{
+  "nav": {
+    "home": "INICIO",
+    "about": "SOBRE_MI",
+    "work": "TRABAJO",
+    "contact": "CONTACTO",
+    "locale": "ES"
+  },
+  "hero": {
+    "headline": "CONSTRUYENDO_SISTEMAS",
+    "headline_2": "PARA_EQUIPOS_QUE_ENTREGAN",
+    "highlight": "DESARROLLADOR_MULTIPLATAFORMA / ORQUESTADOR_IA",
+    "cta_work": "VER_TRABAJO",
+    "cta_contact": "CONTACTAR"
+  },
+  "indicators": {
+    "hero": "HEROE",
+    "work": "TRABAJO_SELECCIONADO",
+    "about": "SOBRE_MI_STACK",
+    "contact": "CONTACTO"
+  },
+  "work": {
+    "headline": "TRABAJO_SELECCIONADO.",
+    "featured": {
+      "id": "vespera",
+      "title": "VESPERA_SOLUTIONS",
+      "verbo": "ERP construido durante mis prácticas. Reemplaza 5+ herramientas desconectadas con un sistema: ventas, compras, almacén, tesorería. Stock en tiempo real, análisis con IA, bot de Telegram para KPIs.",
+      "impact": "1 SISTEMA · 4 MÓDULOS · ASISTIDO POR IA",
+      "metrics": "1 SISTEMA · 4 MÓDULOS",
+      "stack": ["Velneo V37", "Gemini AI", "Telegram Bot", "Java"],
+      "image": "/images/vespera_solutions_logo.png",
+      "url": "https://vespera-solutions.onrender.com/"
+    },
+    "projects": [
+      {
+        "id": "valaquia",
+        "title": "VALAQUIA_STORE",
+        "verbo": "Tienda de videojuegos full-stack. Cliente Android + API REST Spring Boot. Catálogo, consejos de salud, descargas seguras SHA-256.",
+        "impact": "2 PLATAFORMAS · 1 API",
+        "metrics": "2 PLATAFORMAS · 1 API",
+        "stack": ["Android", "Spring Boot", "Java 22", "Retrofit", "MySQL"],
+        "image": "/images/project05.png",
+        "url": "https://github.com/mikelrh-dev/Proyecto_Cliente_PMD"
+      },
+      {
+        "id": "bookbugs",
+        "title": "BOOK_AND_BUGS",
+        "verbo": "Gestión de biblioteca en 2 versiones. PHP MVC web + JavaFX escritorio. Auth, CRUD, connection pooling DBCP2, contrato JSON.",
+        "impact": "1 DB · 2 CLIENTES",
+        "metrics": "1 DB · 2 CLIENTES",
+        "stack": ["PHP", "JavaFX", "MySQL", "DBCP2", "REST API"],
+        "image": "/images/project06.png",
+        "url": "https://github.com/Ander719/Reto_Libreria"
+      },
+      {
+        "id": "diytools",
+        "title": "DIY_TOOLS",
+        "verbo": "Inventario + gestión de pedidos para tienda de herramientas DIY. Pedidos de clientes, fulfillment admin, control de stock.",
+        "impact": "FLUJO CLIENTE + ADMIN",
+        "metrics": "FLUJO CLIENTE + ADMIN",
+        "stack": ["Java", "MySQL", "Hibernate", "JavaFX"],
+        "image": "/images/project01.jpg",
+        "url": "https://github.com/AGL-12/Reto_final_Tienda"
+      },
+      {
+        "id": "ecodrive",
+        "title": "ECODRIVE_ADV",
+        "verbo": "Plataforma de descubrimiento de VE con guía del plan MOVES. Ayuda a clientes a tomar decisiones informadas.",
+        "impact": "1 PLATAFORMA · 1 MISIÓN",
+        "metrics": "1 PLATAFORMA · 1 MISIÓN",
+        "stack": ["HTML5", "CSS3", "JavaScript"],
+        "image": "/images/project03.jpg",
+        "url": "http://eco-drive-project.netlify.app"
+      }
+    ]
+  },
+  "about": {
+    "bio_1": "Construyo sistemas multiplataforma que convierten problemas complejos en soluciones limpias y funcionales. Desde backends ERP hasta apps Android hasta pipelines de agentes IA — arquitecturo con la convicción de que el gran software empieza con grandes cimientos: contratos tipados, comportamiento determinista y atención obsesiva al detalle.",
+    "bio_2": "Trabajo en la intersección entre la ingeniería tradicional y el desarrollo aumentado por IA. Claude Code, OpenCode, MCP — no son modas, son mi toolkit diario. Orquesto agentes (Hermes Agent, n8n), aplico disciplina SDD/TDD y entrego sistemas que los equipos pueden mantener.",
+    "stack_header": "STACK",
+    "categories": {
+      "languages": "LENGUAJES",
+      "frontend": "FRONTEND",
+      "backend": "BACKEND_BASES_DATOS",
+      "tools": "HERRAMIENTAS_PLATAFORMAS"
+    },
+    "items": {
+      "languages": ["TypeScript", "JavaScript", "Java", "Kotlin", "Python", "SQL", "PHP"],
+      "frontend": ["React", "Tailwind CSS", "HTML5", "CSS3", "Three.js", "R3F"],
+      "backend": ["Spring Boot", "Node.js", "PostgreSQL", "MySQL", "Hibernate", "MCP", "REST APIs"],
+      "tools": ["Git/GitHub", "Claude Code", "OpenCode", "Android Studio", "Docker", "n8n"]
+    }
+  },
+  "contact": {
+    "headline": "CONSTRUYAMOS",
+    "headline_2": "ALGO_QUE_PERDURE.",
+    "email": "mikelromerohomobono@gmail.com",
+    "socials": [
+      { "label": "GITHUB", "url": "https://github.com/mikelrh-dev" },
+      { "label": "LINKEDIN", "url": "https://www.linkedin.com/in/mikel-romero-homobono-760878337/" },
+      { "label": "EMAIL", "url": "mailto:mikelromerohomobono@gmail.com" }
+    ],
+    "footer": "© 2026 MIKEL ROMERO. TODOS LOS DERECHOS RESERVADOS.",
+    "built_with": "CONSTRUIDO_CON_CLAUDE_CODE_Y_OPENCODE"
+  }
+}

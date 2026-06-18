@@ -1,0 +1,106 @@
+{
+  "nav": {
+    "home": "HOME",
+    "about": "ABOUT",
+    "work": "WORK",
+    "contact": "CONTACT",
+    "locale": "EN"
+  },
+  "hero": {
+    "headline": "BUILDING_SYSTEMS",
+    "headline_2": "FOR_TEAMS_THAT_SHIP",
+    "highlight": "MULTIPLATFORM_DEVELOPER / AI_ORCHESTRATOR",
+    "cta_work": "SEE_MY_WORK",
+    "cta_contact": "CONTACT_ME"
+  },
+  "indicators": {
+    "hero": "HERO",
+    "work": "SELECTED_WORK",
+    "about": "ABOUT_STACK",
+    "contact": "CONTACT"
+  },
+  "work": {
+    "headline": "SELECTED_WORK.",
+    "featured": {
+      "id": "vespera",
+      "title": "VESPERA_SOLUTIONS",
+      "verbo": "ERP built during internship. Replaces 5+ disconnected tools with one system: sales, purchases, warehouse, treasury. Real-time stock tracking, AI-powered insights, Telegram bot for instant KPI checks.",
+      "impact": "1 SYSTEM · 4 MODULES · AI ASSISTED",
+      "metrics": "1 SYSTEM · 4 MODULES",
+      "stack": ["Velneo V37", "Gemini AI", "Telegram Bot", "Java"],
+      "image": "/images/vespera_solutions_logo.png",
+      "url": "https://vespera-solutions.onrender.com/"
+    },
+    "projects": [
+      {
+        "id": "valaquia",
+        "title": "VALAQUIA_STORE",
+        "verbo": "Full-stack game store. Android client + Spring Boot REST API. Game catalog, health tips per game, SHA-256 secure downloads.",
+        "impact": "2 PLATFORMS · 1 API",
+        "metrics": "2 PLATFORMS · 1 API",
+        "stack": ["Android", "Spring Boot", "Java 22", "Retrofit", "MySQL"],
+        "image": "/images/project05.png",
+        "url": "https://github.com/mikelrh-dev/Proyecto_Cliente_PMD"
+      },
+      {
+        "id": "bookbugs",
+        "title": "BOOK_AND_BUGS",
+        "verbo": "Library management in 2 versions. PHP MVC web + JavaFX desktop. User auth, CRUD, connection pooling with DBCP2, consistent JSON contract.",
+        "impact": "1 DB · 2 CLIENTS",
+        "metrics": "1 DB · 2 CLIENTS",
+        "stack": ["PHP", "JavaFX", "MySQL", "DBCP2", "REST API"],
+        "image": "/images/project06.png",
+        "url": "https://github.com/Ander719/Reto_Libreria"
+      },
+      {
+        "id": "diytools",
+        "title": "DIY_TOOLS",
+        "verbo": "Inventory + order management for DIY tools shop. Customer-facing ordering, admin fulfillment, stock tracking.",
+        "impact": "CUSTOMER + ADMIN FLOW",
+        "metrics": "CUSTOMER + ADMIN FLOW",
+        "stack": ["Java", "MySQL", "Hibernate", "JavaFX"],
+        "image": "/images/project01.jpg",
+        "url": "https://github.com/AGL-12/Reto_final_Tienda"
+      },
+      {
+        "id": "ecodrive",
+        "title": "ECODRIVE_ADV",
+        "verbo": "EV discovery platform with integrated MOVES plan guidance. Helps customers make informed decisions and plan EV purchases.",
+        "impact": "1 PLATFORM · 1 MISSION",
+        "metrics": "1 PLATFORM · 1 MISSION",
+        "stack": ["HTML5", "CSS3", "JavaScript"],
+        "image": "/images/project03.jpg",
+        "url": "http://eco-drive-project.netlify.app"
+      }
+    ]
+  },
+  "about": {
+    "bio_1": "I build multiplatform systems that turn complex problems into clean, working solutions. From ERP backends to Android apps to AI agent pipelines — I architect with the conviction that great software starts with great foundations: typed contracts, deterministic behavior, and obsessive attention to detail.",
+    "bio_2": "I work at the intersection of traditional engineering and AI-augmented development. Claude Code, OpenCode, MCP — these aren't buzzwords, they're my daily toolkit. I orchestrate agents (Hermes Agent, n8n), enforce SDD/TDD discipline, and ship systems that teams can actually maintain.",
+    "stack_header": "STACK",
+    "categories": {
+      "languages": "LANGUAGES",
+      "frontend": "FRONTEND",
+      "backend": "BACKEND_DATABASES",
+      "tools": "TOOLS_PLATFORMS"
+    },
+    "items": {
+      "languages": ["TypeScript", "JavaScript", "Java", "Kotlin", "Python", "SQL", "PHP"],
+      "frontend": ["React", "Tailwind CSS", "HTML5", "CSS3", "Three.js", "R3F"],
+      "backend": ["Spring Boot", "Node.js", "PostgreSQL", "MySQL", "Hibernate", "MCP", "REST APIs"],
+      "tools": ["Git/GitHub", "Claude Code", "OpenCode", "Android Studio", "Docker", "n8n"]
+    }
+  },
+  "contact": {
+    "headline": "LET_S_BUILD",
+    "headline_2": "SOMETHING_THAT_LASTS.",
+    "email": "mikelromerohomobono@gmail.com",
+    "socials": [
+      { "label": "GITHUB", "url": "https://github.com/mikelrh-dev" },
+      { "label": "LINKEDIN", "url": "https://www.linkedin.com/in/mikel-romero-homobono-760878337/" },
+      { "label": "EMAIL", "url": "mailto:mikelromerohomobono@gmail.com" }
+    ],
+    "footer": "© 2026 MIKEL ROMERO. ALL RIGHTS RESERVED.",
+    "built_with": "BUILT_WITH_CLAUDE_CODE_AND_OPENCODE"
+  }
+}
