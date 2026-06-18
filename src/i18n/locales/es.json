@@ -74,12 +74,7 @@
         "image": "/images/project03.jpg",
         "url": "http://eco-drive-project.netlify.app"
       }
-    ],
-    "filler": {
-      "title": "EXPLORA_ARCHIVO_COMPLETO",
-      "subtitle": "MÁS_PROYECTOS_EN_GITHUB",
-      "cta": "VISITAR →"
-    }
+    ]
   },
   "about": {
     "bio_1": "Construyo sistemas multiplataforma que convierten problemas complejos en soluciones limpias y funcionales. Desde backends ERP hasta apps Android hasta pipelines de agentes IA — arquitecturo con la convicción de que el gran software empieza con grandes cimientos: contratos tipados, comportamiento determinista y atención obsesiva al detalle.",
