@@ -1,9 +1,26 @@
-import { lazy, Suspense } from 'react';
+import { Component, lazy, Suspense, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import KineticHeadline from '../effects/KineticHeadline';
 import TypeWriter from '../effects/TypeWriter';
 
 const WireframeCentroide = lazy(() => import('../three/WireframeCentroide'));
+
+class ThreeErrorBoundary extends Component<
+  { children: ReactNode; fallback: ReactNode },
+  { hasError: boolean }
+> {
+  state = { hasError: false };
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+  componentDidCatch(error: Error) {
+    console.error('[WireframeCentroide] render error:', error);
+  }
+  render() {
+    if (this.state.hasError) return this.props.fallback;
+    return this.props.children;
+  }
+}
 
 export default function Hero() {
   const { t } = useTranslation();
@@ -67,9 +84,11 @@ export default function Hero() {
 
         {/* Right column — 40% width, 3D canvas with bloom */}
         <div className="col-span-12 lg:col-span-5 h-full min-h-[400px] relative overflow-visible">
-          <Suspense fallback={null}>
-            <WireframeCentroide />
-          </Suspense>
+          <ThreeErrorBoundary fallback={null}>
+            <Suspense fallback={null}>
+              <WireframeCentroide />
+            </Suspense>
+          </ThreeErrorBoundary>
         </div>
       </div>
     </section>

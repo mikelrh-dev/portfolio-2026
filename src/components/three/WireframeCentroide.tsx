@@ -1,7 +1,6 @@
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useRef, useMemo, useEffect } from 'react';
 import * as THREE from 'three';
-import { Html } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { useScrollProgress } from '../../hooks/useScrollProgress';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
@@ -141,24 +140,6 @@ function Scene() {
           />
         </lineSegments>
       ))}
-      {components.map((c, i) => (
-        <Html
-          key={`label-${i}`}
-          position={c.targetPos}
-          center
-          distanceFactor={5}
-          occlude={false}
-        >
-          <div
-            className="text-[9px] font-mono whitespace-nowrap select-none pointer-events-none leading-tight"
-            style={{ color: c.isHighlight ? '#CCFF00' : '#666666' }}
-          >
-            {c.isHighlight
-              ? `[ FOCUS: comp-${i} ]`
-              : `X:${c.targetPos.x.toFixed(1)} Y:${c.targetPos.y.toFixed(1)} Z:${c.targetPos.z.toFixed(1)}`}
-          </div>
-        </Html>
-      ))}
     </group>
   );
 }
@@ -168,11 +149,11 @@ export function WireframeCentroide() {
     <Canvas
       camera={{ position: [0, 0, 5], fov: 50 }}
       dpr={[1, 2]}
-      gl={{ antialias: true, alpha: true }}
+      gl={{ antialias: false, alpha: true, powerPreference: 'high-performance' }}
       style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
     >
       <Scene />
-      <EffectComposer enableNormalPass={false}>
+      <EffectComposer enableNormalPass={false} multisampling={0}>
         <Bloom luminanceThreshold={0.2} mipmapBlur intensity={1.5} />
       </EffectComposer>
     </Canvas>
