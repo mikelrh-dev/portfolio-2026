@@ -52,8 +52,8 @@ export default function App() {
           <Nav />
           <main>
             <Hero />
-            <SelectedWork />
             <AboutStack />
+            <SelectedWork />
             <Contact />
           </main>
         </>
