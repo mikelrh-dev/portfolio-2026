@@ -37,7 +37,7 @@ export default function App() {
   }, [reducedMotion]);
 
   return (
-    <div ref={containerRef} className="relative min-h-screen bg-[#000000] text-[#FFFFFF] font-mono antialiased">
+    <div ref={containerRef} className="relative min-h-screen bg-[#000000] text-[#FFFFFF] antialiased">
       {/* Boot sequence gates all content */}
       {!bootComplete && (
         <BootSequence onComplete={handleBootComplete} />

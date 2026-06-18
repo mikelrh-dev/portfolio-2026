@@ -11,6 +11,7 @@
 
   --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
   --font-mono--font-weight: 400;
+  --font-sans: 'IBM Plex Sans Variable', 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
 
   --radius-sm: 0px;
   --radius-md: 4px;
@@ -31,7 +32,7 @@
   body {
     background-color: #000000;
     color: #FFFFFF;
-    font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
+    font-family: 'IBM Plex Sans Variable', 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

@@ -1,4 +1,5 @@
 @import '@fontsource-variable/jetbrains-mono';
+@import '@fontsource-variable/ibm-plex-sans';
 @import './styles/tokens.css';
 @import './styles/globals.css';
 @import './styles/film-grain.css';

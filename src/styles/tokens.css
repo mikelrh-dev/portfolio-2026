@@ -8,7 +8,8 @@
   --color-text-secondary: #CCCCCC;
   --color-text-muted: #666666;
 
-  /* Typography — JetBrains Mono only */
+  /* Typography — Sans for body, Mono for chrome */
+  --font-sans: 'IBM Plex Sans Variable', 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
   --font-weight-display: 700;
   --font-weight-body: 400;

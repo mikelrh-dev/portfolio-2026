@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource-variable/ibm-plex-sans": "^5.2.8",
     "@fontsource-variable/jetbrains-mono": "^5.1.0",
     "@react-three/drei": "^9.117.0",
     "@react-three/fiber": "^8.18.0",

@@ -29,10 +29,10 @@ export default function AboutStack() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Bio paragraphs */}
           <Card className="space-y-4">
-            <p className="font-mono text-[13px] leading-relaxed text-[#CCCCCC]">
+            <p className="text-[13px] leading-relaxed text-[#CCCCCC]">
               {t('about.bio_1')}
             </p>
-            <p className="font-mono text-[13px] leading-relaxed text-[#CCCCCC]">
+            <p className="text-[13px] leading-relaxed text-[#CCCCCC]">
               {t('about.bio_2')}
             </p>
           </Card>
