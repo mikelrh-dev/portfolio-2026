@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import Tag from '../ui/Tag';
 import TextScramble from '../effects/TextScramble';
 
 /* --- Stack category priority: lower number renders first --- */
