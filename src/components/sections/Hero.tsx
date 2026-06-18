@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import KineticHeadline from '../effects/KineticHeadline';
 import TypeWriter from '../effects/TypeWriter';
+import MagneticButton from '../effects/MagneticButton';
 
 export default function Hero() {
   const { t } = useTranslation();
+  const [showTagline, setShowTagline] = useState(false);
 
   return (
     <section
@@ -16,54 +18,41 @@ export default function Hero() {
           01/04 — {t('indicators.hero')}
         </div>
 
-        {/* Massive ALL CAPS headline — typewriter reveal */}
+        {/* Headline — typewriter */}
         <TypeWriter
           as="h1"
-          text={t('hero.headline')}
+          text="THE HUMAN IN THE LOOP."
           className="font-mono font-bold text-[clamp(1.75rem,7vw,7rem)] leading-[1.0] text-[#FFFFFF] mb-4 uppercase tracking-[-0.02em] w-full [overflow-wrap:anywhere]"
           speed={30}
+          onDone={() => setShowTagline(true)}
         />
 
-        {t('hero.headline_2') && (
-          <KineticHeadline
-            as="h2"
-            className="font-mono font-bold text-[clamp(1.25rem,5vw,4.5rem)] leading-[1.0] text-[#FFFFFF] mb-6 uppercase tracking-[-0.02em] w-full [overflow-wrap:anywhere]"
-            stagger={0.04}
-          >
-            {t('hero.headline_2')}
-          </KineticHeadline>
+        {/* Tagline — dual weight with green punchline */}
+        {showTagline && (
+          <>
+            <p className="font-mono text-[clamp(0.9rem,1.5vw,1.125rem)] text-[#888888] mb-2 uppercase tracking-[0.12em]">
+              <span>{t('hero.tagline_1')}</span>{' '}
+              <span className="text-[#CCFF00] font-bold">{t('hero.tagline_2')}</span>
+            </p>
+            <p className="font-mono text-[13px] text-zinc-500 mb-10 uppercase tracking-[0.12em]">
+              {t('hero.role')}
+            </p>
+          </>
         )}
 
-        {/* Role labels */}
-        <div className="flex items-center gap-3 mb-10 flex-wrap">
-          {t('hero.highlight').split(' / ').map((role, i) => (
-            <span key={role} className="flex items-center gap-3">
-              {i > 0 && <span className="text-[#CCFF00] font-mono text-[10px]">/</span>}
-              <span className="font-mono text-[clamp(0.75rem,1vw,0.875rem)] text-[#888888] uppercase tracking-[0.12em]">
-                {role}
-              </span>
-            </span>
-          ))}
-        </div>
-
-        {/* Bracket CTAs */}
+        {/* CTAs */}
         <div className="flex gap-4 flex-wrap">
-          <button
-            className="font-mono text-[13px] uppercase tracking-[0.12em] px-6 py-3 bg-[#CCFF00] text-[#000000] border border-[#CCFF00] hover:bg-transparent hover:text-[#CCFF00] transition-colors duration-200 cursor-pointer"
-            onClick={() => {
-              document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
-            }}
+          <MagneticButton
+            className="bg-[#CCFF00] text-[#000000] border-[#CCFF00] hover:bg-transparent hover:text-[#CCFF00]"
+            onClick={() => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })}
           >
-            {t('hero.cta_work')}
-          </button>
-          <button
-            className="font-mono text-[13px] uppercase tracking-[0.12em] px-6 py-3 border border-[#333333] bg-transparent text-[#CCCCCC] hover:border-[#CCFF00] hover:text-[#CCFF00] transition-colors duration-200 cursor-pointer"
-            onClick={() => {
-              document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-            }}
+            [ VER SISTEMAS ]
+          </MagneticButton>
+          <MagneticButton
+            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
           >
-            {t('hero.cta_contact')}
-          </button>
+            [ CONTACTO ]
+          </MagneticButton>
         </div>
       </div>
     </section>

@@ -33,6 +33,12 @@ export default function AboutStack() {
             <p className="text-[15px] leading-relaxed text-[#CCCCCC]">
               {t('about.bio_2')}
             </p>
+            <p className="text-[15px] leading-relaxed text-[#CCCCCC]">
+              {t('about.bio_3')}
+            </p>
+            <p className="text-[15px] leading-relaxed text-[#CCCCCC]">
+              {t('about.bio_4')}
+            </p>
             {/* Visual divider — editorial rhythm */}
             <div className="pt-4 mt-4 border-t border-[#222222]">
               <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#666666]">
