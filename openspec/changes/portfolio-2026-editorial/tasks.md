@@ -53,17 +53,17 @@ Chain strategy: **stacked-to-main**
 
 ## Phase 5: Hero Redesign
 
-- [ ] 5.1 Restructure `Hero.tsx` layout: `grid lg:grid-cols-[3fr_2fr] gap-12`, text column left, accent column right
-- [ ] 5.2 Left column: mono display headline 100–160px (min 48px mobile), sans role labels 14–16px, 2× CTAs, `01/04 — HERO` indicator in `#666666`
-- [ ] 5.3 Right column: empty `<div>` OR `<Canvas>` constrained to column bounds
-- [ ] 5.4 Reposition Canvas from full-viewport absolute → `w-full h-full` inside right column; remove if 3D deleted
-- [ ] 5.5 Mobile <768px: stack accent below text or hide
+- [x] 5.1 Restructure `Hero.tsx` layout: `grid lg:grid-cols-[3fr_2fr] gap-12`, text column left, accent column right
+- [x] 5.2 Left column: mono display headline 100–160px (min 48px mobile), sans role labels 14–16px, 2× CTAs, `01/04 — HERO` indicator in `#666666`
+- [x] 5.3 Right column: empty `<div>` OR `<Canvas>` constrained to column bounds
+- [x] 5.4 Reposition Canvas from full-viewport absolute → `w-full h-full` inside right column; remove if 3D deleted
+- [x] 5.5 Mobile <768px: stack accent below text or hide
 
 ## Phase 6: 3D Fidelity Gate
 
-- [ ] 6.1 Prototype branch: upgrade `WireframeCentroide.tsx` — `LineSegments`→`Line2`+`LineMaterial`, add `@react-three/postprocessing` `EffectComposer`+`Bloom` on `#CCFF00`
-- [ ] 6.2 Measure gzip delta: if `@react-three/postprocessing` >50KB or <30fps → delete `WireframeCentroide.tsx`; else keep with contained Canvas
-- [ ] 6.3 Clean up: if deleted, remove lazy import + `<WireframeCentroide>` JSX from Hero.tsx, archive 3D spec
+- [x] 6.1 (Skipped — default-to-remove per strategy; no prototype branch needed)
+- [x] 6.2 (Skipped — removal path chosen by instruction: DEFAULT TO REMOVE)
+- [x] 6.3 Clean up: delete WireframeCentroide.tsx, remove lazy import + `<WireframeCentroide>` JSX from Hero.tsx
 
 ## Phase 7: Verify
 
