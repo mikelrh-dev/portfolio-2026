@@ -50,8 +50,8 @@ export default function SelectedWork() {
           className="font-mono font-bold text-[clamp(2rem,5vw,4rem)] leading-[1.0] text-[#FFFFFF] mb-12 uppercase"
         />
 
-        {/* Uniform grid — 3 columns, all cards equal */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Uniform grid — 3 columns, all cards equal height */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
           {allItems.map((item) => (
             <ProjectCard
               key={item.id}
@@ -88,20 +88,20 @@ function ProjectCard({ index, title, verbo, impact, stack, image, url }: Project
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative block bg-[#0A0A0A] border border-[#222222] overflow-hidden no-underline hover:border-[#CCFF00] transition-colors duration-300"
+      className="group relative block bg-[#0A0A0A] border border-[#222222] overflow-hidden no-underline hover:border-[#CCFF00] transition-colors duration-300 h-full flex flex-col"
     >
-      {/* Image zone — uniform height, consistent crop */}
-      <div className="relative h-[200px] overflow-hidden bg-[#000000]">
+      {/* Image zone — fixed height, no crop, letterboxed */}
+      <div className="relative h-[200px] overflow-hidden bg-[#000000] shrink-0">
         <img
           src={image}
           alt={title}
           loading="lazy"
-          className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+          className="w-full h-full object-contain transition-transform duration-700 ease-out group-hover:scale-[1.02]"
         />
         {/* Gradient overlay — always visible, darker on base */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-[#000000]/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-[#000000]/40 to-transparent pointer-events-none" />
         {/* Hover tint — green */}
-        <div className="absolute inset-0 bg-[#CCFF00]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="absolute inset-0 bg-[#CCFF00]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
         {/* Index badge — top left */}
         <span className="absolute top-4 left-4 font-mono text-[10px] tracking-[0.1em] text-[#CCFF00] bg-[#000000]/70 px-2 py-0.5 border border-[#CCFF00]/30">
@@ -114,20 +114,20 @@ function ProjectCard({ index, title, verbo, impact, stack, image, url }: Project
         </span>
       </div>
 
-      {/* Content zone */}
-      <div className="p-5">
+      {/* Content zone — flex column, fills remaining space */}
+      <div className="p-5 flex flex-col flex-1">
         {/* Title */}
         <p className="font-mono font-bold text-[13px] text-[#FFFFFF] uppercase tracking-[0.05em] mb-2">
           {title}
         </p>
 
-        {/* Description */}
-        <p className="font-sans text-[13px] text-[#666666] leading-relaxed line-clamp-2 mb-4">
+        {/* Description — flex-1 pushes stack/impact to bottom */}
+        <p className="font-sans text-[13px] text-[#666666] leading-relaxed line-clamp-2 mb-4 flex-1">
           {verbo}
         </p>
 
-        {/* Stack + Impact row */}
-        <div className="flex items-end justify-between gap-3">
+        {/* Stack + Impact row — always at bottom */}
+        <div className="flex items-end justify-between gap-3 mt-auto">
           <div className="flex flex-wrap gap-1.5 flex-1">
             {stack.map((tech) => (
               <Tag key={tech}>{tech}</Tag>
