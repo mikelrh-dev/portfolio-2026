@@ -22,6 +22,26 @@ class ThreeErrorBoundary extends Component<
   }
 }
 
+function ThreeDPlaceholder() {
+  return (
+    <div
+      className="absolute inset-0 flex flex-col items-center justify-center gap-3 border border-[#222222] bg-[#000000]"
+      style={{
+        backgroundImage:
+          'linear-gradient(#1A1A1A 1px, transparent 1px), linear-gradient(90deg, #1A1A1A 1px, transparent 1px)',
+        backgroundSize: '40px 40px',
+        backgroundPosition: 'center',
+        opacity: 0.5,
+      }}
+    >
+      <div className="w-2 h-2 rounded-full bg-[#CCFF00] animate-pulse" />
+      <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-[#666666]">
+        RENDERING
+      </span>
+    </div>
+  );
+}
+
 export default function Hero() {
   const { t } = useTranslation();
 
@@ -84,8 +104,8 @@ export default function Hero() {
 
         {/* Right column — 40% width, 3D canvas with bloom */}
         <div className="col-span-12 lg:col-span-5 h-full min-h-[400px] relative overflow-visible">
-          <ThreeErrorBoundary fallback={null}>
-            <Suspense fallback={null}>
+          <ThreeErrorBoundary fallback={<ThreeDPlaceholder />}>
+            <Suspense fallback={<ThreeDPlaceholder />}>
               <WireframeCentroide />
             </Suspense>
           </ThreeErrorBoundary>

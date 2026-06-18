@@ -72,10 +72,12 @@
       linear-gradient(90deg, #1A1A1A 1px, transparent 1px);
     background-size: 80px 80px;
     background-position: 0px var(--grid-offset, 0px);
-    opacity: 0.3;
+    opacity: 0.15;
     pointer-events: none;
     z-index: 0;
     will-change: background-position;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 30%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 30%, transparent 100%);
   }
 
   /* Section indicator utility */
@@ -89,5 +91,23 @@
     margin-bottom: 2rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .section-indicator::before {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, #222222 0%, transparent 100%);
+  }
+
+  /* Focus-visible — accessible outline */
+  a:focus-visible,
+  button:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid #CCFF00;
+    outline-offset: 4px;
   }
 }

@@ -89,13 +89,15 @@ export default function SelectedWork() {
 
 function ProjectImage({ src }: { src: string }) {
   return (
-    <div className="relative -m-6 mb-4 aspect-[16/10] overflow-hidden border-b border-[#222222] bg-[#000000]">
+    <div className="relative -m-6 mb-4 aspect-[16/10] overflow-hidden border-b border-[#222222] bg-[#000000] group/image">
       <img
         src={src}
         alt=""
-        className="w-full h-full object-contain p-4"
+        className="w-full h-full object-contain p-4 transition-all duration-500 group-hover/image:scale-[1.02] group-hover/image:brightness-110"
         loading="lazy"
       />
+      {/* Hover overlay — subtle gradient from bottom */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#CCFF00]/10 via-transparent to-transparent opacity-0 group-hover/image:opacity-100 transition-opacity duration-500 pointer-events-none" />
     </div>
   );
 }

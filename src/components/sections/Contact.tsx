@@ -21,28 +21,38 @@ export default function Contact() {
         <TextScramble
           as="h2"
           text={`${t('contact.headline')}\n${t('contact.headline_2')}`}
-          className="font-mono font-bold text-[clamp(1.8rem,4.5vw,3.5rem)] leading-[1.0] text-[#FFFFFF] mb-12 uppercase"
+          className="font-mono font-bold text-[clamp(1.8rem,4.5vw,3.5rem)] leading-[1.0] text-[#FFFFFF] mb-8 uppercase"
         />
 
-        {/* Email — 56px mono with green underline */}
+        {/* Divider — editorial weight */}
+        <div className="h-px bg-gradient-to-r from-[#CCFF00] via-[#CCFF00] to-transparent w-32 mb-12" />
+
+        {/* Email — large mono with animated underline */}
         <a
           href={`mailto:${t('contact.email')}`}
-          className="inline-block font-mono text-[clamp(1.5rem,3.5vw,3.5rem)] font-normal text-[#FFFFFF] no-underline underline decoration-[#CCFF00] decoration-2 underline-offset-8 hover:decoration-[#FFFFFF] transition-colors duration-200 mb-16"
+          className="group/mail inline-block font-mono text-[clamp(1.5rem,3.5vw,3.5rem)] font-normal text-[#FFFFFF] no-underline mb-16 relative"
         >
-          {t('contact.email')}
+          <span className="relative">
+            {t('contact.email')}
+            <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#CCFF00] origin-left scale-x-100 group-hover/mail:scale-x-0 transition-transform duration-300" />
+            <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#FFFFFF] origin-right scale-x-0 group-hover/mail:scale-x-100 transition-transform duration-300" />
+          </span>
         </a>
 
-        {/* Social links row */}
-        <div className="flex gap-6 flex-wrap mb-16">
+        {/* Social links row — better spacing */}
+        <div className="flex gap-8 flex-wrap mb-16">
           {socials.map((social) => (
             <a
               key={social.label}
               href={social.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-mono text-[13px] uppercase tracking-[0.12em] text-[#666666] hover:text-[#FFFFFF] no-underline transition-colors duration-150"
+              className="group/social font-mono text-[13px] uppercase tracking-[0.12em] text-[#666666] hover:text-[#FFFFFF] no-underline transition-colors duration-150 relative"
             >
-              [{social.label}]
+              <span className="relative">
+                [{social.label}]
+                <span className="absolute left-0 -bottom-1 w-full h-px bg-[#CCFF00] origin-left scale-x-0 group-hover/social:scale-x-100 transition-transform duration-300" />
+              </span>
             </a>
           ))}
         </div>

@@ -31,20 +31,27 @@ export default function ScrollProgress() {
   if (reducedMotion) return null;
 
   return (
-    <div className="fixed right-4 top-1/2 -translate-y-1/2 z-[9998] hidden md:flex flex-col items-center gap-2">
+    <div className="fixed right-6 top-1/2 -translate-y-1/2 z-[9998] hidden md:flex flex-col items-center gap-3">
+      {/* Top section label */}
+      <span className="font-mono text-[9px] text-[#666666] tracking-[0.1em]">
+        SCROLL
+      </span>
       {/* Bar track */}
-      <div className="w-[2px] h-[40vh] bg-[#222222] relative overflow-hidden">
+      <div className="w-[3px] h-[40vh] bg-[#222222] relative overflow-hidden">
         {/* Bar fill */}
         <div
           ref={barRef}
           className="absolute bottom-0 left-0 w-full bg-[#CCFF00] origin-bottom"
-          style={{ transform: 'scaleY(0)' }}
+          style={{
+            transform: 'scaleY(0)',
+            boxShadow: '0 0 8px rgba(204, 255, 0, 0.6)',
+          }}
         />
       </div>
       {/* Percentage label */}
       <span
         ref={labelRef}
-        className="font-mono text-[10px] text-[#CCFF00] tracking-[0.1em]"
+        className="font-mono text-[10px] text-[#CCFF00] tracking-[0.1em] font-bold"
       >
         0%
       </span>

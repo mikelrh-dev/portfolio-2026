@@ -26,7 +26,7 @@ export default function Card({
   const hoverAnim = reducedMotion
     ? {}
     : {
-        whileHover: { scale: 1.05 },
+        whileHover: { scale: 1.03 },
         transition: { duration: 0.2 },
       };
 
@@ -40,18 +40,28 @@ export default function Card({
   const lineAnim = reducedMotion
     ? {}
     : {
-        initial: { scaleY: 0 },
-        whileHover: { scaleY: 1 },
-        transition: { duration: 0.2 },
+        initial: { scaleY: 0, opacity: 0 },
+        whileHover: { scaleY: 1, opacity: 1 },
+        transition: { duration: 0.25, ease: 'easeOut' },
+      };
+
+  const liftAnim = reducedMotion
+    ? {}
+    : {
+        whileHover: { y: -2 },
+        transition: { duration: 0.2, ease: 'easeOut' },
       };
 
   const cardContent = (
     <>
-      {/* Green sliding line — left edge */}
+      {/* Green sliding line — left edge (2px, glow on hover) */}
       {!reducedMotion && (
         <motion.div
-          className="absolute left-0 top-0 bottom-0 w-[1px] bg-[#CCFF00] origin-top"
-          style={{ opacity: 0.8 }}
+          className="absolute left-0 top-0 bottom-0 w-[2px] bg-[#CCFF00] origin-top"
+          style={{
+            opacity: 0.6,
+            boxShadow: '0 0 8px rgba(204, 255, 0, 0.4)',
+          }}
           {...lineAnim}
         />
       )}
@@ -83,17 +93,24 @@ export default function Card({
   );
 
   return (
-    <Tag
-      href={isLink ? href : undefined}
-      target={isLink ? '_blank' : undefined}
-      rel={isLink ? 'noopener noreferrer' : undefined}
-      className={`group relative block bg-[#0A0A0A] border border-[#222222] p-6 rounded-none ${
+    <motion.div
+      {...liftAnim}
+      className={`group relative block bg-[#0A0A0A] border border-[#222222] p-6 rounded-none h-full ${
         hoverAccent
           ? 'hover:border-[#CCFF00] transition-colors duration-200'
           : ''
       } ${isLink ? 'cursor-pointer no-underline' : ''} ${className}`}
     >
-      {cardContent}
-    </Tag>
+      {isLink ? (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute inset-0 z-10"
+          aria-label={typeof children === 'string' ? children : undefined}
+        />
+      ) : null}
+      <div className={isLink ? 'pointer-events-none' : ''}>{cardContent}</div>
+    </motion.div>
   );
 }
