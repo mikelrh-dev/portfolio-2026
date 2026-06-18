@@ -25,20 +25,15 @@ class ThreeErrorBoundary extends Component<
 function ThreeDPlaceholder() {
   return (
     <div
-      className="absolute inset-0 flex flex-col items-center justify-center gap-3 border border-[#222222] bg-[#000000]"
+      className="absolute inset-0 border border-[#222222] bg-[#000000]"
       style={{
         backgroundImage:
           'linear-gradient(#1A1A1A 1px, transparent 1px), linear-gradient(90deg, #1A1A1A 1px, transparent 1px)',
         backgroundSize: '40px 40px',
         backgroundPosition: 'center',
-        opacity: 0.5,
+        opacity: 0.3,
       }}
-    >
-      <div className="w-2 h-2 rounded-full bg-[#CCFF00] animate-pulse" />
-      <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-[#666666]">
-        RENDERING
-      </span>
-    </div>
+    />
   );
 }
 
@@ -48,9 +43,9 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative overflow-hidden px-4 py-[clamp(4rem,8vw,8rem)]"
+      className="relative overflow-hidden px-4 py-[clamp(4rem,8vw,8rem)] min-h-screen flex flex-col"
     >
-      <div className="max-w-6xl mx-auto grid grid-cols-12 gap-4 items-center min-h-[calc(100vh-8rem)]">
+      <div className="max-w-6xl mx-auto grid grid-cols-12 gap-4 items-center flex-1 w-full">
         {/* Left column — 60% width, text content */}
         <div className="col-span-12 lg:col-span-7 flex flex-col justify-center items-start text-left">
           {/* Section indicator */}
