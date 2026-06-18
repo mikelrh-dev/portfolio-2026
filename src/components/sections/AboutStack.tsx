@@ -26,7 +26,7 @@ export default function AboutStack() {
         />
 
         {/* Bio + Stack + Photo */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Bio paragraphs */}
           <Card className="space-y-4">
             <p className="font-mono text-[13px] leading-relaxed text-[#CCCCCC]">
@@ -59,24 +59,37 @@ export default function AboutStack() {
               ))}
             </div>
           </Card>
-        </div>
 
-        {/* Profile photo — cyber treatment */}
-        <div className="flex flex-col items-end">
-          <div className="group relative">
-            <img
-              src="/images/profile.jpg"
-              alt="Mikel Romero"
-              className={`w-[280px] h-[360px] object-cover border border-[#222222] ${
-                reducedMotion
-                  ? 'grayscale sepia-[60%] hue-rotate-[40deg] saturate-[3]'
-                  : 'grayscale transition-all duration-300 hover:grayscale-[60%] hover:sepia-[60%] hover:hue-rotate-[40deg] hover:saturate-[3]'
-              }`}
-            />
-          </div>
-          <p className="font-mono text-[11px] text-[#CCFF00] mt-3 tracking-[0.12em] uppercase">
-            [ OPERATOR_ID: MIKEL_ROMERO ]
-          </p>
+          {/* Photo panel — terminal window style */}
+          <Card className="flex flex-col">
+            {/* Window chrome */}
+            <div className="flex items-center gap-2 mb-4 font-mono text-[10px] tracking-[0.08em] text-[#666666] uppercase">
+              <span className="inline-block w-[6px] h-[6px] rounded-full bg-[#333333]" />
+              <span className="inline-block w-[6px] h-[6px] rounded-full bg-[#333333]" />
+              <span className="inline-block w-[6px] h-[6px] rounded-full bg-[#333333]" />
+              <span className="ml-1 text-[#FFFFFF]">{t('about.photo_filename')}</span>
+              <span className="ml-auto text-[#CCFF00]">{t('about.photo_meta')}</span>
+            </div>
+
+            {/* Image — bleeds to card edges */}
+            <div className="relative -mx-6 mb-4 overflow-hidden border-y border-[#222222] bg-[#000000] aspect-[3/4]">
+              <img
+                src="/images/profile.jpg"
+                alt="Mikel Romero"
+                loading="lazy"
+                className={`w-full h-full object-cover ${
+                  reducedMotion
+                    ? 'grayscale sepia-[60%] hue-rotate-[40deg] saturate-[3]'
+                    : 'grayscale transition-all duration-500 hover:grayscale-[60%] hover:sepia-[60%] hover:hue-rotate-[40deg] hover:saturate-[3]'
+                }`}
+              />
+            </div>
+
+            {/* Caption */}
+            <p className="font-mono text-[11px] text-[#CCFF00] tracking-[0.12em] uppercase">
+              {t('about.photo_caption')}
+            </p>
+          </Card>
         </div>
       </div>
     </section>

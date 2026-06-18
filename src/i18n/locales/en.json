@@ -78,6 +78,9 @@
     "bio_1": "I build multiplatform systems that turn complex problems into clean, working solutions. From ERP backends to Android apps to AI agent pipelines — I architect with the conviction that great software starts with great foundations: typed contracts, deterministic behavior, and obsessive attention to detail.",
     "bio_2": "I work at the intersection of traditional engineering and AI-augmented development. Claude Code, OpenCode, MCP — these aren't buzzwords, they're my daily toolkit. I orchestrate agents (Hermes Agent, n8n), enforce SDD/TDD discipline, and ship systems that teams can actually maintain.",
     "stack_header": "STACK",
+    "photo_filename": "profile.jpg",
+    "photo_meta": "JPG",
+    "photo_caption": "[ OPERATOR_ID: MIKEL_ROMERO ]",
     "categories": {
       "languages": "LANGUAGES",
       "frontend": "FRONTEND",

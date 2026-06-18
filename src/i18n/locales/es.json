@@ -78,6 +78,9 @@
     "bio_1": "Construyo sistemas multiplataforma que convierten problemas complejos en soluciones limpias y funcionales. Desde backends ERP hasta apps Android hasta pipelines de agentes IA — arquitecturo con la convicción de que el gran software empieza con grandes cimientos: contratos tipados, comportamiento determinista y atención obsesiva al detalle.",
     "bio_2": "Trabajo en la intersección entre la ingeniería tradicional y el desarrollo aumentado por IA. Claude Code, OpenCode, MCP — no son modas, son mi toolkit diario. Orquesto agentes (Hermes Agent, n8n), aplico disciplina SDD/TDD y entrego sistemas que los equipos pueden mantener.",
     "stack_header": "STACK",
+    "photo_filename": "profile.jpg",
+    "photo_meta": "JPG",
+    "photo_caption": "[ OPERATOR_ID: MIKEL_ROMERO ]",
     "categories": {
       "languages": "LENGUAJES",
       "frontend": "FRONTEND",
