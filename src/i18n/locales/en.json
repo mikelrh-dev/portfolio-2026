@@ -7,8 +7,8 @@
     "locale": "EN"
   },
   "hero": {
-    "tagline_1": "AI automates the code.",
-    "tagline_2": "The human dictates the strategy.",
+    "tagline_1": "Technology runs the code.",
+    "tagline_2": "The human mind orchestrates the system.",
     "role": "Multiplatform and high-reliability backend systems developer."
   },
   "indicators": {
@@ -89,10 +89,10 @@
       "tools": "TOOLS PLATFORMS"
     },
     "items": {
-      "languages": ["TypeScript", "JavaScript", "Java", "Kotlin", "Python", "SQL / PL-SQL", "PHP", "C#"],
-      "frontend": ["React", "Tailwind CSS", "HTML5", "CSS3", "XML / XSD / XSLT", "Three.js", "R3F"],
-      "backend": ["Spring Boot", "Node.js", "PostgreSQL", "MySQL", "MongoDB", "Hibernate", "MCP", "REST APIs"],
-      "tools": ["Git/GitHub", "Claude Code", "OpenCode", "Android Studio", "Docker", "n8n", "Eclipse", "NetBeans", "Unity", "Odoo", "SCRUM", "Trello"]
+      "languages": ["Java", "JavaScript", "SQL / PL-SQL", "Python", "PHP"],
+      "frontend": ["HTML5", "CSS3", "XML / XSD / XSLT"],
+      "backend": ["MySQL", "PostgreSQL", "MongoDB", "Hibernate", "Spring Boot", "MCP", "REST API"],
+      "tools": ["Git / GitHub", "Eclipse", "NetBeans", "Android Studio", "Unity", "Odoo", "SCRUM", "Trello", "Claude Code", "OpenCode", "Docker"]
     }
   },
   "contact": {

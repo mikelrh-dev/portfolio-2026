@@ -7,8 +7,8 @@
     "locale": "ES"
   },
   "hero": {
-    "tagline_1": "La IA automatiza el código.",
-    "tagline_2": "El humano dicta la estrategia.",
+    "tagline_1": "La tecnología ejecuta el código.",
+    "tagline_2": "La mente humana orquesta el sistema.",
     "role": "Desarrollador de aplicaciones y sistemas backend de alta fiabilidad."
   },
   "indicators": {
@@ -89,10 +89,10 @@
       "tools": "HERRAMIENTAS PLATAFORMAS"
     },
     "items": {
-      "languages": ["TypeScript", "JavaScript", "Java", "Kotlin", "Python", "SQL / PL-SQL", "PHP", "C#"],
-      "frontend": ["React", "Tailwind CSS", "HTML5", "CSS3", "XML / XSD / XSLT", "Three.js", "R3F"],
-      "backend": ["Spring Boot", "Node.js", "PostgreSQL", "MySQL", "MongoDB", "Hibernate", "MCP", "REST APIs"],
-      "tools": ["Git/GitHub", "Claude Code", "OpenCode", "Android Studio", "Docker", "n8n", "Eclipse", "NetBeans", "Unity", "Odoo", "SCRUM", "Trello"]
+      "languages": ["Java", "JavaScript", "SQL / PL-SQL", "Python", "PHP"],
+      "frontend": ["HTML5", "CSS3", "XML / XSD / XSLT"],
+      "backend": ["MySQL", "PostgreSQL", "MongoDB", "Hibernate", "Spring Boot", "MCP", "REST API"],
+      "tools": ["Git / GitHub", "Eclipse", "NetBeans", "Android Studio", "Unity", "Odoo", "SCRUM", "Trello", "Claude Code", "OpenCode", "Docker"]
     }
   },
   "contact": {
