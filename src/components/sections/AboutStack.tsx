@@ -6,14 +6,16 @@ import TextScramble from '../effects/TextScramble';
 export default function AboutStack() {
   const { t } = useTranslation();
 
-  const categories = ['languages', 'frontend', 'backend', 'tools'] as const;
+  const categories = ['production', 'frontend', 'ai_workflow', 'tools'] as const;
 
   return (
     <section id="about" className="relative z-10 bg-black px-4 py-[clamp(4rem,8vw,8rem)]">
       <div className="max-w-6xl mx-auto">
         {/* Section indicator */}
         <div className="section-indicator">
-          02/04 — {t('indicators.about')}
+          <span className="text-[#CCFF00] font-bold">02/04</span>
+          <span className="text-[#888888]">—</span>
+          <span>{t('indicators.about')}</span>
         </div>
 
         {/* ALL CAPS headline — text scramble */}
@@ -41,7 +43,7 @@ export default function AboutStack() {
             </p>
             {/* Visual divider — editorial rhythm */}
             <div className="pt-4 mt-4 border-t border-[#222222]">
-              <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#666666]">
+              <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#888888]">
                 <span className="text-[#CCFF00]">●</span> {t('about.status')}
               </p>
             </div>
@@ -73,7 +75,7 @@ export default function AboutStack() {
           {/* Photo panel — terminal window style */}
           <Card className="flex flex-col">
             {/* Window chrome */}
-            <div className="flex items-center gap-2 mb-4 font-mono text-[10px] tracking-[0.08em] text-[#666666] uppercase">
+            <div className="flex items-center gap-2 mb-4 font-mono text-[10px] tracking-[0.08em] text-[#888888] uppercase">
               <span className="inline-block w-[6px] h-[6px] rounded-full bg-[#FF5F57]" />
               <span className="inline-block w-[6px] h-[6px] rounded-full bg-[#FFBD2E]" />
               <span className="inline-block w-[6px] h-[6px] rounded-full bg-[#28C840]" />

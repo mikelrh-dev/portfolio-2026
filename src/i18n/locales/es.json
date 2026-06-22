@@ -73,31 +73,31 @@
     ]
   },
   "about": {
-    "bio_1": "Soy un desarrollador especializado en desarrollo de aplicaciones multiplataforma, apasionado por crear soluciones eficientes y adaptables que aporten valor real a los usuarios. Me considero una persona curiosa y en constante aprendizaje, siempre al día de las últimas tendencias tecnológicas para mantenerme actualizado y aplicar lo mejor en cada proyecto.",
-    "bio_2": "Además de la programación, el deporte y la disciplina son una parte esencial de mi vida, cualidades que traslado a mi día a día laboral: constancia, organización y compromiso para alcanzar metas ambiciosas.",
+    "bio_1": "Soy un desarrollador especializado en aplicaciones multiplataforma, apasionado por crear soluciones eficientes y adaptables que aporten valor real a los usuarios. Me considero una persona curiosa y en constante aprendizaje, siempre al día de las últimas tendencias tecnológicas para aplicarlas en cada proyecto.",
+    "bio_2": "Además de la programación, el deporte y la disciplina son parte esencial de mi vida, cualidades que aplico a mi trabajo diario: constancia, organización y compromiso para alcanzar metas ambiciosas.",
     "bio_3": "Me motiva formar parte de proyectos donde pueda aportar innovación, trabajar en equipo y seguir creciendo profesionalmente, buscando siempre la excelencia técnica y la mejora continua.",
-    "bio_4": "También exploro flujos de trabajo impulsados por IA, orquestación de agentes (Hermes Agent, n8n) y metodologías SDD/TDD para construir software más inteligente y fiable.",
+    "bio_4": "También exploro flujos de desarrollo con IA, orquestación de agentes (Hermes Agent, n8n) y metodologías Spec/Test-Driven Development para construir software más inteligente y fiable.",
     "stack_header": "STACK",
-    "photo_filename": "profile.jpg",
+    "photo_filename": "perfil.jpg",
     "photo_meta": "JPG",
     "photo_caption": "[ OPERATOR ID: MIKEL ROMERO ]",
-    "status": "ESTADO: DISPONIBLE PARA CONTRATAR",
+    "status": "STATUS: AVAILABLE FOR HIRE",
     "categories": {
-      "languages": "LENGUAJES",
+      "production": "PRODUCCIÓN",
       "frontend": "FRONTEND",
-      "backend": "BACKEND BASES DATOS",
-      "tools": "HERRAMIENTAS PLATAFORMAS"
+      "ai_workflow": "FLUJOS IA",
+      "tools": "HERRAMIENTAS"
     },
     "items": {
-      "languages": ["Java", "JavaScript", "SQL / PL-SQL", "Python", "PHP"],
-      "frontend": ["HTML5", "CSS3", "XML / XSD / XSLT"],
-      "backend": ["MySQL", "PostgreSQL", "MongoDB", "Hibernate", "Spring Boot", "MCP", "REST API"],
-      "tools": ["Git / GitHub", "Eclipse", "NetBeans", "Android Studio", "Unity", "Odoo", "SCRUM", "Trello", "Claude Code", "OpenCode", "Docker"]
+      "production": ["Java", "Spring Boot", "PostgreSQL", "MySQL", "Hibernate", "REST APIs"],
+      "frontend": ["React", "TypeScript", "Tailwind CSS", "HTML5", "CSS3"],
+      "ai_workflow": ["Claude Code", "OpenCode", "n8n", "MCP", "Hermes Agent"],
+      "tools": ["Git", "Docker", "Android Studio", "Vim", "Bash"]
     }
   },
   "contact": {
-    "headline": "CONSTRUYAMOS",
-    "headline_2": "ALGO QUE PERDURE.",
+    "headline": "¿HABLAMOS?",
+    "headline_2": "ABIERTO A PROYECTOS, FREELANCE O UNA CHARLA RÁPIDA.",
     "email": "mikelromerohomobono@gmail.com",
     "socials": [
       { "label": "GITHUB", "handle": "github.com/mikelrh-dev", "url": "https://github.com/mikelrh-dev" },

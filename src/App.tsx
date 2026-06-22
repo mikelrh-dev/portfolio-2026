@@ -6,6 +6,7 @@ import AboutStack from './components/sections/AboutStack';
 import Contact from './components/sections/Contact';
 import FilmGrain from './components/effects/FilmGrain';
 import ScrollProgress from './components/effects/ScrollProgress';
+import ErrorBoundary from './components/ErrorBoundary';
 
 export default function App() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -22,16 +23,18 @@ export default function App() {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative min-h-screen bg-[#000000] text-[#FFFFFF] antialiased">
-      <ScrollProgress />
-      <FilmGrain />
-      <Nav />
-      <main>
-         <Hero />
-        <AboutStack />
-        <SelectedWork />
-        <Contact />
-      </main>
-    </div>
+    <ErrorBoundary>
+      <div ref={containerRef} className="relative min-h-screen bg-[#000000] text-[#FFFFFF] antialiased">
+        <ScrollProgress />
+        <FilmGrain />
+        <Nav />
+        <main>
+           <Hero />
+          <AboutStack />
+          <SelectedWork />
+          <Contact />
+        </main>
+      </div>
+    </ErrorBoundary>
   );
 }

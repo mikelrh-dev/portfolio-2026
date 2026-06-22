@@ -83,21 +83,21 @@
     "photo_caption": "[ OPERATOR ID: MIKEL ROMERO ]",
     "status": "STATUS: AVAILABLE FOR HIRE",
     "categories": {
-      "languages": "LANGUAGES",
+      "production": "PRODUCTION",
       "frontend": "FRONTEND",
-      "backend": "BACKEND DATABASES",
-      "tools": "TOOLS PLATFORMS"
+      "ai_workflow": "AI WORKFLOW",
+      "tools": "TOOLS"
     },
     "items": {
-      "languages": ["Java", "JavaScript", "SQL / PL-SQL", "Python", "PHP"],
-      "frontend": ["HTML5", "CSS3", "XML / XSD / XSLT"],
-      "backend": ["MySQL", "PostgreSQL", "MongoDB", "Hibernate", "Spring Boot", "MCP", "REST API"],
-      "tools": ["Git / GitHub", "Eclipse", "NetBeans", "Android Studio", "Unity", "Odoo", "SCRUM", "Trello", "Claude Code", "OpenCode", "Docker"]
+      "production": ["Java", "Spring Boot", "PostgreSQL", "MySQL", "Hibernate", "REST APIs"],
+      "frontend": ["React", "TypeScript", "Tailwind CSS", "HTML5", "CSS3"],
+      "ai_workflow": ["Claude Code", "OpenCode", "n8n", "MCP", "Hermes Agent"],
+      "tools": ["Git", "Docker", "Android Studio", "Vim", "Bash"]
     }
   },
   "contact": {
-    "headline": "LETS BUILD",
-    "headline_2": "SOMETHING THAT LASTS.",
+    "headline": "LET'S TALK",
+    "headline_2": "OPEN TO PROJECTS, FREELANCE, OR A QUICK CHAT.",
     "email": "mikelromerohomobono@gmail.com",
     "socials": [
       { "label": "GITHUB", "handle": "github.com/mikelrh-dev", "url": "https://github.com/mikelrh-dev" },
