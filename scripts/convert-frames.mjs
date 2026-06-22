@@ -1,18 +1,23 @@
-// One-shot conversion: PNG sequence -> WebP (q80) at 1280px max width.
-// Output goes to public/firstAnim/webp/ — does NOT touch the originals.
+// One-shot conversion: PNG sequence -> WebP (lossless) at original resolution.
+// Output goes to <out-dir> — does NOT touch the originals.
 //
-// Usage:  node scripts/convert-frames.mjs
+// Usage:  node scripts/convert-frames.mjs <src-dir> [out-dir]
 //
 // Safe to delete the script after the conversion is done.
 
 import sharp from 'sharp';
-import { readdir, mkdir, stat, unlink } from 'node:fs/promises';
+import { readdir, mkdir, stat } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 
-const SRC_DIR = resolve('public/firstAnim');
-const OUT_DIR = resolve('public/firstAnim/webp');
-const MAX_WIDTH = 1280;
-const QUALITY = 80;
+const args = process.argv.slice(2);
+if (args.length < 1) {
+  console.error('Usage: node scripts/convert-frames.mjs <src-dir> [out-dir]');
+  process.exit(1);
+}
+
+const SRC_DIR = resolve(args[0]);
+const OUT_DIR = resolve(args[1] ?? 'public/firstAnim');
+const MAX_WIDTH = 0; // 0 = keep original resolution
 
 async function main() {
   await mkdir(OUT_DIR, { recursive: true });
@@ -22,7 +27,9 @@ async function main() {
     .sort();
 
   console.log(`Found ${files.length} PNG frames in ${SRC_DIR}`);
-  console.log(`Converting to WebP q${QUALITY}, max width ${MAX_WIDTH}px -> ${OUT_DIR}`);
+  console.log(
+    `Converting to WebP lossless${MAX_WIDTH ? `, max width ${MAX_WIDTH}px` : ' at original size'} -> ${OUT_DIR}`,
+  );
 
   let totalIn = 0;
   let totalOut = 0;
@@ -36,10 +43,12 @@ async function main() {
     const inStat = await stat(inPath);
     totalIn += inStat.size;
 
-    await sharp(inPath)
-      .rotate() // honor EXIF orientation if any
-      .resize({ width: MAX_WIDTH, withoutEnlargement: true })
-      .webp({ quality: QUALITY, effort: 4, smartSubsample: true })
+    let pipeline = sharp(inPath).rotate(); // honor EXIF orientation if any
+    if (MAX_WIDTH > 0) {
+      pipeline = pipeline.resize({ width: MAX_WIDTH, withoutEnlargement: true });
+    }
+    await pipeline
+      .webp({ lossless: true, effort: 4 })
       .toFile(outPath);
 
     const outStat = await stat(outPath);

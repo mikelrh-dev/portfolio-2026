@@ -25,6 +25,12 @@ interface ScrollSequenceProps {
    * other effects (text fade, etc.) in lockstep with the frame index.
    */
   containerRef?: RefObject<HTMLDivElement>;
+  /**
+   * Optional external progress (0-1). When provided, ScrollSequence uses
+   * this MotionValue as the source of truth instead of the container's
+   * own scroll. This enables hybrid patterns (manual scroll + autoplay).
+   */
+  externalProgress?: MotionValue<number>;
   /** Children rendered ON TOP of the canvas (e.g. hero text) */
   children?: React.ReactNode;
 }
@@ -82,6 +88,7 @@ export default function ScrollSequence({
   ext = '.png',
   scrollMultiplier = 3,
   containerRef: externalRef,
+  externalProgress,
   children,
 }: ScrollSequenceProps) {
   const internalRef = useRef<HTMLDivElement>(null);
@@ -93,15 +100,17 @@ export default function ScrollSequence({
   const { images, progress } = useImageSequence(frameCount, basePath, padWidth, ext);
   const ready = progress === 1;
 
-  // Track scroll progress over the tall container
-  const { scrollYProgress } = useScroll({
+  // Internal scroll progress (used when no externalProgress is supplied)
+  const { scrollYProgress: internalScrollProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
   });
+  // Source of truth for the frame index — external override wins
+  const sourceProgress = externalProgress ?? internalScrollProgress;
 
   // Map [0, 1] -> [0, frameCount - 1]
   const frameIndex: MotionValue<number> = useTransform(
-    scrollYProgress,
+    sourceProgress,
     [0, 1],
     [0, frameCount - 1],
   );

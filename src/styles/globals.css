@@ -21,6 +21,17 @@
   --font-size-body-lg: 16px;
 }
 
+@keyframes tagline-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @layer base {
   *,
   *::before,
@@ -74,7 +85,7 @@
     background-position: 0px var(--grid-offset, 0px);
     opacity: 0.2;
     pointer-events: none;
-    z-index: 0;
+    z-index: -1;
     will-change: background-position;
     mask-image: radial-gradient(ellipse 100% 70% at 50% 30%, #000 20%, transparent 90%);
     -webkit-mask-image: radial-gradient(ellipse 100% 70% at 50% 30%, #000 20%, transparent 90%);
