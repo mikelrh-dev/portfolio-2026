@@ -13,7 +13,7 @@ export default function AboutStack() {
       <div className="max-w-6xl mx-auto">
         {/* Section indicator */}
         <div className="section-indicator">
-          03/04 — {t('indicators.about')}
+          02/04 — {t('indicators.about')}
         </div>
 
         {/* ALL CAPS headline — text scramble */}

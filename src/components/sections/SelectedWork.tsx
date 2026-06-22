@@ -61,7 +61,7 @@ export default function SelectedWork() {
       <div className="max-w-6xl mx-auto">
         {/* Section indicator */}
         <div className="section-indicator">
-          02/04 — {t('indicators.work')}
+          03/04 — {t('indicators.work')}
         </div>
 
         {/* Section headline — text scramble */}

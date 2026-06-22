@@ -4,7 +4,7 @@ import LangToggle from './LangToggle';
 
 export default function Nav() {
   const { t } = useTranslation();
-  const activeId = useScrollSpy(['hero', 'work', 'about', 'contact']);
+  const activeId = useScrollSpy(['hero', 'about', 'work', 'contact']);
 
   const sectionLabels: Record<string, string> = {
     hero: t('indicators.hero'),
@@ -13,7 +13,7 @@ export default function Nav() {
     contact: t('indicators.contact'),
   };
 
-  const sectionOrder = ['hero', 'work', 'about', 'contact'] as const;
+  const sectionOrder = ['hero', 'about', 'work', 'contact'] as const;
   const activeIndex = sectionOrder.indexOf(activeId as typeof sectionOrder[number]);
 
   return (

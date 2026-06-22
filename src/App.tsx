@@ -27,9 +27,9 @@ export default function App() {
       <FilmGrain />
       <Nav />
       <main>
-        <Hero />
-        <SelectedWork />
+         <Hero />
         <AboutStack />
+        <SelectedWork />
         <Contact />
       </main>
     </div>
