@@ -3,9 +3,10 @@ import { useTranslation } from 'react-i18next';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ScrollSequence from '../effects/ScrollSequence';
+import HeroNoise from '../effects/HeroNoise';
 import MagneticButton from '../effects/MagneticButton';
 
-const FRAME_COUNT = 150;
+const FRAME_COUNT = 90;
 const SCROLL_MULTIPLIER = 3;
 
 if (typeof window !== 'undefined') {
@@ -18,17 +19,20 @@ export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
+  const fadeToBlackRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     const container = containerRef.current;
     const title = titleRef.current;
     const indicator = indicatorRef.current;
-    if (!container || !title || !indicator) return;
+    const fadeToBlack = fadeToBlackRef.current;
+    if (!container || !title || !indicator || !fadeToBlack) return;
 
     // Keep non-null references for use inside callbacks
     const c: HTMLDivElement = container;
     const t: HTMLDivElement = title;
     const i: HTMLDivElement = indicator;
+    const f: HTMLDivElement = fadeToBlack;
 
     const ctx = gsap.context(() => {
       const scrollRange = c.offsetHeight - window.innerHeight;
@@ -53,6 +57,11 @@ export default function Hero() {
       // Indicator: stays opaque until 95%, fades out 95-100%
       tl.to(i, { opacity: 0, duration: 0.05, ease: 'power1.out' }, 0.95);
 
+      // Fade-to-black: covers everything during the last 5% of scroll (95%-100%).
+      // Integrated into the same timeline so it's perfectly synced with the
+      // title/indicator fades.
+      tl.to(f, { opacity: 1, duration: 0.05, ease: 'none' }, 0.95);
+
       // Tagline reveal — fires once when the user scrolls past 4%
       ScrollTrigger.create({
         trigger: c,
@@ -60,7 +69,20 @@ export default function Hero() {
         end: () => `+=${scrollRange * 0.04}`,
         onEnter: () => setShowTagline(true),
       });
+
+      // Reset fade-to-black when the user scrolls back up past the Hero.
+      // The overlay is fixed, so without this it would stay at opacity: 1
+      // forever after the timeline completes.
+      ScrollTrigger.create({
+        trigger: c,
+        start: 'top top',
+        end: 'bottom top',
+        onLeaveBack: () => { gsap.set(f, { opacity: 0 }); },
+      });
     }, c);
+
+    // Force recalculation after all triggers are created
+    ScrollTrigger.refresh();
 
     return () => {
       ctx.revert();
@@ -83,16 +105,9 @@ export default function Hero() {
           scrollMultiplier={SCROLL_MULTIPLIER}
           containerRef={containerRef}
         >
-          {/* Watermark disguise */}
-          <div
-            className="absolute bottom-0 right-0 pointer-events-none z-10"
-            style={{
-              width: '45%',
-              height: '45%',
-              background:
-                'radial-gradient(ellipse at bottom right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 25%, rgba(0,0,0,0.6) 55%, rgba(0,0,0,0) 85%)',
-            }}
-          />
+          {/* Local noise overlay — disimulates 8-bit banding in the dark
+              frames. Sits above the canvas, below the text. */}
+          <HeroNoise />
 
           <div
             ref={indicatorRef}
@@ -103,19 +118,22 @@ export default function Hero() {
 
           <div
             ref={titleRef}
-            className="absolute inset-0 z-20 flex flex-col items-start justify-center px-6 sm:px-12"
+            className="absolute inset-0 z-20 flex flex-col items-start justify-center px-6 sm:px-12 py-8 border-l-2 border-[#CCFF00]/40"
+            style={{
+              background: 'linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%)',
+            }}
           >
-            <h1 className="font-mono font-bold text-[clamp(1.75rem,7vw,7rem)] leading-[1.0] text-[#FFFFFF] uppercase tracking-[-0.02em] w-full max-w-5xl [overflow-wrap:anywhere]">
+            <h1 className="font-mono font-bold text-[clamp(1.5rem,4.5vw,4.5rem)] leading-[1.05] text-[#FFFFFF] uppercase tracking-[0.02em] w-full max-w-5xl [overflow-wrap:anywhere] drop-shadow-[0_2px_4px_rgba(0,0,0,1)] drop-shadow-[0_0_12px_rgba(0,0,0,0.9)]">
               THE HUMAN IN THE LOOP.
             </h1>
 
             {showTagline && (
-              <div className="mt-6 max-w-3xl animate-[tagline-in_0.6s_ease-out_forwards]">
-                <p className="font-mono text-[clamp(0.9rem,1.5vw,1.125rem)] text-[#888888] mb-2 uppercase tracking-[0.12em]">
+              <div className="mt-6 max-w-3xl animate-[tagline-in_0.6s_ease-out_forwards] drop-shadow-[0_1px_3px_rgba(0,0,0,1)]">
+                <p className="font-mono text-[clamp(0.9rem,1.5vw,1.125rem)] text-[#E5E5E5] mb-2 uppercase tracking-[0.12em]">
                   <span>{t('hero.tagline_1')}</span>{' '}
                   <span className="text-[#CCFF00] font-bold">{t('hero.tagline_2')}</span>
                 </p>
-                <p className="font-mono text-[13px] text-zinc-500 uppercase tracking-[0.12em]">
+                <p className="font-mono text-[13px] text-[#AAAAAA] uppercase tracking-[0.12em]">
                   {t('hero.role')}
                 </p>
               </div>
@@ -140,6 +158,14 @@ export default function Hero() {
             </div>
           </div>
         </ScrollSequence>
+
+        {/* Fade-to-black overlay — FIXED position so it covers the viewport
+            even after the sticky stage detaches. Last child, highest z. */}
+        <div
+          ref={fadeToBlackRef}
+          className="fixed inset-0 pointer-events-none z-[60] bg-black"
+          style={{ opacity: 0 }}
+        />
       </div>
     </section>
   );

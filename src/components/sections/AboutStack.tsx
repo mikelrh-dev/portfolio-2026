@@ -9,7 +9,7 @@ export default function AboutStack() {
   const categories = ['languages', 'frontend', 'backend', 'tools'] as const;
 
   return (
-    <section id="about" className="relative z-10 px-4 py-[clamp(4rem,8vw,8rem)]">
+    <section id="about" className="relative z-10 bg-black px-4 py-[clamp(4rem,8vw,8rem)]">
       <div className="max-w-6xl mx-auto">
         {/* Section indicator */}
         <div className="section-indicator">

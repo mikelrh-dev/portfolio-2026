@@ -1,5 +1,13 @@
+import { useLayoutEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import TextScramble from '../effects/TextScramble';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 /* --- Stack category priority: lower number renders first --- */
 const STACK_CATEGORY: Record<string, number> = {
@@ -25,6 +33,36 @@ function sortStack(stack: string[]): string[] {
 
 export default function SelectedWork() {
   const { t } = useTranslation();
+  const reducedMotion = useReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
+  const indicatorRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    if (reducedMotion) return;
+
+    const s: HTMLElement = section;
+
+    const ctx = gsap.context(() => {
+      // Indicator fade-out at section bottom
+      if (indicatorRef.current) {
+        gsap.to(indicatorRef.current, {
+          opacity: 0,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: s,
+            start: 'bottom bottom',
+            end: 'bottom top',
+            scrub: 0.5,
+          },
+        });
+      }
+    }, s);
+
+    ScrollTrigger.refresh();
+    return () => ctx.revert();
+  }, []);
 
   const projects = t('work.projects', { returnObjects: true }) as Array<{
     id: string;
@@ -57,10 +95,10 @@ export default function SelectedWork() {
   ];
 
   return (
-    <section id="work" className="relative z-10 px-4 py-[clamp(4rem,8vw,8rem)]">
+    <section id="work" ref={sectionRef} className="relative z-10 px-4 py-[clamp(4rem,8vw,8rem)]">
       <div className="max-w-6xl mx-auto">
         {/* Section indicator */}
-        <div className="section-indicator">
+        <div ref={indicatorRef} className="section-indicator">
           03/04 — {t('indicators.work')}
         </div>
 
@@ -74,16 +112,17 @@ export default function SelectedWork() {
         {/* Uniform grid — 3 columns, all cards equal height */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
           {allItems.map((item) => (
-            <ProjectCard
-              key={item.id}
-              index={item.index}
-              title={item.title}
-              verbo={item.verbo}
-              impact={item.impact}
-              stack={item.stack.slice(0, 4)}
-              image={item.image}
-              url={item.url}
-            />
+            <div key={item.id} className="project-card">
+              <ProjectCard
+                index={item.index}
+                title={item.title}
+                verbo={item.verbo}
+                impact={item.impact}
+                stack={item.stack.slice(0, 4)}
+                image={item.image}
+                url={item.url}
+              />
+            </div>
           ))}
         </div>
       </div>
