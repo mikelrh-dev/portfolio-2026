@@ -10,7 +10,6 @@ console.log('[BOOT] main.tsx start', new Date().toISOString());
 
 // Catch any unhandled error or rejection and surface it on screen
 function showFatal(msg: string, detail?: unknown): void {
-  const root = document.getElementById('root');
   const pre = document.createElement('pre');
   pre.style.cssText =
     'position:fixed;inset:0;background:#1a0000;color:#ff8888;padding:2rem;font-family:monospace;font-size:13px;z-index:99999;overflow:auto;white-space:pre-wrap;margin:0;';
