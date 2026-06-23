@@ -180,7 +180,7 @@ export default function ScrollSequence({
   // `z-10` lifts the sticky stage above the body::after grid overlay so
   // the animation renders cleanly without parallax-grid interference.
   const stage = (
-    <div className="sticky top-0 z-10 h-screen w-full overflow-hidden">
+    <div className="sticky top-0 z-10 h-[100svh] md:h-screen w-full overflow-hidden">
       {/* Black backdrop while frames are still loading */}
       <div className="absolute inset-0 bg-black" />
 
