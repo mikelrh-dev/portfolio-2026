@@ -1,4 +1,6 @@
-# portfolio-2026
+# Portfolio-2026
+
+![Portfolio Banner](/public/banner.png)
 
 Personal portfolio site. React 18 + TypeScript 5 + Vite 5, with i18n, design tokens, 3D scenes, and motion-driven interactions.
 
