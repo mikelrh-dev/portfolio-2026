@@ -45,6 +45,7 @@ export default function Hero() {
           start: 'top top',
           end: () => `+=${scrollRange}`,
           scrub: 0.5,
+          invalidateOnRefresh: true,
         },
       });
 
@@ -85,8 +86,13 @@ export default function Hero() {
     // Force recalculation after all triggers are created
     ScrollTrigger.refresh();
 
+    // Re-calc GSAP on visual viewport resize (URL bar hide/show on mobile)
+    const handleViewportResize = () => ScrollTrigger.refresh();
+    window.visualViewport?.addEventListener('resize', handleViewportResize);
+
     return () => {
       ctx.revert();
+      window.visualViewport?.removeEventListener('resize', handleViewportResize);
     };
   }, []);
 
@@ -100,21 +106,20 @@ export default function Hero() {
   }, []);
 
   return (
-    <section
-      id="hero"
-      ref={containerRef}
-      className="relative z-0 isolate w-full"
-      style={{ height: `${SCROLL_MULTIPLIER * 100}vh` }}
-    >
-      <div className="sticky top-0 h-[100svh] md:h-screen w-full overflow-hidden">
+      <section
+        id="hero"
+        ref={containerRef}
+        className={`relative z-0 isolate w-full${enableMobileFrames ? ' hero-height-mobile' : ''}`}
+        style={enableMobileFrames ? undefined : { height: `${SCROLL_MULTIPLIER * 100}vh` }}
+      >
         <ScrollSequence
-          frameCount={FRAME_COUNT}
-          basePath={enableMobileFrames ? "/firstAnim/ezgif-frame-mobile-" : "/firstAnim/ezgif-frame-"}
-          padWidth={3}
-          ext=".webp"
-          scrollMultiplier={SCROLL_MULTIPLIER}
-          containerRef={containerRef}
-        >
+            frameCount={FRAME_COUNT}
+            basePath={enableMobileFrames ? "/firstAnim/ezgif-frame-mobile-" : "/firstAnim/ezgif-frame-"}
+            padWidth={3}
+            ext=".webp"
+            scrollMultiplier={SCROLL_MULTIPLIER}
+            containerRef={containerRef}
+          >
           <HeroNoise />
           <div
             ref={indicatorRef}
@@ -169,7 +174,6 @@ export default function Hero() {
           className="fixed inset-0 pointer-events-none z-[60] bg-black"
           style={{ opacity: 0 }}
         />
-      </div>
     </section>
   );
 }

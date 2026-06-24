@@ -3,3 +3,9 @@
 @import './styles/tokens.css';
 @import './styles/globals.css';
 @import './styles/film-grain.css';
+
+/* Mobile hero height — dvh with svh fallback for browsers without dvh support */
+.hero-height-mobile {
+  height: 300svh;
+  height: 300dvh;
+}

@@ -58,19 +58,19 @@ function drawCover(
   let dy: number;
   if (imgAspect > canvasAspect) {
     // Image is wider — fit by height, crop sides
-    drawH = canvasH;
-    drawW = canvasH * imgAspect;
-    dx = (canvasW - drawW) / 2;
+    drawH = targetH;
+    drawW = targetH * imgAspect;
+    dx = (targetW - drawW) / 2;
     dy = 0;
   } else {
     // Image is taller — fit by width, crop top/bottom
-    drawW = canvasW;
-    drawH = canvasW / imgAspect;
+    drawW = targetW;
+    drawH = targetW / imgAspect;
     dx = 0;
-    dy = (canvasH - drawH) / 2;
+    dy = (targetH - drawH) / 2;
   }
 
-  ctx.clearRect(0, 0, canvasW, canvasH);
+  ctx.clearRect(0, 0, targetW, targetH);
   ctx.drawImage(img, dx, dy, drawW, drawH);
 }
 
@@ -180,7 +180,7 @@ export default function ScrollSequence({
   // `z-10` lifts the sticky stage above the body::after grid overlay so
   // the animation renders cleanly without parallax-grid interference.
   const stage = (
-    <div className="sticky top-0 z-10 h-[100svh] md:h-screen w-full overflow-hidden">
+    <div className="sticky top-0 z-10 h-dvh w-full overflow-hidden">
       {/* Black backdrop while frames are still loading */}
       <div className="absolute inset-0 bg-black" />
 
