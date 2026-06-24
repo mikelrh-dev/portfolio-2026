@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState, useEffect } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -16,7 +16,6 @@ if (typeof window !== 'undefined') {
 export default function Hero() {
   const { t } = useTranslation();
   const [showTagline, setShowTagline] = useState(false);
-  const [enableMobileFrames, setEnableMobileFrames] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
@@ -96,25 +95,16 @@ export default function Hero() {
     };
   }, []);
 
-  // Detect mobile (<768px) via matchMedia to select frame set
-  useEffect(() => {
-    const mq = window.matchMedia('(max-width: 767px)');
-    setEnableMobileFrames(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setEnableMobileFrames(e.matches);
-    mq.addEventListener('change', handler);
-    return () => mq.removeEventListener('change', handler);
-  }, []);
-
   return (
       <section
         id="hero"
         ref={containerRef}
-        className={`relative z-0 isolate w-full${enableMobileFrames ? ' hero-height-mobile' : ''}`}
-        style={enableMobileFrames ? undefined : { height: `${SCROLL_MULTIPLIER * 100}vh` }}
+        className="relative z-0 isolate w-full"
+        style={{ height: `${SCROLL_MULTIPLIER * 100}vh` }}
       >
         <ScrollSequence
             frameCount={FRAME_COUNT}
-            basePath={enableMobileFrames ? "/firstAnim/ezgif-frame-mobile-" : "/firstAnim/ezgif-frame-"}
+            basePath="/firstAnim/ezgif-frame-"
             padWidth={3}
             ext=".webp"
             scrollMultiplier={SCROLL_MULTIPLIER}
