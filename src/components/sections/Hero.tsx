@@ -21,6 +21,9 @@ export default function Hero() {
   const indicatorRef = useRef<HTMLDivElement>(null);
   const fadeToBlackRef = useRef<HTMLDivElement>(null);
 
+  // Proxy object to animate grid opacity via CSS custom property
+  const gridProxy = { opacity: 0 };
+
   useLayoutEffect(() => {
     const container = containerRef.current;
     const title = titleRef.current;
@@ -33,6 +36,9 @@ export default function Hero() {
     const t: HTMLDivElement = title;
     const i: HTMLDivElement = indicator;
     const f: HTMLDivElement = fadeToBlack;
+
+    // Find the canvas inside the hero container
+    const canvas = c.querySelector('canvas');
 
     const ctx = gsap.context(() => {
       const scrollRange = c.offsetHeight - window.innerHeight;
@@ -58,10 +64,29 @@ export default function Hero() {
       // Indicator: stays opaque until 95%, fades out 95-100%
       tl.to(i, { opacity: 0, duration: 0.05, ease: 'power1.out' }, 0.95);
 
-      // Fade-to-black: covers everything during the last 5% of scroll (95%-100%).
-      // Integrated into the same timeline so it's perfectly synced with the
-      // title/indicator fades.
-      tl.to(f, { opacity: 1, duration: 0.05, ease: 'none' }, 0.95);
+      // Canvas implosion (95-100%): scale down + blur + fade instead of black overlay
+      if (canvas) {
+        tl.to(canvas, {
+          scale: 0.85,
+          opacity: 0,
+          filter: 'blur(8px)',
+          duration: 0.15,
+          ease: 'power2.inOut',
+        }, 0.95);
+      }
+
+      // Grid emergence: fades in from 0 to 0.2 as Hero exits
+      tl.to(gridProxy, {
+        opacity: 0.2,
+        duration: 0.15,
+        ease: 'power1.out',
+        onUpdate: () => {
+          document.documentElement.style.setProperty('--grid-opacity', String(gridProxy.opacity));
+        },
+      }, 0.95);
+
+      // Subtle dark overlay (was 1.0, now 0.15 — just enough to smooth the transition)
+      tl.to(f, { opacity: 0.15, duration: 0.15, ease: 'power1.out' }, 0.95);
 
       // Tagline reveal — fires once when the user scrolls past 4%
       ScrollTrigger.create({
@@ -71,14 +96,19 @@ export default function Hero() {
         onEnter: () => setShowTagline(true),
       });
 
-      // Reset fade-to-black when the user scrolls back up past the Hero.
-      // The overlay is fixed, so without this it would stay at opacity: 1
-      // forever after the timeline completes.
+      // Reset canvas and fade overlay when user scrolls back up
       ScrollTrigger.create({
         trigger: c,
         start: 'top top',
         end: 'bottom top',
-        onLeaveBack: () => { gsap.set(f, { opacity: 0 }); },
+        onLeaveBack: () => {
+          gsap.set(f, { opacity: 0 });
+          if (canvas) {
+            gsap.set(canvas, { scale: 1, opacity: 1, filter: 'blur(0px)', clearProps: 'transform' });
+          }
+          gsap.set(gridProxy, { opacity: 0 });
+          document.documentElement.style.setProperty('--grid-opacity', '0');
+        },
       });
     }, c);
 
