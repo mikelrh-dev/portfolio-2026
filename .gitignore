@@ -48,3 +48,7 @@ coverage
 
 # OpenSpec / generated
 .openspec
+
+# Source assets (raw frames, upscaled originals)
+# Processed outputs live in public/assets/
+asset/

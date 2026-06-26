@@ -1,103 +1,183 @@
+import { motion, useTransform } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import Card from '../ui/Card';
-import Tag from '../ui/Tag';
-import TextScramble from '../effects/TextScramble';
+import ScrollSequence from '../effects/ScrollSequence';
+import { useScrollSequence } from '../effects/SharedScrollSequence';
+
+const categories = ['production', 'frontend', 'ai_workflow', 'tools'] as const;
+
+/** Reveal config: [start, end] progress thresholds for each element */
+const REVEAL = {
+  indicator: [0.08, 0.12] as [number, number],
+  bio1: [0.20, 0.30] as [number, number],
+  bio2: [0.30, 0.40] as [number, number],
+  bio3: [0.40, 0.50] as [number, number],
+  bio4: [0.50, 0.60] as [number, number],
+  stackHeader: [0.55, 0.60] as [number, number],
+  cat0: [0.60, 0.65] as [number, number],
+  cat1: [0.65, 0.70] as [number, number],
+  cat2: [0.70, 0.75] as [number, number],
+  cat3: [0.75, 0.80] as [number, number],
+};
+
+function useReveal(thresholds: [number, number]) {
+  const { aboutProgress } = useScrollSequence();
+  return {
+    opacity: useTransform(aboutProgress, thresholds, [0, 1]),
+    y: useTransform(aboutProgress, thresholds, [20, 0]),
+  };
+}
 
 export default function AboutStack() {
   const { t } = useTranslation();
+  const { containerRef, isMobile, aboutProgress, totalProgress } = useScrollSequence();
 
-  const categories = ['production', 'frontend', 'ai_workflow', 'tools'] as const;
+  const revealIndicator = useReveal(REVEAL.indicator);
+  const revealBio1 = useReveal(REVEAL.bio1);
+  const revealBio2 = useReveal(REVEAL.bio2);
+  const revealBio3 = useReveal(REVEAL.bio3);
+  const revealBio4 = useReveal(REVEAL.bio4);
+  const revealStackH = useReveal(REVEAL.stackHeader);
+  const revealCat0 = useReveal(REVEAL.cat0);
+  const revealCat1 = useReveal(REVEAL.cat1);
+  const revealCat2 = useReveal(REVEAL.cat2);
+  const revealCat3 = useReveal(REVEAL.cat3);
+
+  const catReveals = [revealCat0, revealCat1, revealCat2, revealCat3];
+
+  // Canvas fades in during the last ~3% of hero scroll range (32%→35%).
+  // Fully opaque when aboutProgress begins, so the user sees frame 001
+  // at full brightness without any frames lost to the transition.
+  const canvasOpacity = useTransform(
+    totalProgress,
+    [0.32, 0.35, 1.0],
+    [0, 1, 1],
+  );
+
+  // About section height: 65% of the 700vh shared container.
+  // Starts at 35% (after hero), plays upscaled frames 1-143.
+  const ABOUT_SECTION_HEIGHT = '455vh';
 
   return (
-    <section id="about" className="relative z-10 bg-black px-4 py-[clamp(4rem,8vw,8rem)]">
-      <div className="max-w-6xl mx-auto">
-        {/* Section indicator */}
-        <div className="section-indicator">
-          <span className="text-[#CCFF00] font-bold">02/04</span>
-          <span className="text-[#888888]">—</span>
-          <span>{t('indicators.about')}</span>
-        </div>
-
-        {/* ALL CAPS headline — text scramble */}
-        <TextScramble
-          as="h2"
-          text={t('about.bio_1').split('.')[0] + '.'}
-          className="font-mono font-bold text-[clamp(1.6rem,3.5vw,2.5rem)] leading-[1.05] text-[#FFFFFF] mb-12 uppercase"
+    <section
+      id="about"
+      className="relative w-full"
+      style={{ height: ABOUT_SECTION_HEIGHT }}
+    >
+      {/* Sticky "camera" — holds canvas + content in viewport while
+          the section provides scroll distance for the sequence */}
+      <div className="sticky top-0 h-dvh w-full overflow-hidden bg-black">
+        {/* Full-viewport canvas background */}
+        <motion.div className="absolute inset-0" style={{ opacity: canvasOpacity }}>
+          <ScrollSequence
+          frameCount={isMobile ? 72 : 143}
+          basePath="/assets/sequences/about/frame-"
+          padWidth={3}
+          ext=".webp"
+          containerRef={containerRef}
+          externalProgress={aboutProgress}
+          alignY="top"
         />
+        </motion.div>
 
-        {/* Bio + Stack + Photo */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Bio paragraphs */}
-          <Card className="space-y-4">
-            <p className="text-[15px] leading-relaxed text-[#CCCCCC]">
-              {t('about.bio_1')}
-            </p>
-            <p className="text-[15px] leading-relaxed text-[#CCCCCC]">
-              {t('about.bio_2')}
-            </p>
-            <p className="text-[15px] leading-relaxed text-[#CCCCCC]">
-              {t('about.bio_3')}
-            </p>
-            <p className="text-[15px] leading-relaxed text-[#CCCCCC]">
-              {t('about.bio_4')}
-            </p>
-            {/* Visual divider — editorial rhythm */}
-            <div className="pt-4 mt-4 border-t border-[#222222]">
-              <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#888888]">
-                <span className="text-[#CCFF00]">●</span> {t('about.status')}
-              </p>
+        {/* Gradient overlay — darkens the bottom 2/3 of the viewport so
+            text remains readable over the animation. Sits between canvas
+            (z-0) and content (z-20). */}
+        <div className="absolute bottom-0 w-full h-2/3 bg-gradient-to-t from-black via-black/80 to-transparent z-10" />
+
+        {/* Content overlay */}
+        <div className="absolute inset-0 z-20 overflow-y-auto pointer-events-none">
+          <div className="flex min-h-dvh flex-col">
+
+            {/* Spacer pulls indicator up, keeps it accessible */}
+            <div className="flex-1 p-6 md:p-12">
+              <motion.div
+                className="section-indicator"
+                style={revealIndicator}
+              >
+                <span className="text-[#CCFF00] font-bold">02/04</span>
+                <span className="text-[#888888]">&mdash;</span>
+                <span>{t('indicators.about')}</span>
+              </motion.div>
             </div>
-          </Card>
 
-          {/* Stack panel */}
-          <Card className="h-full">
-            <p className="font-mono text-[#CCFF00] text-[13px] font-bold mb-6 tracking-[0.12em] uppercase">
-              [{t('about.stack_header')}]
-            </p>
-            <div className="space-y-5">
-              {categories.map((cat, catIdx) => (
-                <div key={cat}>
-                  <p className={`font-mono text-[11px] uppercase tracking-[0.08em] mb-2 ${catIdx === 0 ? 'text-[#CCFF00]' : 'text-[#FFFFFF]'}`}>
-                    {'//'} {t(`about.categories.${cat}`)}
-                  </p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {((t(`about.items.${cat}`, { returnObjects: true }) as string[]) || []).map(
-                      (tech: string) => (
-                        <Tag key={tech}>{tech}</Tag>
-                      ),
-                    )}
+            {/* ---- HUD Panel — anchored to the bottom ---- */}
+            <div className="w-full px-6 pb-12 md:px-12 md:pb-16">
+              <div className="max-w-5xl mx-auto">
+                {/* Mobile: stacked — desktop: 12-col grid */}
+                <div className="flex flex-col gap-8 md:grid md:grid-cols-12 md:gap-8 md:items-end">
+
+                  {/* ── Bio panel ── 5 columns ── */}
+                  <div className="md:col-span-5 space-y-4">
+                    <motion.p
+                      className="text-[14px] md:text-[15px] leading-relaxed text-[#CCCCCC]"
+                      style={revealBio1}
+                    >
+                      {t('about.bio_1')}
+                    </motion.p>
+                    <motion.p
+                      className="text-[14px] md:text-[15px] leading-relaxed text-[#CCCCCC]"
+                      style={revealBio2}
+                    >
+                      {t('about.bio_2')}
+                    </motion.p>
+                    <motion.p
+                      className="text-[14px] md:text-[15px] leading-relaxed text-[#CCCCCC]"
+                      style={revealBio3}
+                    >
+                      {t('about.bio_3')}
+                    </motion.p>
+                    <motion.p
+                      className="text-[14px] md:text-[15px] leading-relaxed text-[#CCCCCC]"
+                      style={revealBio4}
+                    >
+                      {t('about.bio_4')}
+                    </motion.p>
+
+                    {/* STATUS — green accent separator */}
+                    <div className="pt-4 mt-4 border-t border-[#CCFF00]">
+                      <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#CCFF00]">
+                        <span>{'\u25CF'}</span> {t('about.status')}
+                      </p>
+                    </div>
                   </div>
+
+                  {/* ── Stack panel ── 6 columns, offset by 1 ── */}
+                  <div className="md:col-span-6 md:col-start-7 space-y-5">
+                    <motion.p
+                      className="font-mono text-[#CCFF00] text-[13px] font-bold tracking-[0.12em] uppercase"
+                      style={revealStackH}
+                    >
+                      [{t('about.stack_header')}]
+                    </motion.p>
+
+                    {categories.map((cat, catIdx) => (
+                      <motion.div key={cat} style={catReveals[catIdx]}>
+                        <p className="font-mono text-[11px] uppercase tracking-[0.08em] mb-2 text-[#FFFFFF]">
+                          {'//'} {t(`about.categories.${cat}`)}
+                        </p>
+                        <div className="flex flex-wrap gap-1.5">
+                          {(
+                            (t(`about.items.${cat}`, {
+                              returnObjects: true,
+                            }) as string[]) || []
+                          ).map((tech: string) => (
+                            <span
+                              key={tech}
+                              className="inline-block font-mono text-[11px] uppercase tracking-[0.08em] text-[#CCCCCC] px-2.5 py-1 border border-[#555555] bg-transparent hover:bg-[#CCFF00] hover:text-black hover:border-[#CCFF00] transition-colors duration-150"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+
                 </div>
-              ))}
-            </div>
-          </Card>
-
-          {/* Photo panel — terminal window style */}
-          <Card className="flex flex-col">
-            {/* Window chrome */}
-            <div className="flex items-center gap-2 mb-4 font-mono text-[10px] tracking-[0.08em] text-[#888888] uppercase">
-              <span className="inline-block w-[6px] h-[6px] rounded-full bg-[#FF5F57]" />
-              <span className="inline-block w-[6px] h-[6px] rounded-full bg-[#FFBD2E]" />
-              <span className="inline-block w-[6px] h-[6px] rounded-full bg-[#28C840]" />
-              <span className="ml-1 text-[#FFFFFF]">{t('about.photo_filename')}</span>
-              <span className="ml-auto text-[#CCFF00]">{t('about.photo_meta')}</span>
+              </div>
             </div>
 
-            {/* Image — bleeds to card edges */}
-            <div className="relative -mx-6 mb-4 overflow-hidden border-y border-[#222222] bg-[#000000] aspect-[3/4]">
-              <img
-                src="/images/profile.jpg"
-                alt="Mikel Romero"
-                loading="lazy"
-                className="w-full h-full object-cover grayscale"
-              />
-            </div>
-
-            {/* Caption */}
-            <p className="font-mono text-[11px] text-[#FFFFFF] tracking-[0.12em] uppercase">
-              {t('about.photo_caption')}
-            </p>
-          </Card>
+          </div>
         </div>
       </div>
     </section>
