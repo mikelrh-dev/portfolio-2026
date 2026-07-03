@@ -31,6 +31,8 @@ interface ScrollSequenceProps {
    * own scroll. This enables hybrid patterns (manual scroll + autoplay).
    */
   externalProgress?: MotionValue<number>;
+  /** Vertical alignment when image is taller than the canvas. Default: center */
+  alignY?: 'center' | 'top' | 'bottom';
   /** Children rendered ON TOP of the canvas (e.g. hero text) */
   children?: React.ReactNode;
 }
@@ -42,6 +44,7 @@ function drawCover(
   canvasW: number,
   canvasH: number,
   dpr: number,
+  alignY: 'center' | 'top' | 'bottom' = 'center',
 ) {
   const targetW = Math.floor(canvasW * dpr);
   const targetH = Math.floor(canvasH * dpr);
@@ -67,7 +70,13 @@ function drawCover(
     drawW = targetW;
     drawH = targetW / imgAspect;
     dx = 0;
-    dy = (targetH - drawH) / 2;
+    if (alignY === 'top') {
+      dy = 0;
+    } else if (alignY === 'bottom') {
+      dy = targetH - drawH;
+    } else {
+      dy = (targetH - drawH) / 2;
+    }
   }
 
   ctx.clearRect(0, 0, targetW, targetH);
@@ -89,6 +98,7 @@ export default function ScrollSequence({
   scrollMultiplier = 3,
   containerRef: externalRef,
   externalProgress,
+  alignY = 'center',
   children,
 }: ScrollSequenceProps) {
   const internalRef = useRef<HTMLDivElement>(null);
@@ -130,7 +140,7 @@ export default function ScrollSequence({
       const w = canvas.clientWidth;
       const h = canvas.clientHeight;
       if (w === 0 || h === 0) return;
-      drawCover(ctx, img, w, h, dpr);
+      drawCover(ctx, img, w, h, dpr, alignY);
     };
 
     // Initial draw
@@ -144,7 +154,7 @@ export default function ScrollSequence({
     return () => {
       unsubscribe();
     };
-  }, [frameIndex, images, frameCount]);
+  }, [frameIndex, images, frameCount, alignY]);
 
   // Repaint on resize (debounced via rAF)
   useEffect(() => {
@@ -164,7 +174,7 @@ export default function ScrollSequence({
         const w = canvas.clientWidth;
         const h = canvas.clientHeight;
         if (w === 0 || h === 0) return;
-        drawCover(ctx, img, w, h, dpr);
+        drawCover(ctx, img, w, h, dpr, alignY);
       });
     };
     window.addEventListener('resize', handleResize);

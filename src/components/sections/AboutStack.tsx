@@ -1,22 +1,25 @@
-import { motion, useTransform } from 'framer-motion';
+import { useEffect } from 'react';
+import { animate, motion, useMotionValue, useTransform } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import ScrollSequence from '../effects/ScrollSequence';
 import { useScrollSequence } from '../effects/SharedScrollSequence';
 
 const categories = ['production', 'frontend', 'ai_workflow', 'tools'] as const;
 
-/** Reveal config: [start, end] progress thresholds for each element */
+/** Reveal config: [start, end] progress thresholds for each element
+ *  Compressed to 120vh so content is scannable while keeping smooth
+ *  fade+translate reveals for each block. */
 const REVEAL = {
-  indicator: [0.08, 0.12] as [number, number],
-  bio1: [0.20, 0.30] as [number, number],
-  bio2: [0.30, 0.40] as [number, number],
-  bio3: [0.40, 0.50] as [number, number],
-  bio4: [0.50, 0.60] as [number, number],
-  stackHeader: [0.55, 0.60] as [number, number],
-  cat0: [0.60, 0.65] as [number, number],
-  cat1: [0.65, 0.70] as [number, number],
-  cat2: [0.70, 0.75] as [number, number],
-  cat3: [0.75, 0.80] as [number, number],
+  indicator: [0.04, 0.08] as [number, number],
+  bio1: [0.10, 0.22] as [number, number],
+  bio2: [0.24, 0.36] as [number, number],
+  bio3: [0.38, 0.50] as [number, number],
+  bio4: [0.52, 0.64] as [number, number],
+  stackHeader: [0.66, 0.70] as [number, number],
+  cat0: [0.72, 0.77] as [number, number],
+  cat1: [0.78, 0.83] as [number, number],
+  cat2: [0.84, 0.89] as [number, number],
+  cat3: [0.90, 0.95] as [number, number],
 };
 
 function useReveal(thresholds: [number, number]) {
@@ -29,7 +32,37 @@ function useReveal(thresholds: [number, number]) {
 
 export default function AboutStack() {
   const { t } = useTranslation();
-  const { containerRef, isMobile, aboutProgress, totalProgress } = useScrollSequence();
+  const { containerRef, isMobile, aboutProgress } = useScrollSequence();
+
+  // Auto-play canvas: loops 143 frames (~6s at 24fps) while section is visible
+  const autoProgress = useMotionValue(0);
+
+  useEffect(() => {
+    const section = document.getElementById('about');
+    if (!section) return;
+    let controls: ReturnType<typeof animate> | null = null;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          autoProgress.jump(0);
+          controls = animate(autoProgress, 1, {
+            duration: 6,
+            ease: 'linear',
+          });
+        } else {
+          controls?.stop();
+        }
+      },
+      { threshold: 0.2 },
+    );
+
+    observer.observe(section);
+    return () => {
+      observer.disconnect();
+      controls?.stop();
+    };
+  }, [autoProgress]);
 
   const revealIndicator = useReveal(REVEAL.indicator);
   const revealBio1 = useReveal(REVEAL.bio1);
@@ -44,18 +77,9 @@ export default function AboutStack() {
 
   const catReveals = [revealCat0, revealCat1, revealCat2, revealCat3];
 
-  // Canvas fades in during the last ~3% of hero scroll range (32%→35%).
-  // Fully opaque when aboutProgress begins, so the user sees frame 001
-  // at full brightness without any frames lost to the transition.
-  const canvasOpacity = useTransform(
-    totalProgress,
-    [0.32, 0.35, 1.0],
-    [0, 1, 1],
-  );
-
-  // About section height: 65% of the 700vh shared container.
-  // Starts at 35% (after hero), plays upscaled frames 1-143.
-  const ABOUT_SECTION_HEIGHT = '455vh';
+  // About section height: 120vh keeps the section compact.
+  // Canvas auto-plays as background; content reveals via scroll progress.
+  const ABOUT_SECTION_HEIGHT = '120vh';
 
   return (
     <section
@@ -66,18 +90,16 @@ export default function AboutStack() {
       {/* Sticky "camera" — holds canvas + content in viewport while
           the section provides scroll distance for the sequence */}
       <div className="sticky top-0 h-dvh w-full overflow-hidden bg-black">
-        {/* Full-viewport canvas background */}
-        <motion.div className="absolute inset-0" style={{ opacity: canvasOpacity }}>
-          <ScrollSequence
+        {/* Auto-play canvas background — plays continuously while visible */}
+        <ScrollSequence
           frameCount={isMobile ? 72 : 143}
           basePath="/assets/sequences/about/frame-"
           padWidth={3}
           ext=".webp"
           containerRef={containerRef}
-          externalProgress={aboutProgress}
+          externalProgress={autoProgress}
           alignY="top"
         />
-        </motion.div>
 
         {/* Gradient overlay — darkens the bottom 2/3 of the viewport so
             text remains readable over the animation. Sits between canvas
@@ -104,30 +126,33 @@ export default function AboutStack() {
             <div className="w-full px-6 pb-12 md:px-12 md:pb-16">
               <div className="max-w-5xl mx-auto">
                 {/* Mobile: stacked — desktop: 12-col grid */}
-                <div className="flex flex-col gap-8 md:grid md:grid-cols-12 md:gap-8 md:items-end">
+                <div
+                  className="flex flex-col gap-8 md:grid md:grid-cols-12 md:gap-8 md:items-end"
+                  style={{ textShadow: '0px 2px 4px rgba(0,0,0,1), 0px 0px 30px rgba(0,0,0,0.95), 0px 0px 80px rgba(0,0,0,0.7)' }}
+                >
 
                   {/* ── Bio panel ── 5 columns ── */}
                   <div className="md:col-span-5 space-y-4">
                     <motion.p
-                      className="text-[14px] md:text-[15px] leading-relaxed text-[#CCCCCC]"
+                      className="text-[14px] md:text-[15px] leading-relaxed text-[#FFFFFF]"
                       style={revealBio1}
                     >
                       {t('about.bio_1')}
                     </motion.p>
                     <motion.p
-                      className="text-[14px] md:text-[15px] leading-relaxed text-[#CCCCCC]"
+                      className="text-[14px] md:text-[15px] leading-relaxed text-[#FFFFFF]"
                       style={revealBio2}
                     >
                       {t('about.bio_2')}
                     </motion.p>
                     <motion.p
-                      className="text-[14px] md:text-[15px] leading-relaxed text-[#CCCCCC]"
+                      className="text-[14px] md:text-[15px] leading-relaxed text-[#FFFFFF]"
                       style={revealBio3}
                     >
                       {t('about.bio_3')}
                     </motion.p>
                     <motion.p
-                      className="text-[14px] md:text-[15px] leading-relaxed text-[#CCCCCC]"
+                      className="text-[14px] md:text-[15px] leading-relaxed text-[#FFFFFF]"
                       style={revealBio4}
                     >
                       {t('about.bio_4')}
@@ -163,7 +188,7 @@ export default function AboutStack() {
                           ).map((tech: string) => (
                             <span
                               key={tech}
-                              className="inline-block font-mono text-[11px] uppercase tracking-[0.08em] text-[#CCCCCC] px-2.5 py-1 border border-[#555555] bg-transparent hover:bg-[#CCFF00] hover:text-black hover:border-[#CCFF00] transition-colors duration-150"
+                              className="inline-block font-mono text-[11px] uppercase tracking-[0.08em] text-[#E0E0E0] px-2.5 py-1 border border-[#555555] bg-transparent hover:bg-[#CCFF00] hover:text-black hover:border-[#CCFF00] transition-colors duration-150"
                             >
                               {tech}
                             </span>

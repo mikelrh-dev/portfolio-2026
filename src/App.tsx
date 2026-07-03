@@ -7,6 +7,7 @@ import Contact from './components/sections/Contact';
 import FilmGrain from './components/effects/FilmGrain';
 import ScrollProgress from './components/effects/ScrollProgress';
 import ErrorBoundary from './components/ErrorBoundary';
+import SharedScrollSequence from './components/effects/SharedScrollSequence';
 
 export default function App() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -29,8 +30,10 @@ export default function App() {
         <FilmGrain />
         <Nav />
         <main>
-           <Hero />
-          <AboutStack />
+          <SharedScrollSequence>
+            <Hero />
+            <AboutStack />
+          </SharedScrollSequence>
           <SelectedWork />
           <Contact />
         </main>
