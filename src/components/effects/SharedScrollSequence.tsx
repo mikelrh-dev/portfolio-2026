@@ -106,22 +106,44 @@ function MobileSequence({ children }: SharedScrollSequenceProps) {
   const scrollYProgress = useMotionValue(0);
 
   useEffect(() => {
-    const handleScroll = () => {
+    // rAF-throttle: coalesce the per-event getBoundingClientRect() layout
+    // read to one measurement per frame, and only push to the MotionValue
+    // when progress actually changed. This removes the per-scroll-event
+    // forced layout reads that compounded the About lag on low-end devices.
+    let rafId = 0;
+    let lastProgress = 0;
+
+    const measure = () => {
       const container = containerRef.current;
-      if (!container) return;
+      if (!container) {
+        rafId = 0;
+        return;
+      }
 
       const rect = container.getBoundingClientRect();
       const scrollProgress = Math.max(
         0,
         Math.min(1, -rect.top / (rect.height - window.innerHeight)),
       );
-      scrollYProgress.set(scrollProgress);
+
+      if (Math.abs(scrollProgress - lastProgress) > 0.001) {
+        scrollYProgress.set(scrollProgress);
+        lastProgress = scrollProgress;
+      }
+
+      rafId = 0;
+    };
+
+    const handleScroll = () => {
+      if (rafId) return; // one rAF per frame — throttle layout reads
+      rafId = requestAnimationFrame(measure);
     };
 
     handleScroll(); // initial position
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleScroll, { passive: true });
     return () => {
+      if (rafId) cancelAnimationFrame(rafId);
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleScroll);
     };
