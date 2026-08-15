@@ -148,3 +148,18 @@
     will-change: auto;
   }
 }
+
+/* Mobile performance: defer rendering of below-fold sections */
+@media (max-width: 1024px) {
+  #work {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 1000px;
+  }
+
+  #contact {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 800px;
+  }
+}
+
+/* NOTE: DO NOT apply content-visibility to #about — breaks useScroll measurement */
