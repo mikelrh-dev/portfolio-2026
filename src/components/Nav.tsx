@@ -17,7 +17,7 @@ export default function Nav() {
   const activeIndex = sectionOrder.indexOf(activeId as typeof sectionOrder[number]);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-[#000000]/80 backdrop-blur-sm border-b border-[#222222]">
+    <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 backdrop-blur-none md:backdrop-blur-sm bg-[#000000]/95 md:bg-[#000000]/80 border-b border-[#222222]">
       {/* Left — Name */}
       <a
         href="#hero"
