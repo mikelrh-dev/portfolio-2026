@@ -95,6 +95,69 @@ export default function Hero() {
   // Hero plays frames 1-90 and completes exit. About starts after.
   const HERO_SECTION_HEIGHT = '245vh';
 
+  // Mobile: static hero — no canvas, no scroll-driven transforms, no blur.
+  if (isMobile) {
+    return (
+      <section id="hero" className="relative w-full min-h-[100vh]">
+        <div className="relative h-dvh w-full overflow-hidden bg-black">
+          {/* Static background: frame 50 of the mobile sequence — face reads
+              better than frame 1 while keeping payload tiny (single image). */}
+          <img
+            src="/firstAnim/ezgif-frame-mobile-050.webp"
+            alt="Hero"
+            className="absolute inset-0 w-full h-full object-cover"
+            loading="eager"
+          />
+
+          {/* Gradient overlay — same as desktop */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+
+          {/* Content: title + tagline + CTAs (no blur, no animated transforms) */}
+          <div className="absolute inset-0 z-20 flex flex-col items-start justify-center px-6 py-8">
+            <h1 className="font-mono font-bold text-[clamp(1.5rem,4.5vw,3.5rem)] leading-[1.05] text-[#FFFFFF] uppercase tracking-[0.02em] w-full max-w-5xl">
+              THE HUMAN IN THE LOOP.
+            </h1>
+
+            <div className="mt-6 max-w-3xl">
+              <p className="font-mono text-[clamp(0.9rem,1.5vw,1.125rem)] text-[#E5E5E5] mb-2 uppercase tracking-[0.12em]">
+                {t('hero.tagline_1')}{' '}
+                <span className="text-[#CCFF00] font-bold">
+                  {t('hero.tagline_2')}
+                </span>
+              </p>
+              <p className="font-mono text-[13px] text-[#AAAAAA] uppercase tracking-[0.12em]">
+                {t('hero.role')}
+              </p>
+            </div>
+
+            {/* CTAs */}
+            <div className="mt-10 flex gap-4 flex-wrap">
+              <MagneticButton
+                className="bg-[#CCFF00] text-[#000000] border-[#CCFF00] hover:bg-transparent hover:text-[#CCFF00]"
+                onClick={() =>
+                  document
+                    .getElementById('about')
+                    ?.scrollIntoView({ behavior: 'smooth' })
+                }
+              >
+                [ VER SISTEMAS ]
+              </MagneticButton>
+              <MagneticButton
+                onClick={() =>
+                  document
+                    .getElementById('contact')
+                    ?.scrollIntoView({ behavior: 'smooth' })
+                }
+              >
+                [ CONTACTO ]
+              </MagneticButton>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section
       id="hero"
