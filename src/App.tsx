@@ -12,9 +12,11 @@ import SharedScrollSequence from './components/effects/SharedScrollSequence';
 export default function App() {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Grid parallax effect
+  // Grid parallax effect — disabled on mobile (<768px) to prevent full
+  // viewport repaints per scroll event on low-end devices.
   useEffect(() => {
     const handleScroll = () => {
+      if (window.innerWidth < 768) return;
       const scrollY = window.scrollY;
       document.documentElement.style.setProperty('--grid-offset', `${scrollY * 0.1}px`);
     };

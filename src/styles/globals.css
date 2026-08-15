@@ -142,4 +142,9 @@
     width: 100vw;
     position: relative;
   }
+
+  /* Grid parallax disabled on mobile: no per-scroll repaints */
+  body::after {
+    will-change: auto;
+  }
 }
