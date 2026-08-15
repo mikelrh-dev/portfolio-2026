@@ -90,21 +90,32 @@ export default function AboutStack() {
       {/* Sticky "camera" — holds canvas + content in viewport while
           the section provides scroll distance for the sequence */}
       <div className="sticky top-0 h-dvh w-full overflow-hidden bg-black">
-        {/* Auto-play canvas background — plays continuously while visible */}
-        <ScrollSequence
-          frameCount={isMobile ? 72 : 143}
-          basePath="/assets/sequences/about/frame-"
-          padWidth={3}
-          ext=".webp"
-          containerRef={containerRef}
-          externalProgress={autoProgress}
-          alignY="top"
-        />
+        {/* Background: animated canvas on desktop, static final frame on mobile */}
+        {isMobile ? (
+          // Mobile: show final frame (frame 143) as static image
+          <img
+            src="/assets/sequences/about/frame-143.webp"
+            alt="About background"
+            className="absolute inset-0 w-full h-full object-cover"
+            loading="eager"
+          />
+        ) : (
+          // Desktop: auto-play canvas sequence
+          <ScrollSequence
+            frameCount={143}
+            basePath="/assets/sequences/about/frame-"
+            padWidth={3}
+            ext=".webp"
+            containerRef={containerRef}
+            externalProgress={autoProgress}
+            alignY="top"
+          />
+        )}
 
         {/* Gradient overlay — darkens the bottom 2/3 of the viewport so
             text remains readable over the animation. Sits between canvas
             (z-0) and content (z-20). */}
-        <div className="absolute bottom-0 w-full h-2/3 bg-gradient-to-t from-black via-black/80 to-transparent z-10" />
+        <div className="absolute bottom-0 w-full h-2/3 bg-gradient-to-t from-black/95 via-black/60 to-transparent z-10" />
 
         {/* Content overlay */}
         <div className="absolute inset-0 z-20 overflow-y-auto pointer-events-none">
@@ -134,25 +145,25 @@ export default function AboutStack() {
                   {/* ── Bio panel ── 5 columns ── */}
                   <div className="md:col-span-5 space-y-4">
                     <motion.p
-                      className="text-[14px] md:text-[15px] leading-relaxed text-[#FFFFFF]"
+                      className="text-[15px] md:text-[16px] leading-relaxed text-[#FFFFFF] font-medium"
                       style={revealBio1}
                     >
                       {t('about.bio_1')}
                     </motion.p>
                     <motion.p
-                      className="text-[14px] md:text-[15px] leading-relaxed text-[#FFFFFF]"
+                      className="text-[15px] md:text-[16px] leading-relaxed text-[#FFFFFF] font-medium"
                       style={revealBio2}
                     >
                       {t('about.bio_2')}
                     </motion.p>
                     <motion.p
-                      className="text-[14px] md:text-[15px] leading-relaxed text-[#FFFFFF]"
+                      className="text-[15px] md:text-[16px] leading-relaxed text-[#FFFFFF] font-medium"
                       style={revealBio3}
                     >
                       {t('about.bio_3')}
                     </motion.p>
                     <motion.p
-                      className="text-[14px] md:text-[15px] leading-relaxed text-[#FFFFFF]"
+                      className="text-[15px] md:text-[16px] leading-relaxed text-[#FFFFFF] font-medium"
                       style={revealBio4}
                     >
                       {t('about.bio_4')}
