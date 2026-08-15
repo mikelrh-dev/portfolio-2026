@@ -147,98 +147,117 @@ export default function AboutStack() {
   // Canvas auto-plays as background; content reveals via scroll progress.
   const ABOUT_SECTION_HEIGHT = '120vh';
 
-  // Mobile: no sticky "camera" wrapper, no nested overflow-y-auto scroll
-  // container. Content flows naturally in the document — nothing is cut off,
-  // and the browser avoids the compositing/scroll cost of an overflow scroll
-  // container inside a sticky viewport. Reveals use the one-shot
-  // IntersectionObserver fade-in (see useReveal).
+  // Mobile: sticky 100vh "camera" — same visual as desktop (full-bleed frame
+  // with overlaid HUD), but ALL content (4 bios, every stack chip, every
+  // category) is reachable via a SMALL internal scroll box (max-h-[80vh]).
+  // The sticky container is overflow-hidden, so the only scrollable element is
+  // the HUD content box itself — nested scroll is small and local, never the
+  // page, so there is no compositing/scroll lag. One-shot reveals (no
+  // scroll-linked style writes). The 100vh section never overlaps the next.
   if (isMobile) {
+    // Flat stack list (ordered by category) — ALL items, no slice.
+    const stackItems = categories.flatMap((cat) =>
+      (t(`about.items.${cat}`, { returnObjects: true }) as string[]) || [],
+    );
+
     return (
-      <section id="about" className="relative w-full bg-black py-12 px-4">
-        {/* About background — static final frame, lazily loaded */}
-        <div className="relative w-full h-96 mb-10 overflow-hidden rounded-lg">
+      <section id="about" className="relative w-full bg-black">
+        {/* Sticky "camera" — pins the About viewport while the page scrolls */}
+        <div className="relative h-dvh sticky top-0 overflow-hidden">
+          {/* Background — static final frame, lazily loaded */}
           <img
             src="/assets/sequences/about/frame-143-mobile.webp"
             alt="About background"
-            className="w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover"
             loading="lazy"
             decoding="async"
           />
-        </div>
 
-        <div className="max-w-5xl mx-auto space-y-8">
-          {/* Section indicator */}
-          <motion.div className="section-indicator" {...revealIndicator}>
-            <span className="text-[#CCFF00] font-bold">02/04</span>
-            <span className="text-[#888888]">&mdash;</span>
-            <span>{t('indicators.about')}</span>
-          </motion.div>
+          {/* Gradient overlay — darkens the frame so HUD text stays readable */}
+          <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-black/50 to-black" />
 
-          {/* Bios */}
-          <div className="space-y-4">
-            <motion.p
-              className="text-[15px] leading-relaxed text-[#FFFFFF] font-medium"
-              {...revealBio1}
-            >
-              {t('about.bio_1')}
-            </motion.p>
-            <motion.p
-              className="text-[15px] leading-relaxed text-[#FFFFFF] font-medium"
-              {...revealBio2}
-            >
-              {t('about.bio_2')}
-            </motion.p>
-            <motion.p
-              className="text-[15px] leading-relaxed text-[#FFFFFF] font-medium"
-              {...revealBio3}
-            >
-              {t('about.bio_3')}
-            </motion.p>
-            <motion.p
-              className="text-[15px] leading-relaxed text-[#FFFFFF] font-medium"
-              {...revealBio4}
-            >
-              {t('about.bio_4')}
-            </motion.p>
-          </div>
+          {/* HUD — vertically centered; ONLY this small box scrolls internally
+              (max-h-[80vh]) so every bio/stack chip/category is reachable
+              without making the page itself scroll. pr-2 keeps the scrollbar
+              from clipping text. */}
+          <div className="absolute inset-0 z-20 flex items-center justify-center px-6 py-12">
+            <div className="max-w-sm w-full max-h-[80vh] overflow-y-auto space-y-6 pr-2">
+              {/* Section indicator */}
+              <motion.div className="section-indicator mb-0!" {...revealIndicator}>
+                <span className="text-[#CCFF00] font-bold">02/04</span>
+                <span className="text-[#888888]">&mdash;</span>
+                <span>{t('indicators.about')}</span>
+              </motion.div>
 
-          {/* Status — green accent separator */}
-          <div className="pt-4 mt-4 border-t border-[#CCFF00]">
-            <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#CCFF00]">
-              <span>{'\u25CF'}</span> {t('about.status')}
-            </p>
-          </div>
+              {/* Bios — ALL */}
+              <div className="space-y-3">
+                <motion.p
+                  className="text-[14px] leading-snug text-[#FFFFFF] font-medium"
+                  {...revealBio1}
+                >
+                  {t('about.bio_1')}
+                </motion.p>
+                <motion.p
+                  className="text-[14px] leading-snug text-[#FFFFFF] font-medium"
+                  {...revealBio2}
+                >
+                  {t('about.bio_2')}
+                </motion.p>
+                <motion.p
+                  className="text-[14px] leading-snug text-[#FFFFFF] font-medium"
+                  {...revealBio3}
+                >
+                  {t('about.bio_3')}
+                </motion.p>
+                <motion.p
+                  className="text-[14px] leading-snug text-[#FFFFFF] font-medium"
+                  {...revealBio4}
+                >
+                  {t('about.bio_4')}
+                </motion.p>
+              </div>
 
-          {/* Stack */}
-          <div className="space-y-5">
-            <motion.p
-              className="font-mono text-[#CCFF00] text-[13px] font-bold tracking-[0.12em] uppercase"
-              {...revealStackH}
-            >
-              [{t('about.stack_header')}]
-            </motion.p>
-
-            {categories.map((cat, catIdx) => (
-              <motion.div key={cat} {...catReveals[catIdx]}>
-                <p className="font-mono text-[11px] uppercase tracking-[0.08em] mb-2 text-[#FFFFFF]">
-                  {'//'} {t(`about.categories.${cat}`)}
+              {/* Status — green accent separator */}
+              <div className="border-t border-[#CCFF00] pt-3">
+                <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#CCFF00]">
+                  <span>{'\u25CF'}</span> {t('about.status')}
                 </p>
-                <div className="flex flex-wrap gap-1.5">
-                  {(
-                    (t(`about.items.${cat}`, {
-                      returnObjects: true,
-                    }) as string[]) || []
-                  ).map((tech: string) => (
+              </div>
+
+              {/* Stack — ALL items in a 2-column grid */}
+              <motion.div {...revealStackH}>
+                <h4 className="font-mono text-[#CCFF00] text-[12px] font-bold tracking-[0.12em] uppercase mb-2">
+                  [{t('about.stack_header')}]
+                </h4>
+                <div className="grid grid-cols-2 gap-2">
+                  {stackItems.map((tech: string) => (
                     <span
                       key={tech}
-                      className="inline-block font-mono text-[11px] uppercase tracking-[0.08em] text-[#E0E0E0] px-2.5 py-1 border border-[#555555] bg-transparent hover:bg-[#CCFF00] hover:text-black hover:border-[#CCFF00] transition-colors duration-150"
+                      className="inline-block font-mono text-[10px] uppercase tracking-[0.08em] text-[#E0E0E0] px-2 py-1 border border-[#555555] bg-black/40"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
               </motion.div>
-            ))}
+
+              {/* Categories — ALL */}
+              <motion.div {...revealCat0}>
+                <h4 className="font-mono text-[#CCFF00] text-[12px] font-bold tracking-[0.12em] uppercase mb-2">
+                  [{t('about.categories_header')}]
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {categories.map((cat) => (
+                    <span
+                      key={cat}
+                      className="inline-block font-mono text-[10px] uppercase tracking-[0.08em] text-[#E0E0E0] px-2 py-0.5 border border-[#555555] bg-black/40"
+                    >
+                      {t(`about.categories.${cat}`)}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>
