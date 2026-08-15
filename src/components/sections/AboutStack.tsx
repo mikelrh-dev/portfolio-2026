@@ -1,5 +1,12 @@
-import { useEffect } from 'react';
-import { animate, motion, useMotionValue, useTransform } from 'framer-motion';
+import { useEffect, useRef, useState, type RefObject } from 'react';
+import {
+  animate,
+  motion,
+  useMotionValue,
+  useTransform,
+  type MotionValue,
+  type Transition,
+} from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import ScrollSequence from '../effects/ScrollSequence';
 import { useScrollSequence } from '../effects/SharedScrollSequence';
@@ -22,11 +29,68 @@ const REVEAL = {
   cat3: [0.90, 0.95] as [number, number],
 };
 
-function useReveal(thresholds: [number, number]) {
-  const { aboutProgress } = useScrollSequence();
+type RevealStyle = {
+  opacity: number | MotionValue<number>;
+  y: number | MotionValue<number>;
+};
+
+type RevealProps<T extends HTMLElement> = {
+  ref: RefObject<T>;
+  'data-reveal'?: boolean;
+  style: RevealStyle;
+  transition?: Transition;
+};
+
+/**
+ * Reveal hook with two modes:
+ *
+ * - Desktop: scroll-linked — interpolates `aboutProgress` into opacity/y
+ *   MotionValues. Runs every scroll frame; smooth and fine on desktop.
+ * - Mobile: one-shot — an IntersectionObserver fades the element in once
+ *   (CSS-like transition) and then freezes. Zero style writes during scroll,
+ *   which removes the 10-per-frame transform updates that caused the lag
+ *   while scrolling through the About section on low-end devices.
+ *
+ * Both hooks are created unconditionally (Rules of Hooks); only the
+ * appropriate branch is consumed.
+ */
+function useReveal<T extends HTMLElement>(thresholds: [number, number], delay = 0): RevealProps<T> {
+  const { aboutProgress, isMobile } = useScrollSequence();
+  const ref = useRef<T>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  // Desktop: scroll-linked MotionValues
+  const scrollOpacity = useTransform(aboutProgress, thresholds, [0, 1]);
+  const scrollY = useTransform(aboutProgress, thresholds, [20, 0]);
+
+  // Mobile: one-shot IntersectionObserver fade-in
+  useEffect(() => {
+    if (!isMobile) return;
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) setIsVisible(true);
+      },
+      { threshold: 0.1 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [isMobile]);
+
+  if (isMobile) {
+    return {
+      ref,
+      'data-reveal': true,
+      style: { opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 },
+      transition: { duration: 0.6, delay },
+    };
+  }
+
   return {
-    opacity: useTransform(aboutProgress, thresholds, [0, 1]),
-    y: useTransform(aboutProgress, thresholds, [20, 0]),
+    ref,
+    'data-reveal': true,
+    style: { opacity: scrollOpacity, y: scrollY },
   };
 }
 
@@ -65,16 +129,17 @@ export default function AboutStack() {
     };
   }, [autoProgress, isMobile]);
 
-  const revealIndicator = useReveal(REVEAL.indicator);
-  const revealBio1 = useReveal(REVEAL.bio1);
-  const revealBio2 = useReveal(REVEAL.bio2);
-  const revealBio3 = useReveal(REVEAL.bio3);
-  const revealBio4 = useReveal(REVEAL.bio4);
-  const revealStackH = useReveal(REVEAL.stackHeader);
-  const revealCat0 = useReveal(REVEAL.cat0);
-  const revealCat1 = useReveal(REVEAL.cat1);
-  const revealCat2 = useReveal(REVEAL.cat2);
-  const revealCat3 = useReveal(REVEAL.cat3);
+  // Stagger delays for the one-shot mobile fade-in cascade
+  const revealIndicator = useReveal<HTMLDivElement>(REVEAL.indicator, 0);
+  const revealBio1 = useReveal<HTMLParagraphElement>(REVEAL.bio1, 0.1);
+  const revealBio2 = useReveal<HTMLParagraphElement>(REVEAL.bio2, 0.2);
+  const revealBio3 = useReveal<HTMLParagraphElement>(REVEAL.bio3, 0.3);
+  const revealBio4 = useReveal<HTMLParagraphElement>(REVEAL.bio4, 0.4);
+  const revealStackH = useReveal<HTMLParagraphElement>(REVEAL.stackHeader, 0.5);
+  const revealCat0 = useReveal<HTMLDivElement>(REVEAL.cat0, 0.6);
+  const revealCat1 = useReveal<HTMLDivElement>(REVEAL.cat1, 0.7);
+  const revealCat2 = useReveal<HTMLDivElement>(REVEAL.cat2, 0.8);
+  const revealCat3 = useReveal<HTMLDivElement>(REVEAL.cat3, 0.9);
 
   const catReveals = [revealCat0, revealCat1, revealCat2, revealCat3];
 
@@ -128,7 +193,7 @@ export default function AboutStack() {
             <div className="flex-1 p-6 md:p-12">
               <motion.div
                 className="section-indicator"
-                style={revealIndicator}
+                {...revealIndicator}
               >
                 <span className="text-[#CCFF00] font-bold">02/04</span>
                 <span className="text-[#888888]">&mdash;</span>
@@ -149,25 +214,25 @@ export default function AboutStack() {
                   <div className="md:col-span-5 space-y-4">
                     <motion.p
                       className="text-[15px] md:text-[16px] leading-relaxed text-[#FFFFFF] font-medium"
-                      style={revealBio1}
+                      {...revealBio1}
                     >
                       {t('about.bio_1')}
                     </motion.p>
                     <motion.p
                       className="text-[15px] md:text-[16px] leading-relaxed text-[#FFFFFF] font-medium"
-                      style={revealBio2}
+                      {...revealBio2}
                     >
                       {t('about.bio_2')}
                     </motion.p>
                     <motion.p
                       className="text-[15px] md:text-[16px] leading-relaxed text-[#FFFFFF] font-medium"
-                      style={revealBio3}
+                      {...revealBio3}
                     >
                       {t('about.bio_3')}
                     </motion.p>
                     <motion.p
                       className="text-[15px] md:text-[16px] leading-relaxed text-[#FFFFFF] font-medium"
-                      style={revealBio4}
+                      {...revealBio4}
                     >
                       {t('about.bio_4')}
                     </motion.p>
@@ -184,13 +249,13 @@ export default function AboutStack() {
                   <div className="md:col-span-6 md:col-start-7 space-y-5">
                     <motion.p
                       className="font-mono text-[#CCFF00] text-[13px] font-bold tracking-[0.12em] uppercase"
-                      style={revealStackH}
+                      {...revealStackH}
                     >
                       [{t('about.stack_header')}]
                     </motion.p>
 
                     {categories.map((cat, catIdx) => (
-                      <motion.div key={cat} style={catReveals[catIdx]}>
+                      <motion.div key={cat} {...catReveals[catIdx]}>
                         <p className="font-mono text-[11px] uppercase tracking-[0.08em] mb-2 text-[#FFFFFF]">
                           {'//'} {t(`about.categories.${cat}`)}
                         </p>
