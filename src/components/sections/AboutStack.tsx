@@ -147,6 +147,104 @@ export default function AboutStack() {
   // Canvas auto-plays as background; content reveals via scroll progress.
   const ABOUT_SECTION_HEIGHT = '120vh';
 
+  // Mobile: no sticky "camera" wrapper, no nested overflow-y-auto scroll
+  // container. Content flows naturally in the document — nothing is cut off,
+  // and the browser avoids the compositing/scroll cost of an overflow scroll
+  // container inside a sticky viewport. Reveals use the one-shot
+  // IntersectionObserver fade-in (see useReveal).
+  if (isMobile) {
+    return (
+      <section id="about" className="relative w-full bg-black py-12 px-4">
+        {/* About background — static final frame, lazily loaded */}
+        <div className="relative w-full h-96 mb-10 overflow-hidden rounded-lg">
+          <img
+            src="/assets/sequences/about/frame-143-mobile.webp"
+            alt="About background"
+            className="w-full h-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+
+        <div className="max-w-5xl mx-auto space-y-8">
+          {/* Section indicator */}
+          <motion.div className="section-indicator" {...revealIndicator}>
+            <span className="text-[#CCFF00] font-bold">02/04</span>
+            <span className="text-[#888888]">&mdash;</span>
+            <span>{t('indicators.about')}</span>
+          </motion.div>
+
+          {/* Bios */}
+          <div className="space-y-4">
+            <motion.p
+              className="text-[15px] leading-relaxed text-[#FFFFFF] font-medium"
+              {...revealBio1}
+            >
+              {t('about.bio_1')}
+            </motion.p>
+            <motion.p
+              className="text-[15px] leading-relaxed text-[#FFFFFF] font-medium"
+              {...revealBio2}
+            >
+              {t('about.bio_2')}
+            </motion.p>
+            <motion.p
+              className="text-[15px] leading-relaxed text-[#FFFFFF] font-medium"
+              {...revealBio3}
+            >
+              {t('about.bio_3')}
+            </motion.p>
+            <motion.p
+              className="text-[15px] leading-relaxed text-[#FFFFFF] font-medium"
+              {...revealBio4}
+            >
+              {t('about.bio_4')}
+            </motion.p>
+          </div>
+
+          {/* Status — green accent separator */}
+          <div className="pt-4 mt-4 border-t border-[#CCFF00]">
+            <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#CCFF00]">
+              <span>{'\u25CF'}</span> {t('about.status')}
+            </p>
+          </div>
+
+          {/* Stack */}
+          <div className="space-y-5">
+            <motion.p
+              className="font-mono text-[#CCFF00] text-[13px] font-bold tracking-[0.12em] uppercase"
+              {...revealStackH}
+            >
+              [{t('about.stack_header')}]
+            </motion.p>
+
+            {categories.map((cat, catIdx) => (
+              <motion.div key={cat} {...catReveals[catIdx]}>
+                <p className="font-mono text-[11px] uppercase tracking-[0.08em] mb-2 text-[#FFFFFF]">
+                  {'//'} {t(`about.categories.${cat}`)}
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {(
+                    (t(`about.items.${cat}`, {
+                      returnObjects: true,
+                    }) as string[]) || []
+                  ).map((tech: string) => (
+                    <span
+                      key={tech}
+                      className="inline-block font-mono text-[11px] uppercase tracking-[0.08em] text-[#E0E0E0] px-2.5 py-1 border border-[#555555] bg-transparent hover:bg-[#CCFF00] hover:text-black hover:border-[#CCFF00] transition-colors duration-150"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section
       id="about"
