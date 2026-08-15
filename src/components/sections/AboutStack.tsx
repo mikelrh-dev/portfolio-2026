@@ -93,12 +93,14 @@ export default function AboutStack() {
       <div className="sticky top-0 h-dvh w-full overflow-hidden bg-black">
         {/* Background: animated canvas on desktop, static final frame on mobile */}
         {isMobile ? (
-          // Mobile: show final frame (frame 143) as static image
+          // Mobile: show final frame (frame 143) as static image,
+          // downscaled to 720x1280 to cut payload by ~75%
           <img
-            src="/assets/sequences/about/frame-143.webp"
+            src="/assets/sequences/about/frame-143-mobile.webp"
             alt="About background"
             className="absolute inset-0 w-full h-full object-cover"
             loading="eager"
+            decoding="async"
           />
         ) : (
           // Desktop: auto-play canvas sequence
