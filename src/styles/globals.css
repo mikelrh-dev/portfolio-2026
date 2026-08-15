@@ -147,6 +147,14 @@
   body::after {
     will-change: auto;
   }
+
+  /* About reveals are one-shot fades on mobile (not scroll-linked), so no
+     element should hold a permanent compositor layer. Framer-motion promotes
+     a layer only while the 0.6s transition runs and then releases it; this
+     guarantees layers degrade to auto once the reveal is complete. */
+  [data-reveal] {
+    will-change: auto;
+  }
 }
 
 /* Mobile performance: defer rendering of below-fold sections */
