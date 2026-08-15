@@ -32,19 +32,20 @@ function useReveal(thresholds: [number, number]) {
 
 export default function AboutStack() {
   const { t } = useTranslation();
-  const { containerRef, isMobile, aboutProgress } = useScrollSequence();
+  const { containerRef, isMobile } = useScrollSequence();
 
   // Auto-play canvas: loops 143 frames (~6s at 24fps) while section is visible
   const autoProgress = useMotionValue(0);
 
   useEffect(() => {
+    if (isMobile) return;
     const section = document.getElementById('about');
     if (!section) return;
     let controls: ReturnType<typeof animate> | null = null;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        if (entry?.isIntersecting) {
           autoProgress.jump(0);
           controls = animate(autoProgress, 1, {
             duration: 6,
@@ -62,7 +63,7 @@ export default function AboutStack() {
       observer.disconnect();
       controls?.stop();
     };
-  }, [autoProgress]);
+  }, [autoProgress, isMobile]);
 
   const revealIndicator = useReveal(REVEAL.indicator);
   const revealBio1 = useReveal(REVEAL.bio1);
