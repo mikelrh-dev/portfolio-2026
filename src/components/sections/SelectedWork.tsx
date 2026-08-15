@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import TextScramble from '../effects/TextScramble';
@@ -34,10 +35,12 @@ function sortStack(stack: string[]): string[] {
 export default function SelectedWork() {
   const { t } = useTranslation();
   const reducedMotion = useReducedMotion();
+  const isMobile = useMediaQuery('(max-width: 768px)');
   const sectionRef = useRef<HTMLElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
+    if (isMobile) return; // skip GSAP ScrollTrigger entirely on mobile
     const section = sectionRef.current;
     if (!section) return;
     if (reducedMotion) return;
@@ -62,7 +65,7 @@ export default function SelectedWork() {
 
     ScrollTrigger.refresh();
     return () => ctx.revert();
-  }, []);
+  }, [isMobile]);
 
   const projects = t('work.projects', { returnObjects: true }) as Array<{
     id: string;
