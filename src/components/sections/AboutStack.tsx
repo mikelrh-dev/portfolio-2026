@@ -111,7 +111,7 @@ export default function AboutStack() {
       ([entry]) => {
         if (entry?.isIntersecting) {
           autoProgress.jump(0);
-          controls = animate(autoProgress, 1, {
+          controls = animate(autoProgress, 0.65, {
             duration: 6,
             ease: 'linear',
           });
