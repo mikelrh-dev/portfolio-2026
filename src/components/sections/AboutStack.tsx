@@ -327,8 +327,8 @@ export default function AboutStack() {
                   style={{ textShadow: isMobile ? 'none' : '0px 2px 4px rgba(0,0,0,1), 0px 0px 30px rgba(0,0,0,0.95), 0px 0px 80px rgba(0,0,0,0.7)' }}
                 >
 
-                  {/* ── Bio panel ── 5 columns ── */}
-                  <div className="md:col-span-5 space-y-4">
+                   {/* ── Bio panel ── 5 columns ── */}
+                   <div className="md:col-span-5 space-y-4 p-6 bg-black/60 backdrop-blur-md border border-white/10 rounded-xl">
                     <motion.p
                       className="text-[15px] md:text-[16px] leading-relaxed text-[#FFFFFF] font-medium"
                       {...revealBio1}
@@ -362,8 +362,8 @@ export default function AboutStack() {
                     </div>
                   </div>
 
-                  {/* ── Stack panel ── 6 columns, offset by 1 ── */}
-                  <div className="md:col-span-6 md:col-start-7 space-y-5">
+                   {/* ── Stack panel ── 6 columns, offset by 1 ── */}
+                   <div className="md:col-span-6 md:col-start-7 space-y-5 p-6 bg-black/60 backdrop-blur-md border border-white/10 rounded-xl">
                     <motion.p
                       className="font-mono text-[#CCFF00] text-[13px] font-bold tracking-[0.12em] uppercase"
                       {...revealStackH}
@@ -384,7 +384,7 @@ export default function AboutStack() {
                           ).map((tech: string) => (
                             <span
                               key={tech}
-                              className="inline-block font-mono text-[11px] uppercase tracking-[0.08em] text-[#E0E0E0] px-2.5 py-1 border border-[#555555] bg-transparent hover:bg-[#CCFF00] hover:text-black hover:border-[#CCFF00] transition-colors duration-150"
+                              className="inline-block font-mono text-[11px] uppercase tracking-[0.08em] text-[#E0E0E0] px-2.5 py-1 border border-[#555555] bg-white/10 hover:bg-[#CCFF00] hover:text-black hover:border-[#CCFF00] transition-colors duration-150"
                             >
                               {tech}
                             </span>
