@@ -10,7 +10,7 @@ const FRAME_COUNT = 90;
 
 export default function Hero() {
   const { t } = useTranslation();
-  const { heroProgress, containerRef } = useScrollSequence();
+  const { heroProgress, containerRef, isMobile } = useScrollSequence();
   const sectionRef = useRef<HTMLDivElement>(null);
   const [showTagline, setShowTagline] = useState(false);
 
@@ -104,7 +104,7 @@ export default function Hero() {
     >
       <ScrollSequence
         frameCount={FRAME_COUNT}
-        basePath="/firstAnim/ezgif-frame-"
+        basePath={isMobile ? '/firstAnim/ezgif-frame-mobile-' : '/firstAnim/ezgif-frame-'}
         padWidth={3}
         ext=".webp"
         containerRef={containerRef}
