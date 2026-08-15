@@ -4,10 +4,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export function useScrollProgress(): React.MutableRefObject<number> {
+export function useScrollProgress(enabled = true): React.MutableRefObject<number> {
   const progress = useRef<number>(0);
 
   useEffect(() => {
+    if (!enabled) return;
+
     const trigger = ScrollTrigger.create({
       start: 'top top',
       end: 'bottom bottom',
@@ -19,7 +21,7 @@ export function useScrollProgress(): React.MutableRefObject<number> {
     return () => {
       trigger.kill();
     };
-  }, []);
+  }, [enabled]);
 
   return progress;
 }

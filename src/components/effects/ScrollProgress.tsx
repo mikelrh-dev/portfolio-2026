@@ -3,15 +3,17 @@
 import { useRef, useEffect } from 'react';
 import { useScrollProgress } from '../../hooks/useScrollProgress';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
 
 export default function ScrollProgress() {
-  const progressRef = useScrollProgress();
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  const progressRef = useScrollProgress(!isMobile);
   const barRef = useRef<HTMLDivElement>(null);
   const labelRef = useRef<HTMLSpanElement>(null);
   const reducedMotion = useReducedMotion();
 
   useEffect(() => {
-    if (reducedMotion) return;
+    if (isMobile || reducedMotion) return;
 
     let raf: number;
     const update = () => {
@@ -26,9 +28,9 @@ export default function ScrollProgress() {
     };
     raf = requestAnimationFrame(update);
     return () => cancelAnimationFrame(raf);
-  }, [reducedMotion, progressRef]);
+  }, [isMobile, reducedMotion, progressRef]);
 
-  if (reducedMotion) return null;
+  if (isMobile || reducedMotion) return null;
 
   return (
     <div className="fixed right-6 top-1/2 -translate-y-1/2 z-[9998] hidden md:flex flex-col items-center gap-3">
