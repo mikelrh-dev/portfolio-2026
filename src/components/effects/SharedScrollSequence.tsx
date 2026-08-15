@@ -1,11 +1,12 @@
 import {
   createContext,
   useContext,
+  useEffect,
   useRef,
   type ReactNode,
   type RefObject,
 } from 'react';
-import { useScroll, useTransform, type MotionValue } from 'framer-motion';
+import { useMotionValue, useScroll, useTransform, type MotionValue } from 'framer-motion';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 
 export interface ScrollSequenceCtx {
@@ -30,24 +31,25 @@ interface SharedScrollSequenceProps {
   children: ReactNode;
 }
 
+interface SequenceProviderProps extends SharedScrollSequenceProps {
+  containerRef: RefObject<HTMLDivElement>;
+  scrollYProgress: MotionValue<number>;
+  isMobile: boolean;
+}
+
 /**
- * Provides a single scroll container that drives both Hero and About
- * canvas sequences via context.
+ * Renders the tall scroll container and derives the shared progress values.
+ * Hero and About each read their slice via context.
  *
  * - heroProgress: 0→1 over [0, heroShare] of total scroll (245vh desktop / 100vh mobile)
  * - aboutProgress: 0→1 over [heroShare, 1.0] of total scroll (120vh)
- * - Children (Hero, AboutStack) each render their own ScrollSequence with
- *   this container's ref and the appropriate progress value.
  */
-export default function SharedScrollSequence({ children }: SharedScrollSequenceProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const isMobile = useMediaQuery('(max-width: 768px)');
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end'],
-  });
-
+function SequenceProvider({
+  containerRef,
+  scrollYProgress,
+  isMobile,
+  children,
+}: SequenceProviderProps) {
   // Hero share of the scroll container: desktop 245vh of 365vh → 0.671,
   // mobile 100vh static hero of 220vh → 0.4545. Keeps About reveals aligned
   // to the About section's visual position on both breakpoints.
@@ -71,4 +73,69 @@ export default function SharedScrollSequence({ children }: SharedScrollSequenceP
       </div>
     </ScrollSequenceContext.Provider>
   );
+}
+
+/**
+ * Desktop: framer-motion's useScroll tracks the container. Desktop stays
+ * byte-identical to the pre-optimization behavior.
+ */
+function DesktopSequence({ children }: SharedScrollSequenceProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end end'],
+  });
+
+  return (
+    <SequenceProvider containerRef={containerRef} scrollYProgress={scrollYProgress} isMobile={false}>
+      {children}
+    </SequenceProvider>
+  );
+}
+
+/**
+ * Mobile: avoids useScroll entirely. useScroll performs forced layout reads
+ * (offsetParent walk) every frame while scrolling — the lag source when
+ * entering the About section on low-end devices. Instead, a single passive
+ * scroll listener computes progress from one getBoundingClientRect() per
+ * frame (single measurement, no offsetParent traversal).
+ */
+function MobileSequence({ children }: SharedScrollSequenceProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const scrollYProgress = useMotionValue(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const container = containerRef.current;
+      if (!container) return;
+
+      const rect = container.getBoundingClientRect();
+      const scrollProgress = Math.max(
+        0,
+        Math.min(1, -rect.top / (rect.height - window.innerHeight)),
+      );
+      scrollYProgress.set(scrollProgress);
+    };
+
+    handleScroll(); // initial position
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
+  }, [scrollYProgress]);
+
+  return (
+    <SequenceProvider containerRef={containerRef} scrollYProgress={scrollYProgress} isMobile={true}>
+      {children}
+    </SequenceProvider>
+  );
+}
+
+export default function SharedScrollSequence({ children }: SharedScrollSequenceProps) {
+  const isMobile = useMediaQuery('(max-width: 768px)');
+
+  return isMobile ? <MobileSequence>{children}</MobileSequence> : <DesktopSequence>{children}</DesktopSequence>;
 }
