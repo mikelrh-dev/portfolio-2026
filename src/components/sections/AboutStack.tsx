@@ -207,7 +207,7 @@ export default function AboutStack() {
                 {/* Mobile: stacked — desktop: 12-col grid */}
                 <div
                   className="flex flex-col gap-8 md:grid md:grid-cols-12 md:gap-8 md:items-end"
-                  style={{ textShadow: '0px 2px 4px rgba(0,0,0,1), 0px 0px 30px rgba(0,0,0,0.95), 0px 0px 80px rgba(0,0,0,0.7)' }}
+                  style={{ textShadow: isMobile ? 'none' : '0px 2px 4px rgba(0,0,0,1), 0px 0px 30px rgba(0,0,0,0.95), 0px 0px 80px rgba(0,0,0,0.7)' }}
                 >
 
                   {/* ── Bio panel ── 5 columns ── */}
