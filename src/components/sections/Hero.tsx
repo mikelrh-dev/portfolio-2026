@@ -40,21 +40,25 @@ export default function Hero() {
   // --- Tagline reveal: fire once when heroProgress crosses 0.04 ---
   const taglineGate = useTransform(heroProgress, [0.04, 0.05], [0, 1]);
   useEffect(() => {
+    if (isMobile) return;
     const unsub = taglineGate.on('change', (v) => {
       if (v > 0.5) setShowTagline(true);
     });
     return unsub;
-  }, [taglineGate]);
+  }, [taglineGate, isMobile]);
 
   // --- Grid opacity: drive CSS custom property ---
   const gridOpacity = useTransform(heroProgress, [0.95, 1], [0, 0.2]);
   useEffect(() => {
+    // Keep grid hidden on mobile too (same initial state as desktop),
+    // but skip the scroll-driven subscription — no repaints per scroll.
     document.documentElement.style.setProperty('--grid-opacity', '0');
+    if (isMobile) return;
     const unsub = gridOpacity.on('change', (v) => {
       document.documentElement.style.setProperty('--grid-opacity', String(v));
     });
     return unsub;
-  }, [gridOpacity]);
+  }, [gridOpacity, isMobile]);
 
   // --- Direct canvas style subscription (avoids modifying ScrollSequence) ---
   useEffect(() => {
