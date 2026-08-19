@@ -1,0 +1,14 @@
+export const COLORS = {
+  bg: '#000000',
+  white: '#FFFFFF',
+  lime: '#C6FF00',
+  grid: '#1a1a1a'
+}
+
+export const LABELS = ['JAVA', 'PYTHON', 'IA', 'REACT', 'DATA']
+
+export const PHYSICS = {
+  gravity: [0, -2.5, 0],
+  ropeLength: 0.45,
+  damping: 0.85
+}

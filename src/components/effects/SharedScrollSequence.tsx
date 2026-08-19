@@ -67,7 +67,7 @@ function SequenceProvider({
       <div
         ref={containerRef}
         className="relative w-full"
-        style={{ height: isMobile ? '220vh' : '365vh' }}
+        style={{ height: isMobile ? 'auto' : '365vh' }}
       >
         {children}
       </div>
