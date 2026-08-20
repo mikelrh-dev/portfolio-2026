@@ -101,6 +101,15 @@ export default function AboutStack() {
   // Auto-play canvas: loops 143 frames (~6s at 24fps) while section is visible
   const autoProgress = useMotionValue(0);
 
+  // Transformaciones para el efecto "Holograma" al final del scroll (85% al 100%)
+  const finalOpacity = useTransform(autoProgress, [0.85, 1], [1, 0.35]);
+  const finalScale = useTransform(autoProgress, [0.85, 1], [1, 0.96]);
+  const finalFilter = useTransform(
+    autoProgress,
+    [0.85, 1],
+    ["grayscale(0%) blur(0px) brightness(100%)", "grayscale(100%) blur(5px) brightness(60%)"]
+  );
+
   useEffect(() => {
     if (isMobile) return;
     const section = document.getElementById('about');
@@ -274,20 +283,29 @@ export default function AboutStack() {
           the section provides scroll distance for the sequence */}
       <div className="sticky top-0 h-dvh w-full overflow-hidden bg-black">
         {/* Background: auto-play canvas sequence */}
-        <ScrollSequence
-          frameCount={143}
-          basePath="/assets/sequences/about/frame-"
-          padWidth={3}
-          ext=".webp"
-          containerRef={containerRef}
-          externalProgress={autoProgress}
-          alignY="top"
-        />
+        <motion.div
+          className="absolute inset-0 w-full h-full flex items-center justify-center"
+          style={{
+            opacity: finalOpacity,
+            scale: finalScale,
+            filter: finalFilter
+          }}
+        >
+          <ScrollSequence
+            frameCount={143}
+            basePath="/assets/sequences/about/frame-"
+            padWidth={3}
+            ext=".webp"
+            containerRef={containerRef}
+            externalProgress={autoProgress}
+            alignY="top"
+          />
 
-        {/* Gradient overlay — darkens the bottom 2/3 of the viewport so
-            text remains readable over the animation. Sits between canvas
-            (z-0) and content (z-20). */}
-        <div className="absolute bottom-0 w-full h-2/3 bg-gradient-to-t from-black/95 via-black/60 to-transparent z-10" />
+          {/* Gradient overlay — darkens the bottom 2/3 of the viewport so
+              text remains readable over the animation. Sits between canvas
+              (z-0) and content (z-20). */}
+          <div className="absolute bottom-0 w-full h-2/3 bg-gradient-to-t from-black/95 via-black/60 to-transparent z-10" />
+        </motion.div>
 
         {/* Content overlay */}
         <div className="absolute inset-0 z-20 overflow-y-auto pointer-events-none">
@@ -307,50 +325,60 @@ export default function AboutStack() {
           <div className="flex min-h-dvh items-center justify-center">
             <div className="w-full max-w-full pb-4 md:pb-6">
               <div className="w-full">
-                {/* 12-col grid: bio(3) | center(6 clear for face) | stack(3) */}
+                {/* 12-col grid: bio(4) | center(4 clear for face) | stack(4) */}
                 <div
                   className="flex flex-col gap-8 md:grid md:grid-cols-12 md:gap-8 items-center pb-2"
                   style={{ textShadow: '0px 2px 4px rgba(0,0,0,1), 0px 0px 30px rgba(0,0,0,0.95), 0px 0px 80px rgba(0,0,0,0.7)' }}
                 >
 
-                   {/* ── Bio panel ── 3 columns ── */}
-                   <div className="md:col-span-3 space-y-6 p-8 lg:p-10 bg-black/60 backdrop-blur-md border border-[#333333] rounded-none relative">
-                    {/* Corner accents — HUD style */}
-                    <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-[#CCFF00]" />
+                   {/* ── Bio panel ── 4 columns ── */}
+                   <div className="md:col-span-5 lg:col-span-4 space-y-5 p-6 lg:p-8 bg-black/85 backdrop-blur-md border-l-2 border-[#CCFF00] border-y border-r border-white/10 rounded-none pointer-events-auto shadow-2xl relative">
+                    {/* Corner accent — HUD style (top-right only) */}
                     <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-[#CCFF00]" />
-                    <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-[#CCFF00]" />
-                    <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-[#CCFF00]" />
 
                     {/* Terminal header */}
-                    <div className="flex items-center gap-2 pb-3 border-b border-[#333333]">
+                    <div className="flex items-center gap-2 pb-3 border-b border-white/10">
                       <div className="w-2 h-2 rounded-full bg-[#CCFF00]" />
                       <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#CCFF00]">bio.md</span>
                     </div>
 
-                    <motion.p
-                      className="text-[13px] lg:text-[14px] leading-snug text-[#FFFFFF] font-medium"
+                    {/* Headline */}
+                    <motion.h3
+                      className="text-[15px] lg:text-[17px] leading-snug font-bold text-white tracking-tight"
                       {...revealBio1}
                     >
-                      {t('about.bio_1')}
-                    </motion.p>
-                    <motion.p
-                      className="text-[13px] lg:text-[14px] leading-snug text-[#FFFFFF] font-medium"
-                      {...revealBio2}
-                    >
-                      {t('about.bio_2')}
-                    </motion.p>
-                    <motion.p
-                      className="text-[13px] lg:text-[14px] leading-snug text-[#FFFFFF] font-medium"
-                      {...revealBio3}
-                    >
-                      {t('about.bio_3')}
-                    </motion.p>
-                    <motion.p
-                      className="text-[13px] lg:text-[14px] leading-snug text-[#FFFFFF] font-medium"
-                      {...revealBio4}
-                    >
-                      {t('about.bio_4')}
-                    </motion.p>
+                      {t('about.bio_headline')}
+                    </motion.h3>
+
+                    {/* Proof-of-work points */}
+                    <div className="space-y-4 pt-2">
+                      <motion.div className="space-y-1" {...revealBio2}>
+                        <p className="font-mono text-[11px] text-[#CCFF00] font-semibold tracking-wide">
+                          {t('about.bio_point_1_title')}
+                        </p>
+                        <p className="text-[12px] lg:text-[13px] text-[#CCCCCC] leading-relaxed">
+                          {t('about.bio_point_1_desc')}
+                        </p>
+                      </motion.div>
+
+                      <motion.div className="space-y-1" {...revealBio3}>
+                        <p className="font-mono text-[11px] text-[#CCFF00] font-semibold tracking-wide">
+                          {t('about.bio_point_2_title')}
+                        </p>
+                        <p className="text-[12px] lg:text-[13px] text-[#CCCCCC] leading-relaxed">
+                          {t('about.bio_point_2_desc')}
+                        </p>
+                      </motion.div>
+
+                      <motion.div className="space-y-1" {...revealBio4}>
+                        <p className="font-mono text-[11px] text-[#CCFF00] font-semibold tracking-wide">
+                          {t('about.bio_point_3_title')}
+                        </p>
+                        <p className="text-[12px] lg:text-[13px] text-[#CCCCCC] leading-relaxed">
+                          {t('about.bio_point_3_desc')}
+                        </p>
+                      </motion.div>
+                    </div>
 
                     {/* STATUS — green accent separator */}
                     <div className="pt-4 mt-4 border-t border-[#CCFF00]">
@@ -360,19 +388,16 @@ export default function AboutStack() {
                     </div>
                   </div>
 
-                   {/* ── Center spacer ── 6 columns cleared for face video ── */}
-                   <div className="hidden md:block md:col-span-6" />
+                   {/* ── Center spacer ── 4 columns cleared for face video ── */}
+                   <div className="hidden md:block md:col-span-4" />
 
-                   {/* ── Stack panel ── 3 columns ── */}
-                    <div className="md:col-span-3 space-y-7 p-8 lg:p-10 bg-black/60 backdrop-blur-md border border-[#333333] rounded-none relative">
-                    {/* Corner accents — HUD style */}
+                   {/* ── Stack panel ── 4 columns ── */}
+                   <div className="md:col-span-5 lg:col-span-4 space-y-7 p-6 lg:p-8 bg-black/85 backdrop-blur-md border-r-2 border-[#CCFF00] border-y border-l border-white/10 rounded-none pointer-events-auto shadow-2xl relative">
+                    {/* Corner accent — HUD style (top-left only) */}
                     <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-[#CCFF00]" />
-                    <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-[#CCFF00]" />
-                    <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-[#CCFF00]" />
-                    <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-[#CCFF00]" />
 
                     {/* Terminal header */}
-                    <div className="flex items-center gap-2 pb-3 border-b border-[#333333]">
+                    <div className="flex items-center gap-2 pb-3 border-b border-white/10">
                       <div className="w-2 h-2 rounded-full bg-[#CCFF00]" />
                       <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#CCFF00]">stack.json</span>
                     </div>
