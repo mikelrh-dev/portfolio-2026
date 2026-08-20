@@ -291,31 +291,30 @@ export default function AboutStack() {
 
         {/* Content overlay */}
         <div className="absolute inset-0 z-20 overflow-y-auto pointer-events-none">
-          <div className="flex min-h-dvh flex-col">
+          {/* Indicator — pinned top-left so it never competes with centering */}
+          <div className="absolute top-0 left-0 p-6 md:p-12 z-10">
+            <motion.div
+              className="section-indicator"
+              {...revealIndicator}
+            >
+              <span className="text-[#CCFF00] font-bold">02/04</span>
+              <span className="text-[#888888]">&mdash;</span>
+              <span>{t('indicators.about')}</span>
+            </motion.div>
+          </div>
 
-            {/* Spacer pulls indicator up, keeps it accessible */}
-            <div className="flex-1 p-6 md:p-12">
-              <motion.div
-                className="section-indicator"
-                {...revealIndicator}
-              >
-                <span className="text-[#CCFF00] font-bold">02/04</span>
-                <span className="text-[#888888]">&mdash;</span>
-                <span>{t('indicators.about')}</span>
-              </motion.div>
-            </div>
-
-            {/* ---- HUD Panel — anchored to the bottom ---- */}
-            <div className="w-full px-6 pb-12 md:px-12 md:pb-16">
-              <div className="max-w-5xl mx-auto">
-                {/* 12-col grid: bio(5) | center(2 clear for face) | stack(5) */}
+          {/* Grid area — perfectly centered vertically in viewport */}
+          <div className="flex min-h-dvh items-center justify-center">
+            <div className="w-full max-w-full pb-4 md:pb-6">
+              <div className="w-full">
+                {/* 12-col grid: bio(3) | center(6 clear for face) | stack(3) */}
                 <div
-                  className="flex flex-col gap-8 md:grid md:grid-cols-12 md:gap-8 items-center pb-4"
+                  className="flex flex-col gap-8 md:grid md:grid-cols-12 md:gap-8 items-center pb-2"
                   style={{ textShadow: '0px 2px 4px rgba(0,0,0,1), 0px 0px 30px rgba(0,0,0,0.95), 0px 0px 80px rgba(0,0,0,0.7)' }}
                 >
 
-                   {/* ── Bio panel ── 5 columns ── */}
-                   <div className="md:col-span-5 space-y-4 p-6 bg-black/60 backdrop-blur-md border border-[#333333] rounded-none relative">
+                   {/* ── Bio panel ── 3 columns ── */}
+                   <div className="md:col-span-3 space-y-6 p-8 lg:p-10 bg-black/60 backdrop-blur-md border border-[#333333] rounded-none relative">
                     {/* Corner accents — HUD style */}
                     <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-[#CCFF00]" />
                     <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-[#CCFF00]" />
@@ -361,11 +360,11 @@ export default function AboutStack() {
                     </div>
                   </div>
 
-                   {/* ── Center spacer ── 2 columns cleared for face video ── */}
-                   <div className="hidden md:block md:col-span-2" />
+                   {/* ── Center spacer ── 6 columns cleared for face video ── */}
+                   <div className="hidden md:block md:col-span-6" />
 
-                   {/* ── Stack panel ── 5 columns ── */}
-                   <div className="md:col-span-5 space-y-5 p-6 bg-black/60 backdrop-blur-md border border-[#333333] rounded-none relative">
+                   {/* ── Stack panel ── 3 columns ── */}
+                    <div className="md:col-span-3 space-y-7 p-8 lg:p-10 bg-black/60 backdrop-blur-md border border-[#333333] rounded-none relative">
                     {/* Corner accents — HUD style */}
                     <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-[#CCFF00]" />
                     <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-[#CCFF00]" />
@@ -411,7 +410,6 @@ export default function AboutStack() {
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
