@@ -273,29 +273,16 @@ export default function AboutStack() {
       {/* Sticky "camera" — holds canvas + content in viewport while
           the section provides scroll distance for the sequence */}
       <div className="sticky top-0 h-dvh w-full overflow-hidden bg-black">
-        {/* Background: animated canvas on desktop, static final frame on mobile */}
-        {isMobile ? (
-          // Mobile: show final frame (frame 143) as static image,
-          // downscaled to 720x1280 to cut payload by ~75%
-          <img
-            src="/assets/sequences/about/frame-143-mobile.webp"
-            alt="About background"
-            className="absolute inset-0 w-full h-full object-cover"
-            loading="eager"
-            decoding="async"
-          />
-        ) : (
-          // Desktop: auto-play canvas sequence
-          <ScrollSequence
-            frameCount={143}
-            basePath="/assets/sequences/about/frame-"
-            padWidth={3}
-            ext=".webp"
-            containerRef={containerRef}
-            externalProgress={autoProgress}
-            alignY="top"
-          />
-        )}
+        {/* Background: auto-play canvas sequence */}
+        <ScrollSequence
+          frameCount={143}
+          basePath="/assets/sequences/about/frame-"
+          padWidth={3}
+          ext=".webp"
+          containerRef={containerRef}
+          externalProgress={autoProgress}
+          alignY="top"
+        />
 
         {/* Gradient overlay — darkens the bottom 2/3 of the viewport so
             text remains readable over the animation. Sits between canvas
@@ -321,34 +308,46 @@ export default function AboutStack() {
             {/* ---- HUD Panel — anchored to the bottom ---- */}
             <div className="w-full px-6 pb-12 md:px-12 md:pb-16">
               <div className="max-w-5xl mx-auto">
-                {/* Mobile: stacked — desktop: 12-col grid */}
+                {/* 12-col grid: bio(5) | center(2 clear for face) | stack(5) */}
                 <div
-                  className="flex flex-col gap-8 md:grid md:grid-cols-12 md:gap-8 md:items-end"
-                  style={{ textShadow: isMobile ? 'none' : '0px 2px 4px rgba(0,0,0,1), 0px 0px 30px rgba(0,0,0,0.95), 0px 0px 80px rgba(0,0,0,0.7)' }}
+                  className="flex flex-col gap-8 md:grid md:grid-cols-12 md:gap-8 items-center pb-4"
+                  style={{ textShadow: '0px 2px 4px rgba(0,0,0,1), 0px 0px 30px rgba(0,0,0,0.95), 0px 0px 80px rgba(0,0,0,0.7)' }}
                 >
 
                    {/* ── Bio panel ── 5 columns ── */}
-                   <div className="md:col-span-5 space-y-4 p-6 bg-black/60 backdrop-blur-md border border-white/10 rounded-xl">
+                   <div className="md:col-span-5 space-y-4 p-6 bg-black/60 backdrop-blur-md border border-[#333333] rounded-none relative">
+                    {/* Corner accents — HUD style */}
+                    <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-[#CCFF00]" />
+                    <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-[#CCFF00]" />
+                    <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-[#CCFF00]" />
+                    <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-[#CCFF00]" />
+
+                    {/* Terminal header */}
+                    <div className="flex items-center gap-2 pb-3 border-b border-[#333333]">
+                      <div className="w-2 h-2 rounded-full bg-[#CCFF00]" />
+                      <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#CCFF00]">bio.md</span>
+                    </div>
+
                     <motion.p
-                      className="text-[15px] md:text-[16px] leading-relaxed text-[#FFFFFF] font-medium"
+                      className="text-[13px] lg:text-[14px] leading-snug text-[#FFFFFF] font-medium"
                       {...revealBio1}
                     >
                       {t('about.bio_1')}
                     </motion.p>
                     <motion.p
-                      className="text-[15px] md:text-[16px] leading-relaxed text-[#FFFFFF] font-medium"
+                      className="text-[13px] lg:text-[14px] leading-snug text-[#FFFFFF] font-medium"
                       {...revealBio2}
                     >
                       {t('about.bio_2')}
                     </motion.p>
                     <motion.p
-                      className="text-[15px] md:text-[16px] leading-relaxed text-[#FFFFFF] font-medium"
+                      className="text-[13px] lg:text-[14px] leading-snug text-[#FFFFFF] font-medium"
                       {...revealBio3}
                     >
                       {t('about.bio_3')}
                     </motion.p>
                     <motion.p
-                      className="text-[15px] md:text-[16px] leading-relaxed text-[#FFFFFF] font-medium"
+                      className="text-[13px] lg:text-[14px] leading-snug text-[#FFFFFF] font-medium"
                       {...revealBio4}
                     >
                       {t('about.bio_4')}
@@ -362,8 +361,23 @@ export default function AboutStack() {
                     </div>
                   </div>
 
-                   {/* ── Stack panel ── 6 columns, offset by 1 ── */}
-                   <div className="md:col-span-6 md:col-start-7 space-y-5 p-6 bg-black/60 backdrop-blur-md border border-white/10 rounded-xl">
+                   {/* ── Center spacer ── 2 columns cleared for face video ── */}
+                   <div className="hidden md:block md:col-span-2" />
+
+                   {/* ── Stack panel ── 5 columns ── */}
+                   <div className="md:col-span-5 space-y-5 p-6 bg-black/60 backdrop-blur-md border border-[#333333] rounded-none relative">
+                    {/* Corner accents — HUD style */}
+                    <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-[#CCFF00]" />
+                    <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-[#CCFF00]" />
+                    <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-[#CCFF00]" />
+                    <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-[#CCFF00]" />
+
+                    {/* Terminal header */}
+                    <div className="flex items-center gap-2 pb-3 border-b border-[#333333]">
+                      <div className="w-2 h-2 rounded-full bg-[#CCFF00]" />
+                      <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#CCFF00]">stack.json</span>
+                    </div>
+
                     <motion.p
                       className="font-mono text-[#CCFF00] text-[13px] font-bold tracking-[0.12em] uppercase"
                       {...revealStackH}
@@ -384,7 +398,7 @@ export default function AboutStack() {
                           ).map((tech: string) => (
                             <span
                               key={tech}
-                              className="inline-block font-mono text-[11px] uppercase tracking-[0.08em] text-[#E0E0E0] px-2.5 py-1 border border-[#555555] bg-white/10 hover:bg-[#CCFF00] hover:text-black hover:border-[#CCFF00] transition-colors duration-150"
+                              className="inline-block font-mono text-[11px] uppercase tracking-[0.08em] text-[#E0E0E0] px-2.5 py-1 border border-[#333333] bg-black/80 hover:bg-[#CCFF00] hover:text-black hover:border-[#CCFF00] transition-colors duration-150"
                             >
                               {tech}
                             </span>
