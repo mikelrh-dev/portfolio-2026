@@ -78,13 +78,11 @@
     "bio_1": "Soy un perfil en constante aprendizaje. En cuanto me doy cuenta, estoy explorando integraciones de Machine Learning, nuevos lenguajes o arquitecturas de IA. Me apasiona tirar del hilo y ver hasta dónde llegan las ramificaciones y, mejor aún, ver cómo en algún punto esas ramificaciones terminan conectándose entre sí.",
     "bio_2": "Pero la exploración sin foco no aporta soluciones. Entiendo que el software no vive en el vacío; es una herramienta que debe aportar valor y resistir la presión y los cambios del mundo real.",
     "bio_3": "Por eso compagino mi fascinación por el desarrollo con la IA y los protocolos MCP con fundamentos de ingeniería estrictos (Spec Driven Development, Test Driven Development, modelado relacional y arquitectura asíncrona...).",
-    "cta_story": "[ LEER_HISTORIA_COMPLETA ]",
     "stack_header": "STACK",
     "categories_header": "CATEGORÍAS",
     "photo_filename": "perfil.jpg",
     "photo_meta": "JPG",
     "photo_caption": "[ OPERATOR ID: MIKEL ROMERO ]",
-    "status": "STATUS: AVAILABLE FOR HIRE",
     "categories": {
       "production": "PRODUCCIÓN",
       "frontend": "FRONTEND",

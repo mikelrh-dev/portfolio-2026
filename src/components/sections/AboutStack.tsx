@@ -227,13 +227,6 @@ export default function AboutStack() {
                 </motion.p>
               </div>
 
-              {/* Status — green accent separator */}
-              <div className="border-t border-[#CCFF00] pt-3">
-                <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#CCFF00]">
-                  <span>{'\u25CF'}</span> {t('about.status')}
-                </p>
-              </div>
-
               {/* Stack — ALL items in a 2-column grid */}
               <motion.div {...revealStackH}>
                 <h4 className="font-mono text-[#CCFF00] text-[12px] font-bold tracking-[0.12em] uppercase mb-2">
@@ -344,7 +337,7 @@ export default function AboutStack() {
                     </div>
 
                 {/* Intro y Claim Principal */}
-                <motion.h3 className="text-[15px] lg:text-[16px] leading-snug font-bold text-white tracking-tight mb-4" {...revealBio1}>
+                <motion.h3 className="text-[16px] lg:text-[19px] leading-snug font-bold text-white tracking-tight mb-4" {...revealBio1}>
                   {t('about.bio_headline_prefix')}{' '}
                   <span className="text-[#CCFF00]">{t('about.bio_headline_accent')}</span>
                 </motion.h3>
@@ -352,33 +345,19 @@ export default function AboutStack() {
                 {/* Texto Fluido Narrativo (Formato Teaser y Pragmático) */}
                 <div className="space-y-5 pt-2 border-t border-white/10">
                   
-                  <motion.p className="text-[13px] lg:text-[15px] text-[#CCCCCC] leading-[1.8]" {...revealBio2}>
+                  <motion.p className="text-[14px] lg:text-[17px] text-[#CCCCCC] leading-[1.8]" {...revealBio2}>
                     {t('about.bio_1')}
                   </motion.p>
 
-                  <motion.p className="text-[13px] lg:text-[15px] text-[#CCCCCC] leading-[1.8]" {...revealBio3}>
+                  <motion.p className="text-[14px] lg:text-[17px] text-[#CCCCCC] leading-[1.8]" {...revealBio3}>
                     {t('about.bio_2')}
                   </motion.p>
 
-                  <motion.p className="text-[13px] lg:text-[15px] text-[#CCCCCC] leading-[1.8]" {...revealBio4}>
+                  <motion.p className="text-[14px] lg:text-[17px] text-[#CCCCCC] leading-[1.8]" {...revealBio4}>
                     {t('about.bio_3')}
                   </motion.p>
 
                 </div>
-
-                {/* Botón de Expansión / Historia Completa */}
-                <motion.div className="pt-5 mt-2" {...revealBio4}>
-                  <button className="font-mono text-[11px] text-black bg-[#CCFF00] hover:bg-white hover:text-black transition-colors duration-300 px-4 py-1.5 uppercase tracking-wider font-bold">
-                    {t('about.cta_story')}
-                  </button>
-                </motion.div>
-
-                    {/* STATUS — green accent separator */}
-                    <div className="pt-4 mt-4 border-t border-[#CCFF00]">
-                      <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#CCFF00]">
-                        <span>{'\u25CF'}</span> {t('about.status')}
-                      </p>
-                    </div>
                   </div>
 
                    {/* ── Center spacer ── 4 columns cleared for face video ── */}
@@ -396,7 +375,7 @@ export default function AboutStack() {
                     </div>
 
                     <motion.p
-                      className="font-mono text-[#CCFF00] text-[13px] font-bold tracking-[0.12em] uppercase"
+                      className="font-mono text-[#CCFF00] text-[14px] font-bold tracking-[0.12em] uppercase"
                       {...revealStackH}
                     >
                       [{t('about.stack_header')}]
@@ -404,10 +383,10 @@ export default function AboutStack() {
 
                     {categories.map((cat, catIdx) => (
                       <motion.div key={cat} {...catReveals[catIdx]}>
-                        <p className="font-mono text-[11px] uppercase tracking-[0.08em] mb-2 text-[#FFFFFF]">
+                        <p className="font-mono text-[12px] lg:text-[13px] uppercase tracking-[0.08em] mb-2 text-[#FFFFFF]">
                           {'//'} {t(`about.categories.${cat}`)}
                         </p>
-                        <div className="flex flex-wrap gap-1.5">
+                        <div className="flex flex-wrap gap-2">
                           {(
                             (t(`about.items.${cat}`, {
                               returnObjects: true,
@@ -415,7 +394,7 @@ export default function AboutStack() {
                           ).map((tech: string) => (
                             <span
                               key={tech}
-                              className="inline-block font-mono text-[11px] uppercase tracking-[0.08em] text-[#E0E0E0] px-2.5 py-1 border border-[#333333] bg-black/80 hover:bg-[#CCFF00] hover:text-black hover:border-[#CCFF00] transition-colors duration-150"
+                              className="inline-block font-mono text-[12px] lg:text-[13px] uppercase tracking-[0.06em] text-[#E0E0E0] px-3 py-1.5 border border-[#333333] bg-black/80 hover:bg-[#CCFF00] hover:text-black hover:border-[#CCFF00] transition-colors duration-150"
                             >
                               {tech}
                             </span>
