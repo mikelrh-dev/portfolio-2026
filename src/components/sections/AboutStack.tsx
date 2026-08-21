@@ -156,13 +156,10 @@ export default function AboutStack() {
   // Canvas auto-plays as background; content reveals via scroll progress.
   const ABOUT_SECTION_HEIGHT = '120vh';
 
-  // Mobile: sticky 100vh "camera" — same visual as desktop (full-bleed frame
-  // with overlaid HUD), but ALL content (4 bios, every stack chip, every
-  // category) is reachable via a SMALL internal scroll box (max-h-[80vh]).
-  // The sticky container is overflow-hidden, so the only scrollable element is
-  // the HUD content box itself — nested scroll is small and local, never the
-  // page, so there is no compositing/scroll lag. One-shot reveals (no
-  // scroll-linked style writes). The 100vh section never overlaps the next.
+  // Mobile: editorial block layout — cinematic face crop as a header image,
+  // then a solid-black content column in normal page flow. No sticky camera
+  // and no nested scroll boxes: one native scroll context for the whole
+  // section. One-shot reveals only (no scroll-linked style writes).
   if (isMobile) {
     // Flat stack list (ordered by category) — ALL items, no slice.
     const stackItems = categories.flatMap((cat) =>
@@ -171,96 +168,86 @@ export default function AboutStack() {
 
     return (
       <section id="about" className="relative w-full bg-black">
-        {/* Sticky "camera" — pins the About viewport while the page scrolls */}
-        <div className="relative h-dvh sticky top-0 overflow-hidden">
-          {/* Background — static final frame, lazily loaded */}
+        {/* Editorial header — static frame, full face visible, blends into content */}
+        <div className="relative h-[50vh] w-full overflow-hidden">
           <img
             src="/assets/sequences/about/frame-143-mobile.webp"
-            alt="About background"
-            className="absolute inset-0 w-full h-full object-cover"
+            alt="Mikel Romero — About"
+            className="absolute inset-0 w-full h-full object-cover object-center"
             loading="lazy"
             decoding="async"
           />
+          {/* Bottom fade — seamless transition into the solid content block */}
+          <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-b from-transparent to-black" />
+        </div>
 
-          {/* Gradient overlay — darkens the frame so HUD text stays readable */}
-          <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-black/50 to-black" />
+        {/* Editorial content — solid black, native page scroll */}
+        <div className="bg-black px-6 pb-12 pt-6">
+          <div className="mx-auto max-w-md space-y-10">
 
-          {/* HUD — vertically centered; ONLY this small box scrolls internally
-              (max-h-[80vh]) so every bio/stack chip/category is reachable
-              without making the page itself scroll. pr-2 keeps the scrollbar
-              from clipping text. */}
-          <div className="absolute inset-0 z-20 flex items-center justify-center px-6 py-12">
-            <div className="max-w-sm w-full max-h-[80vh] overflow-y-auto space-y-6 pr-2">
-              {/* Section indicator */}
-              <motion.div className="section-indicator mb-0!" {...revealIndicator}>
-                <span className="text-[#CCFF00] font-bold">02/04</span>
-                <span className="text-[#888888]">&mdash;</span>
-                <span>{t('indicators.about')}</span>
-              </motion.div>
-
-              {/* Bio — headline + narrative */}
-              <div className="space-y-3">
-                <motion.p
-                  className="text-[14px] leading-snug text-[#FFFFFF] font-medium"
-                  {...revealBio1}
-                >
-                  {t('about.bio_headline_prefix')}{' '}
-                  <span className="text-[#CCFF00]">{t('about.bio_headline_accent')}</span>
-                </motion.p>
-                <motion.p
-                  className="text-[14px] leading-snug text-[#FFFFFF] font-medium"
-                  {...revealBio2}
-                >
-                  {t('about.bio_1')}
-                </motion.p>
-                <motion.p
-                  className="text-[14px] leading-snug text-[#FFFFFF] font-medium"
-                  {...revealBio3}
-                >
-                  {t('about.bio_2')}
-                </motion.p>
-                <motion.p
-                  className="text-[14px] leading-snug text-[#FFFFFF] font-medium"
-                  {...revealBio4}
-                >
-                  {t('about.bio_3')}
-                </motion.p>
-              </div>
-
-              {/* Stack — ALL items in a 2-column grid */}
-              <motion.div {...revealStackH}>
-                <h4 className="font-mono text-[#CCFF00] text-[12px] font-bold tracking-[0.12em] uppercase mb-2">
-                  [{t('about.stack_header')}]
-                </h4>
-                <div className="grid grid-cols-2 gap-2">
-                  {stackItems.map((tech: string) => (
-                    <span
-                      key={tech}
-                      className="inline-block font-mono text-[10px] uppercase tracking-[0.08em] text-[#E0E0E0] px-2 py-1 border border-[#555555] bg-black/40"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-
-              {/* Categories — ALL */}
-              <motion.div {...revealCat0}>
-                <h4 className="font-mono text-[#CCFF00] text-[12px] font-bold tracking-[0.12em] uppercase mb-2">
-                  [{t('about.categories_header')}]
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {categories.map((cat) => (
-                    <span
-                      key={cat}
-                      className="inline-block font-mono text-[10px] uppercase tracking-[0.08em] text-[#E0E0E0] px-2 py-0.5 border border-[#555555] bg-black/40"
-                    >
-                      {t(`about.categories.${cat}`)}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
+            {/* Bio — story block with HUD accent */}
+            <div className="space-y-3 border-l-2 border-[#CCFF00] py-2 pl-5">
+              <motion.p
+                className="text-[14px] leading-snug text-[#FFFFFF] font-medium"
+                {...revealBio1}
+              >
+                {t('about.bio_headline_prefix')}{' '}
+                <span className="text-[#CCFF00]">{t('about.bio_headline_accent')}</span>
+              </motion.p>
+              <motion.p
+                className="text-[14px] leading-snug text-[#FFFFFF] font-medium"
+                {...revealBio2}
+              >
+                {t('about.bio_1')}
+              </motion.p>
+              <motion.p
+                className="text-[14px] leading-snug text-[#FFFFFF] font-medium"
+                {...revealBio3}
+              >
+                {t('about.bio_2')}
+              </motion.p>
+              <motion.p
+                className="text-[14px] leading-snug text-[#FFFFFF] font-medium"
+                {...revealBio4}
+              >
+                {t('about.bio_3')}
+              </motion.p>
             </div>
+
+            {/* Stack — ALL items in a 2-column grid */}
+            <motion.div {...revealStackH}>
+              <h4 className="font-mono text-[#CCFF00] text-[12px] font-bold tracking-[0.12em] uppercase mb-2">
+                [{t('about.stack_header')}]
+              </h4>
+              <div className="grid grid-cols-2 gap-2">
+                {stackItems.map((tech: string) => (
+                  <span
+                    key={tech}
+                    className="inline-block font-mono text-[10px] uppercase tracking-[0.08em] text-[#E0E0E0] px-2 py-1 border border-[#555555] bg-black/40"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Categories — ALL */}
+            <motion.div {...revealCat0}>
+              <h4 className="font-mono text-[#CCFF00] text-[12px] font-bold tracking-[0.12em] uppercase mb-2">
+                [{t('about.categories_header')}]
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                {categories.map((cat) => (
+                  <span
+                    key={cat}
+                    className="inline-block font-mono text-[10px] uppercase tracking-[0.08em] text-[#E0E0E0] px-2 py-0.5 border border-[#555555] bg-black/40"
+                  >
+                    {t(`about.categories.${cat}`)}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+
           </div>
         </div>
       </section>

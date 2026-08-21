@@ -77,7 +77,7 @@
     "bio_headline_accent": "madriguera infinita.",
     "bio_1": "Soy un perfil en constante aprendizaje. En cuanto me doy cuenta, estoy explorando integraciones de Machine Learning, nuevos lenguajes o arquitecturas de IA. Me apasiona tirar del hilo y ver hasta dónde llegan las ramificaciones y, mejor aún, ver cómo en algún punto esas ramificaciones terminan conectándose entre sí.",
     "bio_2": "Pero la exploración sin foco no aporta soluciones. Entiendo que el software no vive en el vacío; es una herramienta que debe aportar valor y resistir la presión y los cambios del mundo real.",
-    "bio_3": "Por eso compagino mi fascinación por el desarrollo con la IA y los protocolos MCP con fundamentos de ingeniería estrictos (Spec Driven Development, Test Driven Development, modelado relacional y arquitectura asíncrona...).",
+    "bio_3": "Por eso compagino mi fascinación por el desarrollo con la IA y los protocolos MCP con fundamentos de ingeniería estrictos (Spec Driven Development, Test Driven Development, modelado relacional y arquitectura asíncrona).",
     "stack_header": "STACK",
     "categories_header": "CATEGORÍAS",
     "photo_filename": "perfil.jpg",
@@ -98,7 +98,7 @@
   },
   "contact": {
     "headline": "¿HABLAMOS?",
-    "headline_2": "ABIERTO A PROYECTOS, FREELANCE O UNA CHARLA RÁPIDA.",
+    "headline_2": "ABIERTO A PROYECTOS O UNA CHARLA RÁPIDA.",
     "email": "mikelromerohomobono@gmail.com",
     "socials": [
       { "label": "GITHUB", "handle": "github.com/mikelrh-dev", "url": "https://github.com/mikelrh-dev" },
@@ -106,7 +106,6 @@
       { "label": "EMAIL", "handle": "mikelromerohomobono@gmail.com", "url": "mailto:mikelromerohomobono@gmail.com" }
     ],
     "footer": "© 2026 MIKEL ROMERO. TODOS LOS DERECHOS RESERVADOS.",
-    "built_with": "CONSTRUIDO CON CLAUDE CODE Y OPENCODE",
     "form": {
       "nameLabel": "Nombre",
       "emailLabel": "Correo",

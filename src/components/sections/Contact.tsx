@@ -142,9 +142,6 @@ export default function Contact() {
           <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-[#666666]">
             {t('contact.footer')}
           </p>
-          <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-[#444444]">
-            {t('contact.built_with')}
-          </p>
         </div>
       </footer>
     </section>

@@ -77,7 +77,7 @@
     "bio_headline_accent": "an infinite rabbit hole.",
     "bio_1": "I'm a profile in constant learning. Before I know it, I'm exploring Machine Learning integrations, new languages, or AI architectures. I love pulling the thread and seeing how far the branches reach — and even better, watching them eventually connect with each other.",
     "bio_2": "But exploration without focus doesn't produce solutions. Software doesn't live in a vacuum; it's a tool that must deliver value and withstand the pressure and changes of the real world.",
-    "bio_3": "That's why I balance my fascination for development, AI, and MCP protocols with strict engineering fundamentals (Spec Driven Development, Test Driven Development, relational modeling, and asynchronous architecture...).",
+    "bio_3": "That's why I balance my fascination for development, AI, and MCP protocols with strict engineering fundamentals (Spec Driven Development, Test Driven Development, relational modeling, and asynchronous architecture).",
     "stack_header": "STACK",
     "categories_header": "CATEGORIES",
     "photo_filename": "profile.jpg",
@@ -98,7 +98,7 @@
   },
   "contact": {
     "headline": "LET'S TALK",
-    "headline_2": "OPEN TO PROJECTS, FREELANCE, OR A QUICK CHAT.",
+    "headline_2": "OPEN TO PROJECTS OR A QUICK CHAT.",
     "email": "mikelromerohomobono@gmail.com",
     "socials": [
       { "label": "GITHUB", "handle": "github.com/mikelrh-dev", "url": "https://github.com/mikelrh-dev" },
@@ -106,7 +106,6 @@
       { "label": "EMAIL", "handle": "mikelromerohomobono@gmail.com", "url": "mailto:mikelromerohomobono@gmail.com" }
     ],
     "footer": "© 2026 MIKEL ROMERO. ALL RIGHTS RESERVED.",
-    "built_with": "BUILT WITH CLAUDE CODE AND OPENCODE",
     "form": {
       "nameLabel": "Name",
       "emailLabel": "Email",
