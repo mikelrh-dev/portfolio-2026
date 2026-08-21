@@ -198,31 +198,32 @@ export default function AboutStack() {
                 <span>{t('indicators.about')}</span>
               </motion.div>
 
-              {/* Bios — ALL */}
+              {/* Bio — headline + narrative */}
               <div className="space-y-3">
                 <motion.p
                   className="text-[14px] leading-snug text-[#FFFFFF] font-medium"
                   {...revealBio1}
                 >
-                  {t('about.bio_1')}
+                  {t('about.bio_headline_prefix')}{' '}
+                  <span className="text-[#CCFF00]">{t('about.bio_headline_accent')}</span>
                 </motion.p>
                 <motion.p
                   className="text-[14px] leading-snug text-[#FFFFFF] font-medium"
                   {...revealBio2}
                 >
-                  {t('about.bio_2')}
+                  {t('about.bio_1')}
                 </motion.p>
                 <motion.p
                   className="text-[14px] leading-snug text-[#FFFFFF] font-medium"
                   {...revealBio3}
                 >
-                  {t('about.bio_3')}
+                  {t('about.bio_2')}
                 </motion.p>
                 <motion.p
                   className="text-[14px] leading-snug text-[#FFFFFF] font-medium"
                   {...revealBio4}
                 >
-                  {t('about.bio_4')}
+                  {t('about.bio_3')}
                 </motion.p>
               </div>
 
@@ -342,43 +343,35 @@ export default function AboutStack() {
                       <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#CCFF00]">bio.md</span>
                     </div>
 
-                    {/* Headline */}
-                    <motion.h3
-                      className="text-[15px] lg:text-[17px] leading-snug font-bold text-white tracking-tight"
-                      {...revealBio1}
-                    >
-                      {t('about.bio_headline')}
-                    </motion.h3>
+                {/* Intro y Claim Principal */}
+                <motion.h3 className="text-[15px] lg:text-[16px] leading-snug font-bold text-white tracking-tight mb-4" {...revealBio1}>
+                  {t('about.bio_headline_prefix')}{' '}
+                  <span className="text-[#CCFF00]">{t('about.bio_headline_accent')}</span>
+                </motion.h3>
 
-                    {/* Proof-of-work points */}
-                    <div className="space-y-4 pt-2">
-                      <motion.div className="space-y-1" {...revealBio2}>
-                        <p className="font-mono text-[11px] text-[#CCFF00] font-semibold tracking-wide">
-                          {t('about.bio_point_1_title')}
-                        </p>
-                        <p className="text-[12px] lg:text-[13px] text-[#CCCCCC] leading-relaxed">
-                          {t('about.bio_point_1_desc')}
-                        </p>
-                      </motion.div>
+                {/* Texto Fluido Narrativo (Formato Teaser y Pragmático) */}
+                <div className="space-y-5 pt-2 border-t border-white/10">
+                  
+                  <motion.p className="text-[13px] lg:text-[15px] text-[#CCCCCC] leading-[1.8]" {...revealBio2}>
+                    {t('about.bio_1')}
+                  </motion.p>
 
-                      <motion.div className="space-y-1" {...revealBio3}>
-                        <p className="font-mono text-[11px] text-[#CCFF00] font-semibold tracking-wide">
-                          {t('about.bio_point_2_title')}
-                        </p>
-                        <p className="text-[12px] lg:text-[13px] text-[#CCCCCC] leading-relaxed">
-                          {t('about.bio_point_2_desc')}
-                        </p>
-                      </motion.div>
+                  <motion.p className="text-[13px] lg:text-[15px] text-[#CCCCCC] leading-[1.8]" {...revealBio3}>
+                    {t('about.bio_2')}
+                  </motion.p>
 
-                      <motion.div className="space-y-1" {...revealBio4}>
-                        <p className="font-mono text-[11px] text-[#CCFF00] font-semibold tracking-wide">
-                          {t('about.bio_point_3_title')}
-                        </p>
-                        <p className="text-[12px] lg:text-[13px] text-[#CCCCCC] leading-relaxed">
-                          {t('about.bio_point_3_desc')}
-                        </p>
-                      </motion.div>
-                    </div>
+                  <motion.p className="text-[13px] lg:text-[15px] text-[#CCCCCC] leading-[1.8]" {...revealBio4}>
+                    {t('about.bio_3')}
+                  </motion.p>
+
+                </div>
+
+                {/* Botón de Expansión / Historia Completa */}
+                <motion.div className="pt-5 mt-2" {...revealBio4}>
+                  <button className="font-mono text-[11px] text-black bg-[#CCFF00] hover:bg-white hover:text-black transition-colors duration-300 px-4 py-1.5 uppercase tracking-wider font-bold">
+                    {t('about.cta_story')}
+                  </button>
+                </motion.div>
 
                     {/* STATUS — green accent separator */}
                     <div className="pt-4 mt-4 border-t border-[#CCFF00]">
