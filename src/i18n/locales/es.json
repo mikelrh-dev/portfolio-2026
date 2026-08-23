@@ -19,6 +19,8 @@
   },
   "work": {
     "headline": "TRABAJO SELECCIONADO.",
+    "action_demo": "PROBAR",
+    "action_github": "GITHUB",
     "featured": {
       "id": "vespera",
       "title": "VESPERA SOLUTIONS",
@@ -27,9 +29,32 @@
       "metrics": "1 SISTEMA · 4 MÓDULOS",
       "stack": ["Velneo V37", "Gemini AI", "Telegram Bot", "Java"],
       "image": "/images/vespera_solutions_logo.png",
-      "url": "https://vespera-solutions.onrender.com/"
+      "url": "https://vespera-solutions.onrender.com/",
+      "github": "#"
     },
     "projects": [
+      {
+        "id": "interviewtts",
+        "title": "INTERVIEW TTS",
+        "verbo": "Entrevistador IA por voz: un gemelo digital que responde con mi perfil real. Pipeline STT → RAG → LLM → TTS con streaming SSE por frases y avatar 3D reactivo.",
+        "impact": "VOZ · RAG · STREAMING SSE",
+        "metrics": "VOZ · RAG · STREAMING SSE",
+        "stack": ["Python", "FastAPI", "Whisper", "Edge TTS", "RAG", "Docker"],
+        "image": "/images/interviewtts-card.png",
+        "url": "#",
+        "github": "#"
+      },
+      {
+        "id": "frauddetector",
+        "title": "FRAUD DETECTOR",
+        "verbo": "Detección híbrida de fraude: reglas deterministas + XGBoost + contexto, con SHAP para explicar cada score y un LLM local que redacta reportes sin decidir. Workers asíncronos sobre Redis Streams.",
+        "impact": "ML EN 3 CAPAS · 337 TESTS · 8 SERVICIOS",
+        "metrics": "ML EN 3 CAPAS · 337 TESTS · 8 SERVICIOS",
+        "stack": ["Python", "FastAPI", "PostgreSQL", "Redis", "XGBoost", "SHAP", "React", "TypeScript"],
+        "image": "/images/frauddetector-card.png",
+        "url": "#",
+        "github": "#"
+      },
       {
         "id": "valaquia",
         "title": "VALAQUIA STORE",
@@ -38,7 +63,8 @@
         "metrics": "2 PLATAFORMAS · 1 API",
         "stack": ["Android", "Spring Boot", "Java 22", "Retrofit", "MySQL"],
         "image": "/images/project05.png",
-        "url": "https://github.com/mikelrh-dev/Proyecto_Cliente_PMD"
+        "url": "#",
+        "github": "https://github.com/mikelrh-dev/Proyecto_Cliente_PMD"
       },
       {
         "id": "bookbugs",
@@ -48,7 +74,8 @@
         "metrics": "1 DB · 2 CLIENTES",
         "stack": ["PHP", "JavaFX", "MySQL", "DBCP2", "REST API"],
         "image": "/images/project06.png",
-        "url": "https://github.com/Ander719/Reto_Libreria"
+        "url": "#",
+        "github": "https://github.com/Ander719/Reto_Libreria"
       },
       {
         "id": "diytools",
@@ -58,7 +85,8 @@
         "metrics": "FLUJO CLIENTE + ADMIN",
         "stack": ["Java", "MySQL", "Hibernate", "JavaFX"],
         "image": "/images/project01.jpg",
-        "url": "https://github.com/AGL-12/Reto_final_Tienda"
+        "url": "#",
+        "github": "https://github.com/AGL-12/Reto_final_Tienda"
       },
       {
         "id": "ecodrive",
@@ -68,7 +96,8 @@
         "metrics": "1 PLATAFORMA · 1 MISIÓN",
         "stack": ["HTML5", "CSS3", "JavaScript"],
         "image": "/images/project03.jpg",
-        "url": "http://eco-drive-project.netlify.app"
+        "url": "http://eco-drive-project.netlify.app",
+        "github": "#"
       }
     ]
   },

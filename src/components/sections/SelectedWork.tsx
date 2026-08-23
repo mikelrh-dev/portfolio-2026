@@ -15,11 +15,12 @@ const STACK_CATEGORY: Record<string, number> = {
   // 1: Languages
   typescript: 1, javascript: 1, java: 1, kotlin: 1, python: 1, sql: 1, php: 1, 'html5': 1, 'css3': 1,
   // 2: Frameworks / Runtimes
-  react: 2, 'tailwind css': 2, 'three.js': 2, r3f: 2, 'spring boot': 2, 'node.js': 2, javafx: 2,
+  react: 2, 'tailwind css': 2, 'three.js': 2, r3f: 2, 'spring boot': 2, 'node.js': 2, javafx: 2, fastapi: 2,
   // 3: Databases / Data
-  postgresql: 3, mysql: 3, hibernate: 3, mcp: 3, 'rest api': 3, 'rest apis': 3,
+  postgresql: 3, mysql: 3, hibernate: 3, mcp: 3, 'rest api': 3, 'rest apis': 3, redis: 3,
   // 4: Libraries / Tools
   'git/github': 4, 'claude code': 4, opencode: 4, 'android studio': 4, docker: 4, n8n: 4, dbcp2: 4, retrofit: 4,
+  whisper: 4, 'edge tts': 4, rag: 4, xgboost: 4, shap: 4,
   // 5: Platforms / Services
   android: 5, 'velneo v37': 5, 'gemini ai': 5, 'telegram bot': 5,
 };
@@ -76,6 +77,7 @@ export default function SelectedWork() {
     stack: string[];
     image: string;
     url: string;
+    github: string;
   }>;
 
   const featured = t('work.featured', { returnObjects: true }) as {
@@ -87,6 +89,7 @@ export default function SelectedWork() {
     stack: string[];
     image: string;
     url: string;
+    github: string;
   };
 
   const featuredStack = t('work.featured.stack', { returnObjects: true }) as string[];
@@ -124,6 +127,9 @@ export default function SelectedWork() {
                 stack={item.stack.slice(0, 4)}
                 image={item.image}
                 url={item.url}
+                github={item.github}
+                demoLabel={t('work.action_demo')}
+                githubLabel={t('work.action_github')}
               />
             </div>
           ))}
@@ -143,15 +149,15 @@ interface ProjectCardProps {
   stack: string[];
   image: string;
   url: string;
+  github: string;
+  demoLabel: string;
+  githubLabel: string;
 }
 
-function ProjectCard({ index, title, verbo, impact, stack, image, url }: ProjectCardProps) {
+function ProjectCard({ index, title, verbo, impact, stack, image, url, github, demoLabel, githubLabel }: ProjectCardProps) {
   return (
-    <a
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group relative block bg-[#0A0A0A] border border-[#222222] overflow-hidden no-underline hover:border-[#CCFF00] transition-colors duration-300 h-full flex flex-col"
+    <div
+      className="group relative block bg-[#0A0A0A] border border-[#222222] overflow-hidden hover:border-[#CCFF00] transition-colors duration-300 h-full flex flex-col"
     >
       {/* Image zone — fixed height, no crop, letterboxed */}
       <div className="relative h-[220px] overflow-hidden bg-[#000000] shrink-0">
@@ -205,10 +211,30 @@ function ProjectCard({ index, title, verbo, impact, stack, image, url }: Project
             {impact}
           </p>
         </div>
+
+        {/* Actions — dual links (live demo + GitHub) */}
+        <div className="flex gap-2 mt-4 pt-3 border-t border-[#222222]">
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono text-[10px] uppercase tracking-[0.08em] text-[#050505] bg-[#CCFF00] px-3 py-1 hover:bg-white transition-colors duration-200 no-underline"
+          >
+            [{demoLabel}]
+          </a>
+          <a
+            href={github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono text-[10px] uppercase tracking-[0.08em] text-[#CCCCCC] border border-[#333333] px-3 py-1 hover:border-[#CCFF00] hover:text-[#CCFF00] transition-colors duration-200 no-underline"
+          >
+            [{githubLabel}]
+          </a>
+        </div>
       </div>
 
       {/* Left accent line */}
       <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-[#CCFF00] scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-300" />
-    </a>
+    </div>
   );
 }
