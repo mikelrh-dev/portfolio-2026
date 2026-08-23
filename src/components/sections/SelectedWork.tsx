@@ -203,9 +203,9 @@ function ProjectCard({ index, title, verbo, impact, stack, image, url, github, d
           P.{index}
         </span>
 
-        {/* HUD command deck — per-link square actions, slide in on hover,
-            always visible on touch devices (no hover) */}
-        <div className="absolute top-3 right-3 flex gap-1.5 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 group-focus-within:opacity-100 group-focus-within:translate-x-0 max-md:opacity-100 max-md:translate-x-0 transition-all duration-200">
+        {/* HUD command deck — always visible (discoverability), muted at rest,
+            lime inversion on card hover or direct button hover */}
+        <div className="absolute top-3 right-3 flex gap-1.5">
           {hasDemo && (
             <a
               href={url}
@@ -213,7 +213,7 @@ function ProjectCard({ index, title, verbo, impact, stack, image, url, github, d
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
               aria-label={`${demoLabel} — ${title}`}
-              className="flex items-center justify-center w-9 h-9 font-mono text-[13px] text-[#CCFF00] bg-black/80 border border-[#CCFF00]/40 hover:bg-[#CCFF00] hover:text-[#050505] transition-colors duration-150 no-underline"
+              className="flex items-center justify-center w-9 h-9 font-mono text-[13px] text-[#888888] bg-black/80 border border-[#333333] group-hover:border-[#CCFF00]/50 group-hover:text-[#CCFF00] hover:bg-[#CCFF00] hover:border-[#CCFF00] hover:text-[#050505] transition-colors duration-150 no-underline"
             >
               ↗
             </a>
@@ -225,7 +225,7 @@ function ProjectCard({ index, title, verbo, impact, stack, image, url, github, d
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
               aria-label={`${githubLabel} — ${title}`}
-              className="flex items-center justify-center w-9 h-9 font-mono text-[10px] font-bold text-[#CCFF00] bg-black/80 border border-[#CCFF00]/40 hover:bg-[#CCFF00] hover:text-[#050505] transition-colors duration-150 no-underline"
+              className="flex items-center justify-center w-9 h-9 font-mono text-[10px] font-bold text-[#888888] bg-black/80 border border-[#333333] group-hover:border-[#CCFF00]/50 group-hover:text-[#CCFF00] hover:bg-[#CCFF00] hover:border-[#CCFF00] hover:text-[#050505] transition-colors duration-150 no-underline"
             >
               GH
             </a>
@@ -237,7 +237,7 @@ function ProjectCard({ index, title, verbo, impact, stack, image, url, github, d
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
               aria-label={`${docsLabel} — ${title}`}
-              className="flex items-center justify-center w-9 h-9 font-mono text-[10px] font-bold text-[#CCFF00] bg-black/80 border border-[#CCFF00]/40 hover:bg-[#CCFF00] hover:text-[#050505] transition-colors duration-150 no-underline"
+              className="flex items-center justify-center w-9 h-9 font-mono text-[10px] font-bold text-[#888888] bg-black/80 border border-[#333333] group-hover:border-[#CCFF00]/50 group-hover:text-[#CCFF00] hover:bg-[#CCFF00] hover:border-[#CCFF00] hover:text-[#050505] transition-colors duration-150 no-underline"
             >
               DOC
             </a>
@@ -247,8 +247,8 @@ function ProjectCard({ index, title, verbo, impact, stack, image, url, github, d
 
       {/* Content zone — flex column, fills remaining space */}
       <div className="p-5 flex flex-col flex-1">
-        {/* Title */}
-        <p className="font-mono font-bold text-[13px] text-[#FFFFFF] uppercase tracking-[0.05em] mb-2">
+        {/* Title — lime on card hover: universal "this is clickable" affordance */}
+        <p className="font-mono font-bold text-[13px] text-[#FFFFFF] uppercase tracking-[0.05em] mb-2 group-hover:text-[#CCFF00] transition-colors duration-200">
           {title}
         </p>
 
