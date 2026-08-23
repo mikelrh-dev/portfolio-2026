@@ -204,7 +204,8 @@ function ProjectCard({ index, title, verbo, impact, stack, image, url, github, d
         </span>
 
         {/* HUD command deck — always visible (discoverability), muted at rest,
-            lime inversion on card hover or direct button hover */}
+            lime inversion on card hover or direct button hover.
+            Visible labels are universal (DEMO/CODE/DOCS) — no i18n needed. */}
         <div className="absolute top-3 right-3 flex gap-1.5">
           {hasDemo && (
             <a
@@ -213,9 +214,9 @@ function ProjectCard({ index, title, verbo, impact, stack, image, url, github, d
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
               aria-label={`${demoLabel} — ${title}`}
-              className="flex items-center justify-center w-9 h-9 font-mono text-[13px] text-[#888888] bg-black/80 border border-[#333333] group-hover:border-[#CCFF00]/50 group-hover:text-[#CCFF00] hover:bg-[#CCFF00] hover:border-[#CCFF00] hover:text-[#050505] transition-colors duration-150 no-underline"
+              className="flex items-center h-7 px-2.5 font-mono text-[9px] font-bold tracking-[0.08em] text-[#888888] bg-black/80 border border-[#333333] group-hover:border-[#CCFF00]/50 group-hover:text-[#CCFF00] hover:bg-[#CCFF00] hover:border-[#CCFF00] hover:text-[#050505] transition-colors duration-150 no-underline"
             >
-              ↗
+              DEMO
             </a>
           )}
           {hasRepo && (
@@ -225,9 +226,9 @@ function ProjectCard({ index, title, verbo, impact, stack, image, url, github, d
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
               aria-label={`${githubLabel} — ${title}`}
-              className="flex items-center justify-center w-9 h-9 font-mono text-[10px] font-bold text-[#888888] bg-black/80 border border-[#333333] group-hover:border-[#CCFF00]/50 group-hover:text-[#CCFF00] hover:bg-[#CCFF00] hover:border-[#CCFF00] hover:text-[#050505] transition-colors duration-150 no-underline"
+              className="flex items-center h-7 px-2.5 font-mono text-[9px] font-bold tracking-[0.08em] text-[#888888] bg-black/80 border border-[#333333] group-hover:border-[#CCFF00]/50 group-hover:text-[#CCFF00] hover:bg-[#CCFF00] hover:border-[#CCFF00] hover:text-[#050505] transition-colors duration-150 no-underline"
             >
-              GH
+              CODE
             </a>
           )}
           {hasDocs && (
@@ -237,9 +238,9 @@ function ProjectCard({ index, title, verbo, impact, stack, image, url, github, d
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
               aria-label={`${docsLabel} — ${title}`}
-              className="flex items-center justify-center w-9 h-9 font-mono text-[10px] font-bold text-[#888888] bg-black/80 border border-[#333333] group-hover:border-[#CCFF00]/50 group-hover:text-[#CCFF00] hover:bg-[#CCFF00] hover:border-[#CCFF00] hover:text-[#050505] transition-colors duration-150 no-underline"
+              className="flex items-center h-7 px-2.5 font-mono text-[9px] font-bold tracking-[0.08em] text-[#888888] bg-black/80 border border-[#333333] group-hover:border-[#CCFF00]/50 group-hover:text-[#CCFF00] hover:bg-[#CCFF00] hover:border-[#CCFF00] hover:text-[#050505] transition-colors duration-150 no-underline"
             >
-              DOC
+              DOCS
             </a>
           )}
         </div>
