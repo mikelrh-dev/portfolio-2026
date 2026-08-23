@@ -24,7 +24,7 @@
     "featured": {
       "id": "vespera",
       "title": "VESPERA SOLUTIONS",
-      "verbo": "ERP built during internship. Replaces 5+ disconnected tools with one system: sales, purchases, warehouse, treasury. Real-time stock tracking, AI-powered insights, Telegram bot for instant KPI checks.",
+      "verbo": "Documentation site of the ERP I built during my internship (the Velneo client itself is internal). Replaced 5+ disconnected tools: sales, purchases, warehouse, treasury. Real-time stock tracking, AI insights, Telegram bot for instant KPIs.",
       "impact": "1 SYSTEM · 4 MODULES · AI ASSISTED",
       "metrics": "1 SYSTEM · 4 MODULES",
       "stack": [
@@ -36,7 +36,8 @@
       "image": "/images/vespera_solutions_logo.png",
       "url": "https://vespera-solutions.onrender.com/",
       "github": "#",
-      "docs": ""
+      "docs": "",
+      "url_label": "DOCS"
     },
     "projects": [
       {

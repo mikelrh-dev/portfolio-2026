@@ -79,6 +79,7 @@ export default function SelectedWork() {
     url: string;
     github: string;
     docs: string;
+    url_label?: string;
   }>;
 
   const featured = t('work.featured', { returnObjects: true }) as {
@@ -92,6 +93,7 @@ export default function SelectedWork() {
     url: string;
     github: string;
     docs: string;
+    url_label?: string;
   };
 
   const featuredStack = t('work.featured.stack', { returnObjects: true }) as string[];
@@ -131,6 +133,7 @@ export default function SelectedWork() {
                 url={item.url}
                 github={item.github}
                 docs={item.docs}
+                urlLabel={item.url_label}
                 demoLabel={t('work.action_demo')}
                 githubLabel={t('work.action_github')}
                 docsLabel={t('work.action_docs')}
@@ -155,12 +158,13 @@ interface ProjectCardProps {
   url: string;
   github: string;
   docs: string;
+  urlLabel?: string;
   demoLabel: string;
   githubLabel: string;
   docsLabel: string;
 }
 
-function ProjectCard({ index, title, verbo, impact, stack, image, url, github, docs, demoLabel, githubLabel, docsLabel }: ProjectCardProps) {
+function ProjectCard({ index, title, verbo, impact, stack, image, url, github, docs, urlLabel, demoLabel, githubLabel, docsLabel }: ProjectCardProps) {
   // Whole-card primary action: live demo if available, otherwise the repo
   const hasDemo = Boolean(url && url !== '#');
   const hasRepo = Boolean(github && github !== '#');
@@ -213,10 +217,10 @@ function ProjectCard({ index, title, verbo, impact, stack, image, url, github, d
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              aria-label={`${demoLabel} — ${title}`}
+              aria-label={`${urlLabel || demoLabel} — ${title}`}
               className="flex items-center h-7 px-2.5 font-mono text-[9px] font-bold tracking-[0.08em] text-[#888888] bg-black/80 border border-[#333333] group-hover:border-[#CCFF00]/50 group-hover:text-[#CCFF00] hover:bg-[#CCFF00] hover:border-[#CCFF00] hover:text-[#050505] transition-colors duration-150 no-underline"
             >
-              DEMO
+              {urlLabel || demoLabel}
             </a>
           )}
           {hasRepo && (
