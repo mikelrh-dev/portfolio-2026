@@ -42,7 +42,7 @@
         "stack": ["Python", "FastAPI", "Whisper", "Edge TTS", "RAG", "Docker"],
         "image": "/images/interviewtts-card.png",
         "url": "#",
-        "github": "#"
+        "github": "https://github.com/mikelrh-dev/liveInterviewRAG"
       },
       {
         "id": "frauddetector",
@@ -53,7 +53,7 @@
         "stack": ["Python", "FastAPI", "PostgreSQL", "Redis", "XGBoost", "SHAP", "React", "TypeScript"],
         "image": "/images/frauddetector-card.png",
         "url": "#",
-        "github": "#"
+        "github": "https://github.com/mikelrh-dev/fraud-detector"
       },
       {
         "id": "valaquia",
@@ -97,7 +97,7 @@
         "stack": ["HTML5", "CSS3", "JavaScript"],
         "image": "/images/project03.jpg",
         "url": "http://eco-drive-project.netlify.app",
-        "github": "#"
+        "github": "https://github.com/mikelrh-dev/ecodrive"
       }
     ]
   },
