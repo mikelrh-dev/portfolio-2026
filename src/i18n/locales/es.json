@@ -25,10 +25,10 @@
       "id": "vespera",
       "title": "VESPERA SOLUTIONS",
       "verbo": "Site de documentación del ERP construido en mis prácticas (el cliente Velneo es interno). Reemplazó 5+ herramientas desconectadas: ventas, compras, almacén, tesorería. Stock en tiempo real, análisis con IA, bot de Telegram para KPIs.",
-      "impact": "1 SISTEMA · 4 MÓDULOS · ASISTIDO POR IA",
+      "impact": "1 SISTEMA · 4 MÓDULOS",
       "metrics": "1 SISTEMA · 4 MÓDULOS",
       "stack": [
-        "Velneo V37",
+        "Velneo",
         "Gemini AI",
         "Telegram Bot",
         "Java"
