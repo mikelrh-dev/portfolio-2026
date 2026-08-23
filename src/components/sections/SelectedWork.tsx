@@ -78,6 +78,7 @@ export default function SelectedWork() {
     image: string;
     url: string;
     github: string;
+    docs: string;
   }>;
 
   const featured = t('work.featured', { returnObjects: true }) as {
@@ -90,6 +91,7 @@ export default function SelectedWork() {
     image: string;
     url: string;
     github: string;
+    docs: string;
   };
 
   const featuredStack = t('work.featured.stack', { returnObjects: true }) as string[];
@@ -128,8 +130,10 @@ export default function SelectedWork() {
                 image={item.image}
                 url={item.url}
                 github={item.github}
+                docs={item.docs}
                 demoLabel={t('work.action_demo')}
                 githubLabel={t('work.action_github')}
+                docsLabel={t('work.action_docs')}
               />
             </div>
           ))}
@@ -150,11 +154,13 @@ interface ProjectCardProps {
   image: string;
   url: string;
   github: string;
+  docs: string;
   demoLabel: string;
   githubLabel: string;
+  docsLabel: string;
 }
 
-function ProjectCard({ index, title, verbo, impact, stack, image, url, github, demoLabel, githubLabel }: ProjectCardProps) {
+function ProjectCard({ index, title, verbo, impact, stack, image, url, github, docs, demoLabel, githubLabel, docsLabel }: ProjectCardProps) {
   return (
     <div
       className="group relative block bg-[#0A0A0A] border border-[#222222] overflow-hidden hover:border-[#CCFF00] transition-colors duration-300 h-full flex flex-col"
@@ -213,7 +219,7 @@ function ProjectCard({ index, title, verbo, impact, stack, image, url, github, d
         </div>
 
         {/* Actions — dual links (live demo + GitHub) */}
-        <div className="flex gap-2 mt-4 pt-3 border-t border-[#222222]">
+        <div className="flex flex-wrap gap-2 mt-4 pt-3 border-t border-[#222222]">
           <a
             href={url}
             target="_blank"
@@ -230,6 +236,16 @@ function ProjectCard({ index, title, verbo, impact, stack, image, url, github, d
           >
             [{githubLabel}]
           </a>
+          {docs ? (
+            <a
+              href={docs}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-mono text-[10px] uppercase tracking-[0.08em] text-[#CCCCCC] border border-[#333333] px-3 py-1 hover:border-[#CCFF00] hover:text-[#CCFF00] transition-colors duration-200 no-underline"
+            >
+              [{docsLabel}]
+            </a>
+          ) : null}
         </div>
       </div>
 

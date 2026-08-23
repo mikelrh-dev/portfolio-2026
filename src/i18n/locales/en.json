@@ -27,10 +27,16 @@
       "verbo": "ERP built during internship. Replaces 5+ disconnected tools with one system: sales, purchases, warehouse, treasury. Real-time stock tracking, AI-powered insights, Telegram bot for instant KPI checks.",
       "impact": "1 SYSTEM · 4 MODULES · AI ASSISTED",
       "metrics": "1 SYSTEM · 4 MODULES",
-      "stack": ["Velneo V37", "Gemini AI", "Telegram Bot", "Java"],
+      "stack": [
+        "Velneo V37",
+        "Gemini AI",
+        "Telegram Bot",
+        "Java"
+      ],
       "image": "/images/vespera_solutions_logo.png",
       "url": "https://vespera-solutions.onrender.com/",
-      "github": "#"
+      "github": "#",
+      "docs": ""
     },
     "projects": [
       {
@@ -39,10 +45,18 @@
         "verbo": "Voice AI interviewer: a digital twin that answers from my real profile. STT → RAG → LLM → TTS pipeline with sentence-level SSE streaming and a reactive 3D avatar.",
         "impact": "VOICE · RAG · SSE STREAMING",
         "metrics": "VOICE · RAG · SSE STREAMING",
-        "stack": ["Python", "FastAPI", "Whisper", "Edge TTS", "RAG", "Docker"],
+        "stack": [
+          "Python",
+          "FastAPI",
+          "Whisper",
+          "Edge TTS",
+          "RAG",
+          "Docker"
+        ],
         "image": "/images/interviewtts-card.png",
-        "url": "#",
-        "github": "https://github.com/mikelrh-dev/liveInterviewRAG"
+        "url": "https://yadiel-unushered-brett.ngrok-free.dev/",
+        "github": "https://github.com/mikelrh-dev/liveInterviewRAG",
+        "docs": "https://yadiel-unushered-brett.ngrok-free.dev/docs/"
       },
       {
         "id": "frauddetector",
@@ -50,10 +64,20 @@
         "verbo": "Hybrid fraud detection: deterministic rules + XGBoost + context scoring, SHAP explainability per transaction, and a local LLM that writes analyst reports without deciding. Async workers on Redis Streams.",
         "impact": "3-LAYER ML · 337 TESTS · 8 SERVICES",
         "metrics": "3-LAYER ML · 337 TESTS · 8 SERVICES",
-        "stack": ["Python", "FastAPI", "PostgreSQL", "Redis", "XGBoost", "SHAP", "React", "TypeScript"],
+        "stack": [
+          "Python",
+          "FastAPI",
+          "PostgreSQL",
+          "Redis",
+          "XGBoost",
+          "SHAP",
+          "React",
+          "TypeScript"
+        ],
         "image": "/images/frauddetector-card.png",
-        "url": "#",
-        "github": "https://github.com/mikelrh-dev/fraud-detector"
+        "url": "https://fraud-detector.tail8e92eb.ts.net/",
+        "github": "https://github.com/mikelrh-dev/fraud-detector",
+        "docs": "https://fraud-detector.tail8e92eb.ts.net/case-study/"
       },
       {
         "id": "valaquia",
@@ -61,10 +85,17 @@
         "verbo": "Full-stack game store. Android client + Spring Boot REST API. Game catalog, health tips per game, SHA-256 secure downloads.",
         "impact": "2 PLATFORMS · 1 API",
         "metrics": "2 PLATFORMS · 1 API",
-        "stack": ["Android", "Spring Boot", "Java 22", "Retrofit", "MySQL"],
+        "stack": [
+          "Android",
+          "Spring Boot",
+          "Java 22",
+          "Retrofit",
+          "MySQL"
+        ],
         "image": "/images/project05.png",
         "url": "#",
-        "github": "https://github.com/mikelrh-dev/Proyecto_Cliente_PMD"
+        "github": "https://github.com/mikelrh-dev/Proyecto_Cliente_PMD",
+        "docs": ""
       },
       {
         "id": "bookbugs",
@@ -72,10 +103,17 @@
         "verbo": "Library management in 2 versions. PHP MVC web + JavaFX desktop. User auth, CRUD, connection pooling with DBCP2, consistent JSON contract.",
         "impact": "1 DB · 2 CLIENTS",
         "metrics": "1 DB · 2 CLIENTS",
-        "stack": ["PHP", "JavaFX", "MySQL", "DBCP2", "REST API"],
+        "stack": [
+          "PHP",
+          "JavaFX",
+          "MySQL",
+          "DBCP2",
+          "REST API"
+        ],
         "image": "/images/project06.png",
         "url": "#",
-        "github": "https://github.com/Ander719/Reto_Libreria"
+        "github": "https://github.com/Ander719/Reto_Libreria",
+        "docs": ""
       },
       {
         "id": "diytools",
@@ -83,10 +121,16 @@
         "verbo": "Inventory + order management for DIY tools shop. Customer-facing ordering, admin fulfillment, stock tracking.",
         "impact": "CUSTOMER + ADMIN FLOW",
         "metrics": "CUSTOMER + ADMIN FLOW",
-        "stack": ["Java", "MySQL", "Hibernate", "JavaFX"],
+        "stack": [
+          "Java",
+          "MySQL",
+          "Hibernate",
+          "JavaFX"
+        ],
         "image": "/images/project01.jpg",
         "url": "#",
-        "github": "https://github.com/AGL-12/Reto_final_Tienda"
+        "github": "https://github.com/AGL-12/Reto_final_Tienda",
+        "docs": ""
       },
       {
         "id": "ecodrive",
@@ -94,12 +138,18 @@
         "verbo": "EV discovery platform with integrated MOVES plan guidance. Helps customers make informed decisions and plan EV purchases.",
         "impact": "1 PLATFORM · 1 MISSION",
         "metrics": "1 PLATFORM · 1 MISSION",
-        "stack": ["HTML5", "CSS3", "JavaScript"],
+        "stack": [
+          "HTML5",
+          "CSS3",
+          "JavaScript"
+        ],
         "image": "/images/project03.jpg",
         "url": "http://eco-drive-project.netlify.app",
-        "github": "https://github.com/mikelrh-dev/ecodrive"
+        "github": "https://github.com/mikelrh-dev/ecodrive",
+        "docs": ""
       }
-    ]
+    ],
+    "action_docs": "DOCS"
   },
   "about": {
     "bio_headline_prefix": "I'm Mikel Romero. To me, technology isn't just a tool — it's",
@@ -119,10 +169,36 @@
       "tools": "TOOLS"
     },
     "items": {
-      "production": ["Java", "Spring Boot", "Python", "PostgreSQL", "MySQL", "MongoDB", "SQL", "Hibernate", "REST APIs", "Odoo"],
-      "frontend": ["JavaScript", "HTML5", "CSS3"],
-      "ai_workflow": ["Claude Code", "OpenCode", "MCP", "SDD/TDD"],
-      "tools": ["Git", "Docker", "Android Studio", "Scrum", "Linux"]
+      "production": [
+        "Java",
+        "Spring Boot",
+        "Python",
+        "PostgreSQL",
+        "MySQL",
+        "MongoDB",
+        "SQL",
+        "Hibernate",
+        "REST APIs",
+        "Odoo"
+      ],
+      "frontend": [
+        "JavaScript",
+        "HTML5",
+        "CSS3"
+      ],
+      "ai_workflow": [
+        "Claude Code",
+        "OpenCode",
+        "MCP",
+        "SDD/TDD"
+      ],
+      "tools": [
+        "Git",
+        "Docker",
+        "Android Studio",
+        "Scrum",
+        "Linux"
+      ]
     }
   },
   "contact": {
@@ -130,9 +206,21 @@
     "headline_2": "OPEN TO PROJECTS OR A QUICK CHAT.",
     "email": "mikelromerohomobono@gmail.com",
     "socials": [
-      { "label": "GITHUB", "handle": "github.com/mikelrh-dev", "url": "https://github.com/mikelrh-dev" },
-      { "label": "LINKEDIN", "handle": "linkedin.com/in/mikel-romero-homobono-760878337/", "url": "https://www.linkedin.com/in/mikel-romero-homobono-760878337/" },
-      { "label": "EMAIL", "handle": "mikelromerohomobono@gmail.com", "url": "mailto:mikelromerohomobono@gmail.com" }
+      {
+        "label": "GITHUB",
+        "handle": "github.com/mikelrh-dev",
+        "url": "https://github.com/mikelrh-dev"
+      },
+      {
+        "label": "LINKEDIN",
+        "handle": "linkedin.com/in/mikel-romero-homobono-760878337/",
+        "url": "https://www.linkedin.com/in/mikel-romero-homobono-760878337/"
+      },
+      {
+        "label": "EMAIL",
+        "handle": "mikelromerohomobono@gmail.com",
+        "url": "mailto:mikelromerohomobono@gmail.com"
+      }
     ],
     "footer": "© 2026 MIKEL ROMERO. ALL RIGHTS RESERVED.",
     "form": {
