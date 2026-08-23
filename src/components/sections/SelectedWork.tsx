@@ -161,9 +161,29 @@ interface ProjectCardProps {
 }
 
 function ProjectCard({ index, title, verbo, impact, stack, image, url, github, docs, demoLabel, githubLabel, docsLabel }: ProjectCardProps) {
+  // Whole-card primary action: live demo if available, otherwise the repo
+  const hasDemo = Boolean(url && url !== '#');
+  const hasRepo = Boolean(github && github !== '#');
+  const hasDocs = Boolean(docs && docs !== '#');
+  const primaryHref = hasDemo ? url : hasRepo ? github : null;
+
+  const openPrimary = () => {
+    if (primaryHref) window.open(primaryHref, '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <div
-      className="group relative block bg-[#0A0A0A] border border-[#222222] overflow-hidden hover:border-[#CCFF00] transition-colors duration-300 h-full flex flex-col"
+      role="link"
+      tabIndex={0}
+      aria-label={`${title} — ${demoLabel}`}
+      onClick={openPrimary}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openPrimary();
+        }
+      }}
+      className="group relative block bg-[#0A0A0A] border border-[#222222] overflow-hidden hover:border-[#CCFF00] focus-visible:border-[#CCFF00] focus-visible:outline-none cursor-pointer transition-colors duration-300 h-full flex flex-col"
     >
       {/* Image zone — fixed height, no crop, letterboxed */}
       <div className="relative h-[220px] overflow-hidden bg-[#000000] shrink-0">
@@ -183,10 +203,46 @@ function ProjectCard({ index, title, verbo, impact, stack, image, url, github, d
           P.{index}
         </span>
 
-        {/* Arrow — top right, visible on hover */}
-        <span className="absolute top-4 right-4 font-mono text-[11px] text-[#CCFF00] opacity-0 group-hover:opacity-100 transition-opacity duration-200 translate-x-1 group-hover:translate-x-0">
-          ↗
-        </span>
+        {/* HUD command deck — per-link square actions, slide in on hover,
+            always visible on touch devices (no hover) */}
+        <div className="absolute top-3 right-3 flex gap-1.5 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 group-focus-within:opacity-100 group-focus-within:translate-x-0 max-md:opacity-100 max-md:translate-x-0 transition-all duration-200">
+          {hasDemo && (
+            <a
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              aria-label={`${demoLabel} — ${title}`}
+              className="flex items-center justify-center w-9 h-9 font-mono text-[13px] text-[#CCFF00] bg-black/80 border border-[#CCFF00]/40 hover:bg-[#CCFF00] hover:text-[#050505] transition-colors duration-150 no-underline"
+            >
+              ↗
+            </a>
+          )}
+          {hasRepo && (
+            <a
+              href={github}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              aria-label={`${githubLabel} — ${title}`}
+              className="flex items-center justify-center w-9 h-9 font-mono text-[10px] font-bold text-[#CCFF00] bg-black/80 border border-[#CCFF00]/40 hover:bg-[#CCFF00] hover:text-[#050505] transition-colors duration-150 no-underline"
+            >
+              GH
+            </a>
+          )}
+          {hasDocs && (
+            <a
+              href={docs}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              aria-label={`${docsLabel} — ${title}`}
+              className="flex items-center justify-center w-9 h-9 font-mono text-[10px] font-bold text-[#CCFF00] bg-black/80 border border-[#CCFF00]/40 hover:bg-[#CCFF00] hover:text-[#050505] transition-colors duration-150 no-underline"
+            >
+              DOC
+            </a>
+          )}
+        </div>
       </div>
 
       {/* Content zone — flex column, fills remaining space */}
@@ -216,36 +272,6 @@ function ProjectCard({ index, title, verbo, impact, stack, image, url, github, d
           <p className="font-mono text-[#CCFF00] text-[10px] uppercase tracking-wider shrink-0 text-right">
             {impact}
           </p>
-        </div>
-
-        {/* Actions — dual links (live demo + GitHub) */}
-        <div className="flex flex-wrap gap-2 mt-4 pt-3 border-t border-[#222222]">
-          <a
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-mono text-[10px] uppercase tracking-[0.08em] text-[#050505] bg-[#CCFF00] px-3 py-1 hover:bg-white transition-colors duration-200 no-underline"
-          >
-            [{demoLabel}]
-          </a>
-          <a
-            href={github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-mono text-[10px] uppercase tracking-[0.08em] text-[#CCCCCC] border border-[#333333] px-3 py-1 hover:border-[#CCFF00] hover:text-[#CCFF00] transition-colors duration-200 no-underline"
-          >
-            [{githubLabel}]
-          </a>
-          {docs ? (
-            <a
-              href={docs}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-mono text-[10px] uppercase tracking-[0.08em] text-[#CCCCCC] border border-[#333333] px-3 py-1 hover:border-[#CCFF00] hover:text-[#CCFF00] transition-colors duration-200 no-underline"
-            >
-              [{docsLabel}]
-            </a>
-          ) : null}
         </div>
       </div>
 
