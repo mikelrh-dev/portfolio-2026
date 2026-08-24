@@ -22,6 +22,7 @@ const REVEAL = {
   bio2: [0.24, 0.36] as [number, number],
   bio3: [0.38, 0.50] as [number, number],
   bio4: [0.52, 0.64] as [number, number],
+  workflow: [0.54, 0.62] as [number, number],
   stackHeader: [0.66, 0.70] as [number, number],
   cat0: [0.72, 0.77] as [number, number],
   cat1: [0.78, 0.83] as [number, number],
@@ -144,6 +145,7 @@ export default function AboutStack() {
   const revealBio2 = useReveal<HTMLParagraphElement>(REVEAL.bio2, 0.2);
   const revealBio3 = useReveal<HTMLParagraphElement>(REVEAL.bio3, 0.3);
   const revealBio4 = useReveal<HTMLParagraphElement>(REVEAL.bio4, 0.4);
+  const revealWorkflow = useReveal<HTMLDivElement>(REVEAL.workflow, 0.45);
   const revealStackH = useReveal<HTMLParagraphElement>(REVEAL.stackHeader, 0.5);
   const revealCat0 = useReveal<HTMLDivElement>(REVEAL.cat0, 0.6);
   const revealCat1 = useReveal<HTMLDivElement>(REVEAL.cat1, 0.7);
@@ -213,6 +215,22 @@ export default function AboutStack() {
                 {t('about.bio_3')}
               </motion.p>
             </div>
+
+            {/* How I build — AI harness methodology */}
+            <motion.div className="space-y-2 border-l-2 border-[#CCFF00] py-2 pl-5" {...revealWorkflow}>
+              <p className="font-mono text-[12px] font-bold tracking-[0.12em] uppercase text-[#CCFF00]">
+                [{t('about.workflow.title')}]
+              </p>
+              <p className="font-mono text-[12px] tracking-[0.06em] text-white">
+                {t('about.workflow.flow')}
+              </p>
+              {(['point_1', 'point_2', 'point_3'] as const).map((k) => (
+                <p key={k} className="flex gap-2 text-[13px] leading-snug text-[#CCCCCC]">
+                  <span className="text-[#CCFF00] shrink-0">&gt;</span>
+                  <span>{t(`about.workflow.${k}`)}</span>
+                </p>
+              ))}
+            </motion.div>
 
             {/* Stack — ALL items in a 2-column grid */}
             <motion.div {...revealStackH}>
@@ -345,6 +363,24 @@ export default function AboutStack() {
                   </motion.p>
 
                 </div>
+
+                  {/* How I build — AI harness methodology */}
+                  <motion.div className="pt-5 border-t border-white/10 space-y-3" {...revealWorkflow}>
+                    <p className="font-mono text-[11px] lg:text-[13px] font-bold tracking-[0.12em] uppercase text-[#CCFF00]">
+                      [{t('about.workflow.title')}]
+                    </p>
+                    <p className="font-mono text-[11px] lg:text-[13px] tracking-[0.06em] text-white">
+                      {t('about.workflow.flow')}
+                    </p>
+                    <ul className="space-y-1.5">
+                      {(['point_1', 'point_2', 'point_3'] as const).map((k) => (
+                        <li key={k} className="flex gap-2 text-[12px] lg:text-[14px] leading-snug text-[#CCCCCC]">
+                          <span className="text-[#CCFF00] shrink-0">&gt;</span>
+                          <span>{t(`about.workflow.${k}`)}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.div>
                   </div>
 
                    {/* ── Center spacer ── 4 columns cleared for face video ── */}

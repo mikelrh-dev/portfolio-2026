@@ -120,17 +120,25 @@
       ],
       "ai_workflow": [
         "Claude Code",
-        "OpenCode",
         "MCP",
+        "OpenCode",
+        "Pi",
         "SDD/TDD"
       ],
       "tools": [
-        "Git",
-        "Docker",
         "Android Studio",
-        "Scrum",
-        "Linux"
+        "Docker",
+        "Git",
+        "Linux",
+        "Scrum"
       ]
+    },
+    "workflow": {
+      "title": "HOW I BUILD",
+      "flow": "SPEC → BUILD → REVIEW → SHIP",
+      "point_1": "Specs before code — design is where quality is decided",
+      "point_2": "Every diff human-reviewed — tests & CI gate every merge",
+      "point_3": "AI agents accelerate delivery — judgment stays human"
     }
   },
   "contact": {
