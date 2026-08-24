@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { useRef, useEffect } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useReducedMotion } from '../../hooks/useReducedMotion';
+import { Fragment, useRef, useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useReducedMotion } from "../../hooks/useReducedMotion";
 
 gsap.registerPlugin(ScrollTrigger);
 
 interface KineticHeadlineProps {
   children: string;
-  as?: 'h1' | 'h2' | 'h3' | 'div';
+  as?: "h1" | "h2" | "h3" | "div";
   className?: string;
   /**
    * Split mode for GSAP SplitText-like word-by-word reveal.
@@ -26,8 +26,8 @@ interface KineticHeadlineProps {
  */
 export default function KineticHeadline({
   children,
-  as: Tag = 'h1',
-  className = '',
+  as: Tag = "h1",
+  className = "",
   stagger = 0.03,
   once = true,
 }: KineticHeadlineProps) {
@@ -36,21 +36,17 @@ export default function KineticHeadline({
 
   useEffect(() => {
     const el = containerRef.current;
+    // Word spans are rendered declaratively in JSX below; GSAP only animates them.
     if (!el || reducedMotion) return;
 
-    const words = children.split(' ');
-    el.innerHTML = words
-      .map((word) => `<span class="kinetic-word" style="display:inline-block">${word}</span>`)
-      .join(' ');
-
-    const wordEls = el.querySelectorAll('.kinetic-word');
+    const wordEls = el.querySelectorAll(".kinetic-word");
 
     gsap.set(wordEls, { opacity: 0, y: 40 });
 
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
         trigger: el,
-        start: 'top 85%',
+        start: "top 85%",
         once,
         onEnter: () => {
           gsap.to(wordEls, {
@@ -58,7 +54,7 @@ export default function KineticHeadline({
             y: 0,
             duration: 0.8,
             stagger,
-            ease: 'power3.out',
+            ease: "power3.out",
           });
         },
       });
@@ -69,7 +65,7 @@ export default function KineticHeadline({
     };
   }, [children, stagger, once, reducedMotion]);
 
-  // If reduced motion, render plain text
+  // Reduced motion: plain text, no animation targets needed.
   if (reducedMotion) {
     return (
       <Tag ref={containerRef} className={className}>
@@ -78,9 +74,18 @@ export default function KineticHeadline({
     );
   }
 
+  // Word spans are declarative JSX (no innerHTML sink — XSS-safe by construction);
+  // React owns the nodes, so cleanup across effect re-runs is automatic.
   return (
     <Tag ref={containerRef} className={className}>
-      {children}
+      {children.split(" ").map((word, i) => (
+        <Fragment key={i}>
+          {i > 0 && " "}
+          <span className="kinetic-word" style={{ display: "inline-block" }}>
+            {word}
+          </span>
+        </Fragment>
+      ))}
     </Tag>
   );
 }
