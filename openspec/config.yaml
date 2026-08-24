@@ -1,0 +1,97 @@
+# =====================================================================
+# SDD Configuration — portfolio-2026
+# Created by sdd-init (Gentle AI). Safe derived context only;
+# do not destructively rewrite user-maintained sections.
+# =====================================================================
+
+project:
+  name: portfolio-2026
+  version: 0.2.0
+  description: >
+    Personal portfolio SPA — React 18 single-page site with scroll-driven
+    sections (Hero, AboutStack, SelectedWork, Contact), heavy visual
+    effects (film grain, scroll sequences, kinetic typography) and
+    bilingual copy (en/es).
+  root: C:/xampp/htdocs/portfolio-2026
+
+artifact_store: openspec
+
+stack:
+  framework: React 18.3
+  bundler: Vite 5.4
+  language: >-
+    TypeScript 5.6 — strict mode, noUncheckedIndexedAccess,
+    noUnusedLocals/noUnusedParameters
+  styling: >-
+    Tailwind CSS v4 (@tailwindcss/vite) + CSS custom properties
+    in tokens.css
+  animation_3d:
+    - gsap ^3.12
+    - framer-motion ^11
+    - three ^0.170 + @react-three/fiber + drei + postprocessing
+    - "@splinetool/react-spline"
+  routing: react-router-dom 6.28 (BrowserRouter, single-page scroll sections)
+  i18n: >-
+    i18next 23 + react-i18next 14 (locales: en.json, es.json)
+
+architecture:
+  structure: atomic-inspired src layout
+  dirs:
+    sections/: page sections wired in App.tsx
+    effects/: visual overlays & animations
+    ui/: reusable components
+    hooks/: >-
+      custom hooks (useImageSequence, useReducedMotion,
+      useScrollProgress, useScrollSpy, ...)
+    lib/: shared utilities
+    styles/: global CSS + tokens.css
+    i18n/: i18next setup + locale JSON files
+    "content/projects/": project data
+  conventions:
+    - New section -> add component under src/sections/, wire in
+      App.tsx, add i18n copy to BOTH en.json and es.json locales.
+    - Path alias "@/" maps to "src/*".
+    - Non-trivial changes go through openspec/changes/<name>/ first
+      (proposal.md, design.md, tasks.md).
+
+openspec:
+  specs_dir: openspec/specs
+  changes_dir: openspec/changes
+  change_artifacts: [proposal.md, design.md, tasks.md]
+  existing_specs: >-
+    8+ directories (hero-section, contact-section,
+    editorial-*, about-stack-section, ...)
+
+testing:
+  runner: vitest # installed during apply (Series 1)
+  minimum_check_command: npx tsc --noEmit # declare when a test cmd is required
+  build_command: npm run build # tsc && vite build
+  test_command: npx vitest run # gate: tsc --noEmit && npm run build && vitest run
+  strict_tdd: true
+  notes: >-
+    Full strict TDD active since the apply phase (Series 1 installed vitest).
+    Unit-testable requirements follow RED -> GREEN -> TRIANGULATE -> REFACTOR
+    cycles via `npx vitest run`; build-only tasks gate on
+    `npx tsc --noEmit` plus `npm run build`. Tests target only what
+    tasks.md requires (errorOverlay, frameFill, useScrollSpy, locales);
+    everything else relies on compile/build gates + manual browser verification.
+
+workflow:
+  execution_mode: auto
+  pr_strategy: auto-forecast
+  review_budget_changed_lines: 400 # chained PRs beyond this budget
+  phase_rules:
+    spec: >-
+      Write proposal/spec deltas under openspec/changes/<name>/
+      before any code.
+    plan: >-
+      Design doc required for non-trivial changes; stay within the
+      review budget or forecast chained PRs.
+    apply: >-
+      Follow tasks.md incrementally; log progress in
+      apply-progress.md. Install vitest here if TDD tests are
+      required by tasks.
+    verify: >-
+      Produce verify-report.md; minimum automated gate is
+      `npx tsc --noEmit` plus manual/browser verification until a
+      test runner lands.
