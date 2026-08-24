@@ -116,17 +116,18 @@ export default function Hero() {
           {/* Gradient overlay — same as desktop */}
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
 
-          {/* Mobile-only dark layer: rescues text contrast over the bright
-              frame (content sits above at z-20) */}
-          <div className="absolute inset-0 bg-black/75 bg-gradient-to-b from-black/60 to-black/90 md:hidden" />
+          {/* Mobile contrast: light global dim + radial scrim behind the
+              text zone — frame stays visible, text stays legible */}
+          <div className="absolute inset-0 bg-black/25 md:hidden" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_28%_52%,rgba(0,0,0,0.68)_0%,rgba(0,0,0,0.28)_45%,transparent_72%)] md:hidden" />
 
           {/* Content: title + tagline + CTAs (no blur, no animated transforms) */}
           <div className="absolute inset-0 z-20 flex flex-col items-start justify-center px-6 py-8">
-            <h1 className="font-mono font-bold text-[clamp(1.5rem,4.5vw,3.5rem)] leading-[1.05] text-[#FFFFFF] uppercase tracking-[0.02em] w-full max-w-5xl">
+            <h1 className="font-mono font-bold text-[clamp(1.5rem,4.5vw,3.5rem)] leading-[1.05] text-[#FFFFFF] uppercase tracking-[0.02em] w-full max-w-5xl drop-shadow-[0_2px_4px_rgba(0,0,0,1)] drop-shadow-[0_0_12px_rgba(0,0,0,0.9)]">
               THE HUMAN IN THE LOOP.
             </h1>
 
-            <div className="mt-6 max-w-3xl">
+            <div className="mt-6 max-w-3xl drop-shadow-[0_1px_3px_rgba(0,0,0,1)]">
               <p className="font-mono text-[clamp(0.9rem,1.5vw,1.125rem)] text-[#E5E5E5] mb-2 uppercase tracking-[0.12em]">
                 {t('hero.tagline_1')}{' '}
                 <span className="text-[#CCFF00] font-bold">
@@ -151,7 +152,7 @@ export default function Hero() {
                 [ VER SISTEMAS ]
               </MagneticButton>
               <MagneticButton
-                className="w-full text-center md:w-auto"
+                className="w-full text-center md:w-auto border border-white/20 bg-black/40 backdrop-blur-md hover:border-[#CCFF00] hover:text-[#CCFF00] transition-all duration-300"
                 onClick={() =>
                   document
                     .getElementById('contact')
