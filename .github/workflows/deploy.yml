@@ -1,0 +1,35 @@
+name: Deploy portfolio to GitHub Pages (user site)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to mikelrh-dev/mikelrh-dev.github.io
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.ACTIONS_TOKEN }}
+          external_repository: mikelrh-dev/mikelrh-dev.github.io
+          publish_branch: main
+          publish_dir: ./dist
+          force_orphan: true
+          commit_message: "Deploy: ${{ github.sha }}"
