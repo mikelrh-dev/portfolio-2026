@@ -116,6 +116,10 @@ export default function Hero() {
           {/* Gradient overlay — same as desktop */}
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
 
+          {/* Mobile-only dark layer: rescues text contrast over the bright
+              frame (content sits above at z-20) */}
+          <div className="absolute inset-0 bg-black/75 bg-gradient-to-b from-black/60 to-black/90 md:hidden" />
+
           {/* Content: title + tagline + CTAs (no blur, no animated transforms) */}
           <div className="absolute inset-0 z-20 flex flex-col items-start justify-center px-6 py-8">
             <h1 className="font-mono font-bold text-[clamp(1.5rem,4.5vw,3.5rem)] leading-[1.05] text-[#FFFFFF] uppercase tracking-[0.02em] w-full max-w-5xl">
@@ -135,9 +139,9 @@ export default function Hero() {
             </div>
 
             {/* CTAs */}
-            <div className="mt-10 flex gap-4 flex-wrap">
+            <div className="mt-10 flex flex-col w-full gap-4 md:flex-row md:w-auto">
               <MagneticButton
-                className="bg-[#CCFF00] text-[#000000] border-[#CCFF00] hover:bg-transparent hover:text-[#CCFF00]"
+                className="w-full text-center md:w-auto bg-[#CCFF00] text-[#000000] border-[#CCFF00] hover:bg-transparent hover:text-[#CCFF00]"
                 onClick={() =>
                   document
                     .getElementById('about')
@@ -147,6 +151,7 @@ export default function Hero() {
                 [ VER SISTEMAS ]
               </MagneticButton>
               <MagneticButton
+                className="w-full text-center md:w-auto"
                 onClick={() =>
                   document
                     .getElementById('contact')
