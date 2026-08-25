@@ -111,7 +111,8 @@
         "SQL",
         "Hibernate",
         "REST APIs",
-        "Odoo"
+        "Odoo",
+        "Velneo"
       ],
       "frontend": [
         "JavaScript",
