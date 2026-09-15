@@ -103,35 +103,40 @@
     "items": {
       "production": [
         "Java",
-        "Spring Boot",
         "Python",
+        "Velneo",
+        "PHP",
         "PostgreSQL",
-        "MySQL",
         "MongoDB",
-        "SQL",
+        "MySQL",
         "Hibernate",
-        "REST APIs",
-        "Odoo",
-        "Velneo"
+        "FastAPI",
+        "Odoo"
       ],
       "frontend": [
         "JavaScript",
-        "HTML5",
-        "CSS3"
+        "HTML",
+        "CSS"
       ],
       "ai_workflow": [
-        "Claude Code",
+        "Scikit-Learn",
+        "Pandas",
+        "NumPy",
+        "XGBoost",
+        "PyTorch",
+        "TensorFlow / Keras",
+        "OpenCV",
+        "CNNs",
+        "RAG",
+        "LLMs locales",
         "MCP",
-        "OpenCode",
-        "Pi",
         "SDD/TDD"
       ],
       "tools": [
         "Android Studio",
-        "Docker",
         "Git",
-        "Linux",
-        "Scrum"
+        "Docker",
+        "Linux"
       ]
     },
     "workflow": {
