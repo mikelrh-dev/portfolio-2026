@@ -9,7 +9,7 @@
   "hero": {
     "tagline_1": "La tecnología ejecuta el código.",
     "tagline_2": "La mente humana orquesta el sistema.",
-    "role": "MIKEL ROMERO - DESARROLLADOR FULLSTACK."
+    "role": "SOFTWARE DEVELOPER - IA/ML & DATA SCIENCE"
   },
   "indicators": {
     "hero": "HEROE",
@@ -98,7 +98,7 @@
       "production": "PRODUCCIÓN",
       "frontend": "FRONTEND",
       "ai_workflow": "FLUJOS IA",
-      "tools": "HERRAMIENTAS"
+      "tools": "INFRA & DEVOPS"
     },
     "items": {
       "production": [

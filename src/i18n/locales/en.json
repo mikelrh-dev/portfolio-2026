@@ -9,7 +9,7 @@
   "hero": {
     "tagline_1": "Technology runs the code.",
     "tagline_2": "The human mind orchestrates the system.",
-    "role": "Multiplatform and high-reliability backend systems developer."
+    "role": "SOFTWARE DEVELOPER - IA/ML & DATA SCIENCE"
   },
   "indicators": {
     "hero": "HERO",
@@ -98,7 +98,7 @@
       "production": "PRODUCTION",
       "frontend": "FRONTEND",
       "ai_workflow": "AI WORKFLOW",
-      "tools": "TOOLS"
+      "tools": "INFRA & DEVOPS"
     },
     "items": {
       "production": [
