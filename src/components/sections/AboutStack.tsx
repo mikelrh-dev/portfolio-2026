@@ -384,7 +384,7 @@ export default function AboutStack() {
                   </div>
 
                    {/* ── Center spacer ── 4 columns cleared for face video ── */}
-                   <div className="hidden md:block md:col-span-4" />
+                   <div className="hidden md:block md:col-span-2 lg:col-span-4" />
 
                    {/* ── Stack panel ── 4 columns ── */}
                    <div className="md:col-span-5 lg:col-span-4 space-y-7 p-6 lg:p-8 bg-black/85 backdrop-blur-md border-r-2 border-[#CCFF00] border-y border-l border-white/10 rounded-none pointer-events-auto shadow-2xl relative">
