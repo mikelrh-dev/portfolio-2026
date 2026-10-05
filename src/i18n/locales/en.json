@@ -63,8 +63,8 @@
         "id": "frauddetector",
         "title": "FRAUD DETECTOR",
         "verbo": "Hybrid fraud detection: deterministic rules + XGBoost + context scoring, SHAP explainability per transaction, and a local LLM that writes analyst reports without deciding. Async workers on Redis Streams.",
-        "impact": "3-LAYER ML · 337 TESTS · 8 SERVICES",
-        "metrics": "3-LAYER ML · 337 TESTS · 8 SERVICES",
+        "impact": "3-LAYER ML · 2,591 TESTS IN CI · 8 SERVICES",
+        "metrics": "3-LAYER ML · 2,591 TESTS IN CI · 8 SERVICES",
         "stack": [
           "Python",
           "FastAPI",

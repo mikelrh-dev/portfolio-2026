@@ -63,8 +63,8 @@
         "id": "frauddetector",
         "title": "FRAUD DETECTOR",
         "verbo": "Detección híbrida de fraude: reglas deterministas + XGBoost + contexto, con SHAP para explicar cada score y un LLM local que redacta reportes sin decidir. Workers asíncronos sobre Redis Streams.",
-        "impact": "ML EN 3 CAPAS · 337 TESTS · 8 SERVICIOS",
-        "metrics": "ML EN 3 CAPAS · 337 TESTS · 8 SERVICIOS",
+        "impact": "ML EN 3 CAPAS · 2.591 TESTS EN CI · 8 SERVICIOS",
+        "metrics": "ML EN 3 CAPAS · 2.591 TESTS EN CI · 8 SERVICIOS",
         "stack": [
           "Python",
           "FastAPI",
