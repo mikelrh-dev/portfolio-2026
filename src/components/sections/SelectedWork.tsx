@@ -274,7 +274,10 @@ function ProjectCard({ index, title, verbo, impact, stack, image, url, github, d
               </span>
             ))}
           </div>
-          <p className="font-mono text-[#CCFF00] text-[10px] uppercase tracking-wider shrink-0 text-right">
+          {/* Impact — min-w-0 lets the flex item shrink below its max-content
+              width so long metric lines wrap instead of overflowing the card
+              (overflow-hidden on the card would clip them). */}
+          <p className="font-mono text-[#CCFF00] text-[10px] uppercase tracking-wider min-w-0 text-right leading-relaxed">
             {impact}
           </p>
         </div>
